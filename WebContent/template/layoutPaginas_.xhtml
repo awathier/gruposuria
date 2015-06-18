@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<h:outputStylesheet name="gruposuria.css" library="css" />
+	<h:outputScript name="gruposuria.js" library="js" />
+</h:head>
+<h:body>
+
+	<div id="tudo">
+		<div id="bordaTopoGeral"></div>
+		<div id="geral">
+			<!--<div id="cabecalho"> -->
+			<div id="logo">
+				<a href="default.jsf"><img src="resources/images/logo.png"
+					border="0" /></a>
+			</div>
+			<div id="menu">
+				<ui:include src="/template/menu.xhtml" />
+				<!-- <img src="resources/images/menu.png" border="0" /> -->
+				<ui:include src="/template/bannerPropaganda.xhtml" />
+			</div>
+			<div id="espacamentoMenuCima">
+				<!-- <ui:include src="/template/menu.xhtml" /> -->
+			</div>
+			<!--</div> -->
+			<div id="conteudo1">
+				<!-- <ui:insert name="migalhadepao">
+					<div id="migalhadepao">
+						<ui:include src="/template/migalhaPao.xhtml" />
+
+					</div>
+				</ui:insert> -->
+				<ui:insert name="migalhadepao">
+					<div id="migalhadepao">
+						<!-- <ui:include src="/template/migalhaPao.xhtml" /> -->
+
+					</div>
+				</ui:insert>
+				<div id="conteudoPaginas">
+					<ui:insert name="conteudo">padrao</ui:insert>
+				</div>
+			</div>
+			<!--<div class="fonteBranca fonteRodape" id="bordaBaixoConteudo">SMHN Qd. 02, Bl. C, Ed. Dr. Crispim, Loja 3, 4 e 4 t&eacute;rreo. (61) 33262976 - (61) 91770704 - Bras&iacute;lia - DF </div>-->
+			<div id="rodape" class="fonteRodape fonteBranca textoCentralizado">
+				<ui:insert name="rodape">
+					<ui:include src="/template/rodape.xhtml" />
+				</ui:insert>
+			</div>
+			<div id="bordaBaixoGeral"></div>
+		</div>
+	</div>
+
+</h:body>
+
+</html>

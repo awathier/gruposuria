@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:body>
+
+	<ui:composition template="template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Pesquisar Instituicao"
+						url="pesquisar-instituicao.jsf" />
+					<p:menuitem value="Cadastrar Instituicao"
+						url="cadastrar-instituicao.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+
+				<h:form id="frmInstituicao">
+
+					<p:messages id="msgs" closable="true" />
+
+					<p:fieldset legend="Dados do Instituicao"
+						style="margin-bottom:20px">
+						<h:panelGrid columns="4" cellpadding="5">
+
+							<ui:fragment rendered="#{!instituicaoMB.acaoDeInclusao}">
+								<h:outputLabel for="codigo" value="Codigo: " />
+								<p:inputText id="codigo"
+									value="#{instituicaoMB.instituicao.codigo}" required="true"
+									size="20" readonly="true" />
+							</ui:fragment>
+
+						</h:panelGrid>
+
+						<p:panel id="painelBasico" style="margin-bottom:20px">
+							<h:panelGrid id="instituicaoGridBasico" columns="4"
+								cellpadding="5">
+
+								<h:outputLabel for="nome" value="Nome: " />
+								<p:inputText id="nome" value="#{instituicaoMB.instituicao.nome}"
+									required="true" size="30" requiredMessage="Nome requerido">
+									<f:validateLength maximum="80" />
+									<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
+								</p:inputText>
+
+								<h:outputLabel for="cnpj" value="CNPJ: " />
+								<p:inputMask id="cnpj" value="#{instituicaoMB.instituicao.cnpj}"
+									converter="cnpjConverter" required="true"
+									mask="99.999.999/9999-99" size="20"
+									requiredMessage="CNPJ requerido">
+									<f:validator validatorId="cnpjValidator" />
+								</p:inputMask>
+
+								<h:outputLabel for="inscricaoEstadual"
+									value="Inscrição Estadual: " />
+								<p:inputText id="inscricaoEstadual"
+									value="#{instituicaoMB.instituicao.inscricaoEstadual}"
+									size="30" requiredMessage="INSCRIÇÃO ESTADUAL requerido">
+								</p:inputText>
+
+								<h:outputLabel value="" />
+								<h:outputLabel value="" />
+
+								<h:outputLabel for="endereco" value="Endereço: " />
+								<p:inputTextarea id="endereco" rows="3" cols="28"
+									value="#{instituicaoMB.instituicao.endereco}"
+									counter="displayEndereco" maxlength="45"
+									counterTemplate="{0} caracteres restantes." autoResize="false"
+									requiredMessage="Tamanha máximo " />
+								<h:outputLabel for="displayEndereco" value="" />
+								<h:outputText id="displayEndereco" />
+
+							</h:panelGrid>
+						</p:panel>
+
+						<p:panel id="dadosResponsavel" style="margin-bottom:20px">
+							<h:panelGrid id="instituicaoGridResponsavel" columns="4"
+								cellpadding="5">
+
+								<h:outputLabel for="responsavelInstituicao"
+									value="Responsável: " />
+								<p:inputText id="responsavelInstituicao"
+									value="#{instituicaoMB.instituicao.nomeResponsavel}"
+									required="true" size="30"
+									requiredMessage="Responsável requerido">
+									<f:validateLength maximum="80" />
+									<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
+								</p:inputText>
+
+								<h:outputLabel for="setorResponsavelInstituicao"
+									value="Setor Responsável: " />
+								<p:inputText id="setorResponsavelInstituicao"
+									value="#{instituicaoMB.instituicao.setorResponsavel}"
+									required="false" size="30"
+									requiredMessage="Responsável: requerido">
+									<f:validateLength maximum="80" />
+									<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
+								</p:inputText>
+
+								<h:outputLabel for="telefoneResponsavel"
+									value="Telefone Responsável: " />
+								<p:inputMask id="telefoneResponsavel"
+									value="#{instituicaoMB.instituicao.telefoneResponsavel}"
+									converter="telefoneConverter" required="false"
+									mask="(99) 9999-9999" size="12"
+									validatorMessage="Telefone Invalido!"
+									requiredMessage="Telefone Responsável requerido">
+								</p:inputMask>
+
+								<h:outputLabel for="celularResponsavel"
+									value="Celular Responsável: " />
+								<p:inputMask id="celularResponsavel"
+									value="#{instituicaoMB.instituicao.celularResponsavel}"
+									converter="telefoneConverter" required="false"
+									mask="(99) 9999-9999" size="12"
+									validatorMessage="Celular Invalido!"
+									requiredMessage="Celular Responsável requerido">
+								</p:inputMask>
+
+								<h:outputLabel for="emailResponsavel"
+									value="Email Responsável: " />
+								<p:inputText id="emailResponsavel"
+									value="#{instituicaoMB.instituicao.emailResponsavel}"
+									required="false"
+									validatorMessage="Campo Email Responsável invalido!" size="20"
+									requiredMessage="Email Responsável: requerido">
+									<!-- <f:validator validatorId="emailValidator" /> -->
+									<!-- <f:validateRegex pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" /> -->
+									<f:validateLength maximum="80" />
+								</p:inputText>
+
+
+
+								<h:outputLabel value="" />
+								<h:outputLabel value="" />
+
+								<h:outputLabel value="" />
+								<h:outputLabel value="" />
+
+								<h:outputLabel value="" />
+								<h:outputLabel value="" />
+
+							</h:panelGrid>
+						</p:panel>
+
+						<p:panel id="dadosFinanceiro" style="margin-bottom:20px">
+							<h:panelGrid id="instituicaoGridFinanceiro" columns="4"
+								cellpadding="5">
+
+								<h:outputLabel for="responsavelFinanceiro"
+									value="Responsável Financeiro: " />
+								<p:inputText id="responsavelFinanceiro"
+									value="#{instituicaoMB.instituicao.nomeFinanceiro}"
+									required="false" size="30"
+									requiredMessage="Responsável Financeiro requerido">
+									<f:validateLength maximum="80" />
+									<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
+								</p:inputText>
+
+								<h:outputLabel for="telefoneFinanceiro"
+									value="Telefone Financeiro: " />
+								<p:inputMask id="telefoneFinanceiro"
+									value="#{instituicaoMB.instituicao.telefoneFinanceiro}"
+									converter="telefoneConverter" required="false"
+									mask="(99) 9999-9999" size="12"
+									validatorMessage="Telefone Invalido!"
+									requiredMessage="Telefone Financeiro requerido">
+								</p:inputMask>
+
+								<h:outputLabel for="celularFinanceiro"
+									value="Celular Financeiro: " />
+								<p:inputMask id="celularFinanceiro"
+									value="#{instituicaoMB.instituicao.celularFinanceiro}"
+									converter="telefoneConverter" required="false"
+									mask="(99) 9999-9999" size="12"
+									validatorMessage="Celular Invalido!"
+									requiredMessage="Celular Financeiro requerido">
+								</p:inputMask>
+
+								<h:outputLabel for="emailFinanceiro" value="Email Financeiro: " />
+								<p:inputText id="emailFinanceiro"
+									value="#{instituicaoMB.instituicao.emailFinanceiro}"
+									required="false"
+									validatorMessage="Campo Email Financeiro invalido!" size="20"
+									requiredMessage="Email Financeiro requerido">
+									<!-- <f:validator validatorId="emailValidator" /> -->
+									<!-- <f:validateRegex pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" /> -->
+									<f:validateLength maximum="80" />
+								</p:inputText>
+
+							</h:panelGrid>
+						</p:panel>
+
+						<p:panel id="painelBasico1" style="margin-bottom:20px">
+							<h:panelGrid id="instituicaoGridBasico1" columns="4"
+								cellpadding="5">
+
+								<p:outputLabel for="estado" value="Estado:" />
+								<p:selectOneMenu id="estado" required="true"
+									requiredMessage="UF requerida"
+									value="#{instituicaoMB.idEstado}">
+									<f:selectItem itemLabel="Selecione..." itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems value="#{instituicaoMB.estados}" var="e"
+										itemValue="#{e.idEstado}" itemLabel="#{e.nome}" />
+									<p:ajax listener="#{instituicaoMB.consultaCidadePorUf()}"
+										event="change" process="@this" update="@this cidade" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="cidade" value="Cidade:" />
+								<p:selectOneMenu id="cidade" required="true"
+									requiredMessage="Cidade requerida"
+									value="#{instituicaoMB.idCidade}">
+									<f:selectItem itemLabel="Selecione..." itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems value="#{instituicaoMB.cidades}" var="c"
+										itemValue="#{c.idCidade}" itemLabel="#{c.nome}" />
+								</p:selectOneMenu>
+
+								<h:outputLabel for="cep" value="CEP: " />
+								<p:inputMask id="cep" mask="99999-999"
+									value="#{inscricaoMB.instituicao.cep}" />
+
+							</h:panelGrid>
+						</p:panel>
+
+						<h:panelGrid columns="4" cellpadding="5">
+							<p:commandButton value="Cancelar" id="cancelar"
+								actionListener="#{instituicaoMB.cancelar()}" immediate="true"
+								icon="ui-icon-disk" />
+							<p:commandButton value="Salvar"
+								rendered="#{instituicaoMB.mostrarBotaoAlterar}" id="btnAlterar"
+								actionListener="#{instituicaoMB.alterar()}"
+								update="@form painelBasico" icon="ui-icon-disk" />
+							<p:commandButton value="Salvar"
+								rendered="#{!instituicaoMB.mostrarBotaoAlterar}" id="btnIncluir"
+								actionListener="#{instituicaoMB.salvar()}" update="@form"
+								icon="ui-icon-disk" />
+							<p:commandButton value="Limpar" id="limpar"
+								actionListener="#{instituicaoMB.limpaFiltroDePesquisa()}"
+								update="@form" icon="ui-icon-disk" />
+						</h:panelGrid>
+						<p:growl id="growl" life="6000" />
+					</p:fieldset>
+
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:body>
+
+	<ui:composition template="template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Pesquisar Inscrição" url="pesquisar-turmaAluno.jsf" />
+					<p:menuitem value="Inscrição" url="cadastrar-turmaAluno.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+		
+		<ui:define name="conteudo">
+		
+			<div id="conteudoPaginas">
+			
+				<h:form id="frmTurma" >
+				
+				    <p:messages id="msgs" closable="true" />
+				 
+				    <p:fieldset legend="Inscrição" style="margin-bottom:20px">
+						<h:panelGrid columns="4" cellpadding="5">
+
+							<ui:fragment rendered="#{!turmaAlunoMB.acaoDeInclusao}">
+								<h:outputLabel for="codigo" value="Codigo: " />
+								<p:inputText id="codigo"
+									value="#{turmaAlunoMB.turmaAluno.codigo}" required="true"
+									size="10" readonly="true" />
+							</ui:fragment>
+
+						</h:panelGrid>
+						
+						<h:panelGrid id="turmaAlunoGrid" columns="4" cellpadding="5">
+
+							<p:outputLabel for="turma" value="Turma" />
+							<p:selectOneMenu id="turma" 
+								required="true"
+								value="#{turmaAlunoMB.alunoSelecionado.codigo}" 
+								converter="turmaConverter"
+								style="width:300px"
+								panelStyle="width:180px" 
+								effect="fade"
+								filter="true" 
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+								<f:selectItems value="#{turmaMB.turmas}" var="t" itemValue="#{t.codigo}" itemLabel="#{t.curso.nome} - #{t.cidadeCurso.nome} - #{fn:substring(t.data,8,10)}/#{fn:substring(t.data,5,7)}/#{fn:substring(t.data,0,4)}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="aluno" value="Aluno:" />
+							<p:selectOneMenu id="aluno" 
+								required="true"
+								value="#{turmaAlunoMB.turmaSelecionada.codigo}" 
+								converter="alunoConverter"
+								style="width:300px"
+								panelStyle="width:180px" 
+								effect="fade"
+								filter="true" 
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+								<f:selectItems value="#{turmaAlunoMB.alunos}" var="a" itemValue="#{a.codigo}" itemLabel="#{a.nome} - (#{a.cpf})" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="data" value="Data:" />
+							<p:calendar showButtonPanel="true" 
+								effect="slide"
+								pattern="dd-MM-yyyy" 
+								navigator="true" 
+								locale="pt_BR" 
+								id="data" 
+								required="true" 
+								value="#{turmaAlunoMB.turmaAluno.talData}" 
+							/>
+							
+							<p:outputLabel for="formaPagamento" value="Forma Pagamento:" />
+							<p:selectOneMenu id="formaPagamento" required="true" value="#{turmaAlunoMB.turmaAluno.formaPagamento}">
+								<f:selectItem itemLabel="Selecione..." itemValue="E" />
+								<f:selectItems value="#{turmaAlunoMB.formaPagamento}" var="fp" itemValue="#{fp}" itemLabel="#{fp.descricao}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="valor" value="Valor:" />
+							<p:inputText styleClass="valor" id="valor" value="#{turmaAlunoMB.turmaAluno.talValorPago}" size="10" />
+							
+							<p:outputLabel for="status" value="Status:" />
+							<p:selectOneMenu id="status" required="true" value="#{turmaAlunoMB.turmaAluno.statusAluno}">
+								<f:selectItem itemLabel="Selecione..." itemValue="I" />
+								<f:selectItems value="#{turmaAlunoMB.statusAluno}" var="status" itemValue="#{status}" itemLabel="#{status.descricao}" />
+							</p:selectOneMenu>
+							
+						</h:panelGrid>
+
+						<h:panelGrid columns="4" cellpadding="5">
+					    	<p:commandButton value="Cancelar" id="cancelar" actionListener="#{turmaAlunoMB.cancelar()}" immediate="true"  icon="ui-icon-disk" />
+					    	<p:commandButton value="Salvar" rendered="#{turmaAlunoMB.mostrarBotaoAlterar}" id="btnAlterar" actionListener="#{turmaAlunoMB.alterar()}" update="@form turmaAlunoGrid" icon="ui-icon-disk" />
+					    	<p:commandButton value="Salvar" rendered="#{!turmaAlunoMB.mostrarBotaoAlterar}" id="btnIncluir" actionListener="#{turmaAlunoMB.salvar()}" update="@form" icon="ui-icon-disk" />
+					    	<p:commandButton value="Limpar" id="limpar" actionListener="#{turmaAlunoMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-disk" />
+				        </h:panelGrid>
+				        <p:growl id="growl" life="6000" />
+				    </p:fieldset>
+				
+				
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

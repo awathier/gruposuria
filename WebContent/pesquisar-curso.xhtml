@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+<h:body>
+
+	<ui:composition template="/template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Cadastro" url="#" />
+					<p:menuitem value="Pesquisar Curso" url="pesquisar-curso.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+
+				<h:form id="frmCurso">
+
+					<p:fieldset legend="Dados do Curso" style="margin-bottom:20px">
+						<h:panelGrid columns="4" cellpadding="5">
+							<h:outputLabel for="nome" value="Nome: " />
+							<p:inputText id="nome" value="#{cursoMB.curso.nome}" size="45" />
+						</h:panelGrid>
+						<h:panelGrid columns="4" cellpadding="5">
+							<p:commandButton value="Consultar" id="consultar"
+								actionListener="#{cursoMB.listar()}" update="@form"
+								icon="ui-icon-search" />
+							<p:commandButton value="Incluir" action="#{cursoMB.acaoInclusao}"
+								process="@this" update="@form" icon="ui-icon-disk" />
+							<p:commandButton value="Limpar" id="limpar"
+								actionListener="#{cursoMB.limpaFiltroDePesquisa()}"
+								update="@form" icon="ui-icon-document-b" />
+						</h:panelGrid>
+						<p:growl id="growl" life="6000" />
+					</p:fieldset>
+
+					<ui:fragment rendered="#{not empty cursoMB.cursos}"
+						id="listaDeCursos">
+						<p:dataTable var="c" value="#{cursoMB.cursos}" stickyHeader="true"
+							rows="10" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+							<f:facet name="header">
+			            Lista de Cursos
+			        </f:facet>
+							<p:column headerText="Ações"
+								style="width:120px;text-align: center">
+								<p:commandButton id="detalhes" update=":frmCurso:cursoDetail"
+									oncomplete="PF('cursoDialog').show()" icon="ui-icon-search"
+									title="Detalhes">
+									<f:setPropertyActionListener value="#{c}"
+										target="#{cursoMB.cursoSelecionado}" />
+								</p:commandButton>
+								<p:tooltip id="detalhesTipFade" for="detalhes"
+									value="Exibir Detalhes" trackMouse="true" showEffect="fade"
+									hideEffect="fade" />
+								<p:commandButton id="editar"
+									action="#{cursoMB.carregarCamposAlteracao()}"
+									icon="ui-icon-pencil" title="Editar">
+									<f:param name="acaoDeInclusao" value="false" />
+									<f:setPropertyActionListener value="#{c}"
+										target="#{cursoMB.cursoSelecionado}" />
+								</p:commandButton>
+								<p:tooltip id="editarTipFade" for="editar"
+									value="Alterar Registro" trackMouse="true" showEffect="fade"
+									hideEffect="fade" />
+								<p:commandButton id="excluir" update=":frmCurso:cursoExclusao"
+									oncomplete="PF('cursoExclusaoDialog').show()"
+									icon="ui-icon-trash">
+									<f:setPropertyActionListener value="#{c}"
+										target="#{cursoMB.cursoSelecionado}" />
+								</p:commandButton>
+								<p:tooltip id="excluirTipFade" for="excluir"
+									value="Exluir Registro" trackMouse="true" showEffect="fade"
+									hideEffect="fade" />
+							</p:column>
+							<p:column style="width:30px;" headerText="Id"
+								sortBy="#{c.codigo}">
+								<h:outputText value="#{c.codigo}" />
+							</p:column>
+
+							<p:column style="width:400px;" headerText="Nome"
+								sortBy="#{c.nome}">
+								<h:outputText value="#{c.nome}" />
+							</p:column>
+
+							<!-- <p:column style="width:250px;" headerText="Ementa" sortBy="#{c.ementa}">
+					        <h:outputText value="#{c.ementa}" escape="false" />
+					    </p:column> -->
+
+							<!-- <p:column headerText="Publico Alvo">
+					        <h:outputText value="#{c.publicoAlvo}" sortBy="#{c.publicoAlvo}" />
+					    </p:column> -->
+
+							<p:column style="width:30px;" headerText="Ch."
+								sortBy="#{c.cargaHoraria}">
+								<h:outputText value="#{c.cargaHoraria}" escape="false" />
+							</p:column>
+
+						</p:dataTable>
+
+						<h:inputHidden id="idCurso" value="#{cursoMB.id}" />
+
+						<p:dialog header="Curso" widgetVar="cursoDialog" modal="true"
+							showEffect="fade" hideEffect="fade" resizable="false">
+							<p:outputPanel id="cursoDetail" style="text-align:center;">
+								<p:panelGrid columns="2"
+									rendered="#{not empty cursoMB.cursoSelecionado}"
+									columnClasses="label,value">
+									<f:facet name="header">
+										<img src="#{resource['images:/logoUsuario.png']}"
+											title="Grupo Suria" />
+									</f:facet>
+
+									<h:outputText value="Código:" />
+									<h:outputText value="#{cursoMB.cursoSelecionado.codigo}" />
+
+									<h:outputText value="Nome:" />
+									<h:outputText value="#{cursoMB.cursoSelecionado.nome}" />
+
+									<h:outputText value="Ementa:" />
+									<h:outputText value="#{cursoMB.cursoSelecionado.ementa}"
+										escape="false" />
+
+									<h:outputText value="Público:" />
+									<h:outputText value="#{cursoMB.cursoSelecionado.publicoAlvo}"
+										escape="false" />
+
+									<h:outputText value="CH:" />
+									<h:outputText value="#{cursoMB.cursoSelecionado.cargaHoraria}" />
+
+								</p:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dialog header="Curso" widgetVar="cursoExclusaoDialog"
+							modal="true" showEffect="fade" hideEffect="fade"
+							resizable="false">
+							<p:outputPanel id="cursoExclusao" style="text-align:center;">
+								<h:panelGrid columns="2" cellpadding="3"
+									rendered="#{not empty cursoMB.cursoSelecionado}">
+									<h:outputText value="Exclusão?" />
+									<h:outputText value="" />
+									<p:commandButton action="#{cursoMB.excluir()}" value="Sim">
+										<f:param name="cursoSelecionado"
+											value="#{cursoMB.cursoSelecionado}" />
+									</p:commandButton>
+									<p:commandButton value="Não"
+										onclick="PF('cursoExclusaoDialog').hide()" />
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:confirmDialog global="true" showEffect="fade"
+							hideEffect="explode">
+							<p:commandButton value="Sim" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+
+					</ui:fragment>
+
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

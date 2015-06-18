@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<body>
+	<ui:composition>
+
+		<p:imageSwitch effect="fade" slideshowSpeed="10000">
+			<h:link outcome="default"><p:graphicImage value="#{resource['images:/banner1.png']}" /></h:link>
+			<h:link outcome="default"><p:graphicImage value="#{resource['images:/banner2.png']}" /></h:link>
+		</p:imageSwitch>
+
+		<!-- <p:galleria panelWidth="958" panelHeight="341" transitionInterval="10000" showCaption="true">
+			<p:graphicImage value="resources/images/banner1.png"
+				alt="Descricao 1" title="titulo1" />
+			<p:graphicImage value="resources/images/banner2.png"
+				alt="Descricao 2" title="titulo1" />
+			<p:graphicImage value="resources/images/banner3.png"
+				alt="Descricao 3" title="titulo1" />
+		</p:galleria> -->
+
+		<!-- <p:carousel itemStyleClass="carItem" pageLinks="3"
+			autoPlayInterval="3000" numVisible="1" vertical="true" effect="easeInStrong"
+			itemStyle="height:325px;width:680px;" headerText="Informes" circular="true">
+			<p:graphicImage value="resources/images/banner2.png" />
+			<p:graphicImage value="resources/images/banner.png" />
+			<p:graphicImage value="resources/images/banner3.png" />
+		</p:carousel> -->
+
+	</ui:composition>
+</body>
+</html>

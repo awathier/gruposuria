@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:body>
+
+	<ui:composition template="template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Pesquisar Curso" url="pesquisar-curso.jsf" />
+					<p:menuitem value="Cadastrar Curso" url="cadastrar-curso.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+		
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+			
+				<h:form id="frmCurso" >
+				
+				    <p:messages id="msgs" closable="true" />
+				 
+				    <p:fieldset legend="Dados do Curso" style="margin-bottom:20px">
+				    	<h:panelGrid columns="2" cellpadding="5">
+				    	
+					    	<ui:fragment rendered="#{!cursoMB.acaoDeInclusao}">
+					        	<h:outputLabel for="codigo" value="Codigo: " />
+					        	<p:inputText id="codigo" value="#{cursoMB.curso.codigo}" required="true" size="20" readonly="true" />
+						    </ui:fragment>
+				    	
+				    	</h:panelGrid>
+				        <h:panelGrid id="cursoGrid" columns="1" cellpadding="5">
+				        	
+				        	<h:outputLabel for="nome" value="Nome: " />
+				        	<p:inputText id="nome" value="#{cursoMB.curso.nome}" required="true" size="100" requiredMessage="Campo nome é obrigatório.">
+								<f:validateLength maximum="80" />
+				        		<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
+							</p:inputText>
+							
+							<h:outputLabel for="ementa" value="Ementa: " />
+						    <!-- <p:inputTextarea id="ementa" rows="3" cols="60" value="#{cursoMB.curso.ementa}" counter="displayEmenta" maxlength="800" counterTemplate="{0} caracteres restantes." autoResize="false" requiredMessage="Tamanha máximo "/> -->
+						    <p:editor id="ementa" widgetVar="editorWidgetEmenta" value="#{cursoMB.curso.ementa}" width="900" height="300" required="true" requiredMessage="Campo ementa é obrigatório."/>
+						    <!-- <h:outputLabel for="displayEmenta" value="" /> -->
+						    <!-- <h:outputText id="displayEmenta" /> -->
+						    
+							<h:outputLabel for="publicoAlvo" value="Público Alvo: " />
+						    <!-- <p:inputTextarea id="publicoAlvo" rows="3" cols="60" value="#{cursoMB.curso.publicoAlvo}" counter="displayPublicoAlvo" maxlength="200" counterTemplate="{0} caracteres restantes." autoResize="false" validatorMessage=" mensagem " requiredMessage="Tamanha máximo " /> -->
+						    <p:editor id="publicoAlvo" widgetVar="editorWidgetEmenta" value="#{cursoMB.curso.publicoAlvo}" width="900" height="150" required="true" requiredMessage="Campo público alvo é obrigatório." />
+						    <!-- <h:outputLabel for="displayPublicoAlvo" value="" /> -->
+						    <!-- <h:outputText id="displayPublicoAlvo" /> -->
+							
+							<h:outputLabel for="ch" value="Carga Horária: " />
+				        	<p:inputText id="ch" value="#{cursoMB.curso.cargaHoraria}" required="true" size="10">
+								<!-- <f:validateLength minimum="2" /> -->
+							</p:inputText>
+							
+				        </h:panelGrid>
+							
+  			            <h:panelGrid columns="4" cellpadding="5">
+					        <p:commandButton value="Cancelar" id="cancelar" actionListener="#{cursoMB.cancelar()}" immediate="true"  icon="ui-icon-disk" />
+					        <p:commandButton value="Salvar" rendered="#{cursoMB.mostrarBotaoAlterar}" id="btnAlterar" actionListener="#{cursoMB.alterar()}" update="@form cursoGrid" icon="ui-icon-disk" />
+					        <p:commandButton value="Salvar" rendered="#{!cursoMB.mostrarBotaoAlterar}" id="btnIncluir" actionListener="#{cursoMB.salvar()}" update="@form" icon="ui-icon-disk" />
+					        <p:commandButton value="Limpar" id="limpar" actionListener="#{cursoMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-disk" />
+				        </h:panelGrid>
+				        <p:growl id="growl" life="6000" />
+				    </p:fieldset>
+				
+				
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

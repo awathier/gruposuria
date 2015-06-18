@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	
+
+<h:body>
+	<ui:composition template="/template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Cadastro" url="#" />
+					<p:menuitem value="Pesquisar Turma" url="pesquisar-turma.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+		
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+			
+				<h:form id="frmTurma" >
+				 
+				    <p:fieldset legend="Dados da Turmas" style="margin-bottom:20px">
+				        <h:panelGrid columns="4" cellpadding="5">
+				        	<h:outputLabel for="codigo" value="Codigo: " />
+				        	<p:inputText id="codigo" value="#{consultaTurmaMB.turma.codigo}" size="5" maxlength="5" />
+				        </h:panelGrid>
+				         <h:panelGrid columns="4" cellpadding="5">
+					        <p:commandButton value="Consultar" id="consultar" actionListener="#{consultaTurmaMB.listar()}" update="@form" icon="ui-icon-search" />
+					        <p:commandButton value="Limpar" id="limpar" actionListener="#{consultaTurmaMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-document-b" />
+				         </h:panelGrid>
+				        <p:growl id="growl" life="6000" />
+				    </p:fieldset>
+				    
+				
+				<ui:fragment rendered="#{not empty consultaTurmaMB.turmas}" id="listaDeTurmas">
+					<p:dataTable var="t" value="#{consultaTurmaMB.turmas}" stickyHeader="true">
+					<f:facet name="header">
+			            Lista de Turmas
+			        </f:facet>
+			        	<p:column headerText="" style="width:30px;text-align:center">
+				             <p:commandButton id="detalhes" update=":frmTurma:turmaDetail" oncomplete="PF('turmaDialog').show()" icon="ui-icon-search" title="Detalhes">
+				                <f:setPropertyActionListener value="#{t}" target="#{consultaTurmaMB.turmaSelecionada}" />
+				            </p:commandButton>
+				             <p:tooltip id="detalhesTipFade" for="detalhes" value="Exibir Detalhes" trackMouse="true" showEffect="fade" hideEffect="fade" />
+						    
+				        </p:column>
+					    <!-- <p:column style="width:30px;" headerText="Id" sortBy="#{t.codigo}">
+					        <h:outputText value="#{t.codigo}" />
+					    </p:column> -->
+					 
+					    <p:column style="width:230px;" headerText="CURSO" sortBy="#{t.curso.nome}">
+					        <h:outputText value="#{t.curso.nome}" />
+					    </p:column>
+					 
+					    <!-- <p:column style="width:200px;" headerText="INSTRUTOR" sortBy="#{t.instrutor.nome}">
+					        <h:outputText value="#{t.instrutor.nome}" />
+					    </p:column> -->
+					 
+					    <p:column style="width:120px;" headerText="CIDADE" sortBy="#{t.cidadeCurso.nome}">
+					        <h:outputText value="#{t.cidadeCurso.nome}"  />
+					    </p:column>
+					    
+					    <p:column style="width:40px;" headerText="UF" sortBy="#{t.cidadeCurso.estado.uf}">
+					    	<h:outputText value="#{t.cidadeCurso.estado.uf}" />
+					    </p:column>
+
+					    <p:column style="width:70px;" headerText="Data" sortBy="#{t.data}" >
+					    	<h:outputText value="#{t.data}" converter="dataConverter"/>
+					    </p:column>
+					    
+					    <p:column style="width:70px;" headerText="Status" sortBy="#{t.status}">
+					    	<h:outputText value="#{t.status.descricao}" />
+					    </p:column>
+					    
+					    <p:column style="width:70px;" headerText="Valor" sortBy="#{t.valor}">
+					    	<h:outputText value="#{t.valor}">
+					    		<f:convertNumber currencySymbol="R$" type="currency"/>
+					    	</h:outputText>
+					    </p:column>
+
+					</p:dataTable>
+					
+					<h:inputHidden id="idTurma" value="#{consultaTurmaMB.id}" />
+					
+					<p:dialog header="Turma" widgetVar="turmaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				        <p:outputPanel id="turmaDetail" style="text-align:left;">
+				            <p:panelGrid  columns="2" rendered="#{not empty consultaTurmaMB.turmaSelecionada}" columnClasses="label,value">
+				                <f:facet name="header">
+				                	<img src="#{resource['images:/logoSuria.png']}" title="Grupo Suria" />
+				                </f:facet>
+				 
+				                <h:outputText value="Ementa" />
+				                <h:outputText value="#{consultaTurmaMB.turmaSelecionada.curso.ementa}" escape="false" />
+				 
+				                <h:outputText value="Público" />
+				                <h:outputText value="#{consultaTurmaMB.turmaSelecionada.curso.publicoAlvo}" escape="false" />
+				 
+				                <h:outputText value="Instrutor" />
+				                <h:outputText value="#{consultaTurmaMB.turmaSelecionada.instrutor.nome}" />
+					            
+				            </p:panelGrid>
+				        </p:outputPanel>
+				    </p:dialog>
+				    
+				</ui:fragment>
+				
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

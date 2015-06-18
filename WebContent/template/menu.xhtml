@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="frmMenu">
+	<p:growl id="growl" life="6000" />
+		<p:menubar>
+			<p:submenu label="Empresa">
+				<p:menuitem value="Sobre" url="empresa.xhtml" />
+				<p:submenu label="Sobre" icon="ui-icon-contact">
+					<p:menuitem value="Sobre" url="empresa.xhtml" />
+				</p:submenu>
+			</p:submenu>
+			<p:submenu label="Agenda de Cursos">
+				<p:menuitem value="Agenda" url="agenda.xhtml" />
+				<p:menuitem value="Inscrição" url="inscricao.xhtml" />
+			</p:submenu>
+			<p:submenu label="Cadastro" rendered="#{usuarioMB.usuarioLogado}">
+				<p:menuitem value="Aluno" icon="ui-icon-document" url="pesquisar-aluno.xhtml" />
+				<p:menuitem value="Curso" icon="ui-icon-document" url="pesquisar-curso.xhtml" />
+				<p:menuitem value="Instrutor" icon="ui-icon-document" url="pesquisar-instrutor.xhtml" />
+				<p:menuitem value="Instituição" icon="ui-icon-document" url="pesquisar-instituicao.xhtml" />
+				<p:menuitem value="Turma" icon="ui-icon-document" url="pesquisar-turma.xhtml" />
+				<p:menuitem value="Consulta Cursos" icon="ui-icon-document" url="consultar-curso-cidade.xhtml" />
+				<p:menuitem value="Agenda" icon="ui-icon-document" url="agenda.xhtml" />
+				<p:menuitem value="Inscrição" icon="ui-icon-document" url="pesquisar-turma-aluno.xhtml" />
+				<p:menuitem value="Inscrição Geral" icon="ui-icon-document" url="inscricao.xhtml" />
+			</p:submenu>
+			<p:menuitem value="Ajuda" icon="ui-icon-help"
+				rendered="#{usuarioMB.usuarioLogado}" />
+
+			<f:facet name="options">
+				<ui:fragment rendered="#{!usuarioMB.usuarioLogado}">
+					<h:outputLabel for="login" value="Login: " />
+					<p:inputText id="login" value="#{usuarioMB.usuario.login}"
+						required="true" label="Login" size="15"
+						style="width:150px;margin-right:10px" />
+					<h:outputLabel for="senha" value="Senha: " />
+					<p:inputText id="senha" value="#{usuarioMB.usuario.senha}"
+						required="true" label="Senha" size="15"
+						style="width:150px;margin-right:10px" />
+					<p:commandButton id="logar" icon="ui-icon-locked" title="Logar" action="#{usuarioMB.efetuaLogin}" update="growl" />
+					<p:commandButton icon="ui-icon-key" title="Recuperar Senha" />
+				</ui:fragment>
+				<h:outputText value="#{usuarioMB.usuario.login}" />
+				<p:spacer width="20" height="10" rendered="#{usuarioMB.usuarioLogado}" />
+				<p:commandButton icon="ui-icon-power" title="Sair" action="#{usuarioMB.efetuaLogout}" process="@form" rendered="#{usuarioMB.usuarioLogado}" />
+			</f:facet>
+		</p:menubar>
+
+	</h:form>
+
+</ui:composition>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="loginPage::#default.xhtml" NAME="output"
+    PATH="/default.xhtml" TARGET="rules:#default.xhtml"
+    TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#default.xhtml" PATH="/default.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#inscricao.xhtml" PATH="/inscricao.xhtml"
+  SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#inscricao.xhtml:0" NAME="item"
+   PATH="/inscricao.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="loginPage::#inscricao.xhtml" NAME="output"
+    PATH="/inscricao.xhtml" TARGET="rules:#inscricao.xhtml"
+    TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#agenda.xhtml" PATH="/agenda.xhtml"
+  SHAPE="240,145,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#agenda.xhtml:0" NAME="item"
+   PATH="/agenda.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="loginPage::#agenda.xhtml" NAME="output"
+    PATH="/agenda.xhtml" TARGET="rules:#agenda.xhtml" TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#empresa.xhtml" PATH="/empresa.xhtml"
+  SHAPE="448,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#empresa.xhtml:0" NAME="item"
+   PATH="/empresa.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="loginPage::#empresa.xhtml" NAME="output"
+    PATH="/empresa.xhtml" TARGET="rules:#empresa.xhtml"
+    TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

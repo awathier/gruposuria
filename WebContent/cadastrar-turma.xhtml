@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:body>
+
+	<ui:composition template="template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Pesquisar Turma" url="pesquisar-turma.jsf" />
+					<p:menuitem value="Cadastrar Turma" url="cadastrar-turma.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+		
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+			
+				<h:form id="frmTurma" >
+				
+				    <p:messages id="msgs" closable="true" />
+				    <p:growl id="growl" sticky="true" life="6000" showDetail="true" />
+				 
+				    <p:fieldset legend="Dados do Turma" style="margin-bottom:20px">
+				    	<h:panelGrid columns="4" cellpadding="5">
+				    	
+				    	<ui:fragment rendered="#{!turmaMB.acaoDeInclusao}">
+					        <h:outputLabel for="codigo" value="Codigo: " />
+					        <p:inputText id="codigo" value="#{turmaMB.turma.codigo}" required="true" size="10" readonly="true" />
+					    </ui:fragment>
+				    	
+				    	</h:panelGrid>
+				        <h:panelGrid id="turmaGrid" columns="4" cellpadding="5">
+				        	
+				        	<p:outputLabel for="instrutor" value="Instrutor:" />
+					        <p:selectOneMenu id="instrutor" required="true" value="#{turmaMB.idInstrutor}" style="width:200px">
+					            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+					            <f:selectItems value="#{turmaMB.instrutores}" var="i" itemValue="#{i.codigo}" itemLabel="#{i.nome}" />
+					        </p:selectOneMenu>
+					        
+				        	<p:outputLabel for="curso" value="Curso:" />
+					        <p:selectOneMenu id="curso" required="true" value="#{turmaMB.idCurso}" 	style="width:200px">
+					            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+					            <f:selectItems value="#{turmaMB.cursos}" var="c" itemValue="#{c.codigo}" itemLabel="#{c.nome}" />
+					        </p:selectOneMenu>
+					        
+					       	<p:outputLabel for="data" value="Data:" />
+					        <p:calendar
+							showButtonPanel="true" effect="slide" pattern="dd-MM-yyyy"
+							navigator="true" locale="pt_BR" id="data"
+							required="true"
+							value="#{turmaMB.turma.data}" />
+							
+							<p:outputLabel for="valor" value="Valor:" />
+					        <p:inputText styleClass="valor" id="valor" value="#{turmaMB.turma.valor}" size="10">
+					        	<f:convertNumber currencySymbol="R$" type="currency"/>
+					        </p:inputText>
+					        
+					        <p:outputLabel for="qtdeMinima" value="Quantidade Mínima:" />
+					        <p:inputText id="qtdeMinima" required="true" value="#{turmaMB.turma.qtdeMinima}" size="10" />
+					        
+					        <p:outputLabel for="estado" value="Estado:" />
+					        <p:selectOneMenu id="estado" required="true" value="#{turmaMB.idEstado}">
+					            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+					            <f:selectItems value="#{turmaMB.estados}" var="e" itemValue="#{e.idEstado}" itemLabel="#{e.nome}" />
+					            <p:ajax listener="#{turmaMB.consultaCidadePorUf()}" event="change" process="@this" update="@this cidade" />
+					        </p:selectOneMenu>
+					        
+					        <p:outputLabel for="cidade" value="Cidade:" />
+					        <p:selectOneMenu id="cidade" required="true" value="#{turmaMB.idCidade}">
+					            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+					            <f:selectItems value="#{turmaMB.cidades}" var="c" itemValue="#{c.idCidade}" itemLabel="#{c.nome}" />
+					        </p:selectOneMenu>
+					        
+					        <p:outputLabel for="status" value="Status:" />
+					        <p:selectOneMenu id="status" required="true" value="#{turmaMB.turma.status}" >
+								<f:selectItem itemLabel="Selecione..." itemValue="I" />
+								<f:selectItems value="#{turmaMB.statusTurma}" var="t" itemValue="#{t}" itemLabel="#{t.descricao}"/>  
+							</p:selectOneMenu>
+				        	
+				        </h:panelGrid>
+							
+				        <h:panelGrid columns="4" cellpadding="5">
+					    	<p:commandButton value="Cancelar" id="cancelar" actionListener="#{turmaMB.cancelar()}" immediate="true"  icon="ui-icon-disk" />
+					    	<p:commandButton value="Salvar" rendered="#{turmaMB.mostrarBotaoAlterar}" id="btnAlterar" actionListener="#{turmaMB.alterar()}" update="@form turmaGrid" icon="ui-icon-disk" />
+					    	<p:commandButton value="Salvar" rendered="#{!turmaMB.mostrarBotaoAlterar}" id="btnIncluir" actionListener="#{turmaMB.salvar()}" update="@form" icon="ui-icon-disk" />
+					    	<p:commandButton value="Limpar" id="limpar" actionListener="#{turmaMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-disk" />
+				        </h:panelGrid>
+				    </p:fieldset>
+				
+				
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

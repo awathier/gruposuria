@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	
+
+<h:body>
+
+	<ui:composition template="/template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Cadastro" url="#" />
+					<p:menuitem value="Pesquisar Instituicao" url="pesquisar-instituicao.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+		
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+			
+				<h:form id="frmInstituicao" >
+				 
+				    <p:fieldset legend="Dados da Instituicao" style="margin-bottom:20px">
+				        <h:panelGrid columns="4" cellpadding="5">
+				        	<h:outputLabel for="nome" value="Nome: " />
+				        	<p:inputText id="nome" value="#{instituicaoMB.instituicao.nome}" size="45" />
+							<h:outputLabel for="cnpj" value="CNPJ: " />
+				        	<p:inputMask id="cnpj" value="#{instituicaoMB.instituicao.cnpj}" mask="99.999.999/9999-99" size="20" />
+				        </h:panelGrid>
+				         <h:panelGrid columns="4" cellpadding="5">
+					        <p:commandButton value="Consultar" id="consultar" actionListener="#{instituicaoMB.listar()}" update="@form" icon="ui-icon-search" />
+					        <p:commandButton value="Incluir" action="#{instituicaoMB.acaoInclusao}" process="@this" update="@form" icon="ui-icon-disk" />
+					        <p:commandButton value="Limpar" id="limpar" actionListener="#{instituicaoMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-document-b" />
+				         </h:panelGrid>
+				        <p:growl id="growl" life="6000" />
+				    </p:fieldset>
+				    
+				
+				<ui:fragment rendered="#{not empty instituicaoMB.instituicoes}" id="listaDeInstituicoes">
+					<p:dataTable var="i" value="#{instituicaoMB.instituicoes}" stickyHeader="true" rows="10" 
+							paginator="true" 
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         	rowsPerPageTemplate="5,10,15">
+					<f:facet name="header">
+			            Lista de Instituicoes
+			        </f:facet>
+			        	<p:column headerText="Ações"  style="width:120px;text-align: center">
+				             <p:commandButton id="detalhes" update=":frmInstituicao:instituicaoDetail" oncomplete="PF('instituicaoDialog').show()" icon="ui-icon-search" title="Detalhes">
+				                <f:setPropertyActionListener value="#{i}" target="#{instituicaoMB.instituicaoSelecionada}" />
+				            </p:commandButton>
+				             <p:tooltip id="detalhesTipFade" for="detalhes" value="Exibir Detalhes" trackMouse="true" showEffect="fade" hideEffect="fade" />
+				             <p:commandButton id="editar" action="#{instituicaoMB.carregarCamposAlteracao()}" icon="ui-icon-pencil" title="Editar">
+								<f:param name="acaoDeInclusao" value="false" />
+				                <f:setPropertyActionListener value="#{i}" target="#{instituicaoMB.instituicaoSelecionada}" />
+				            </p:commandButton>
+				             <p:tooltip id="editarTipFade" for="editar" value="Alterar Registro" trackMouse="true" showEffect="fade" hideEffect="fade" />
+				            <p:commandButton id="excluir" update=":frmInstituicao:instituicaoExclusao" oncomplete="PF('instituicaoExclusaoDialog').show()" icon="ui-icon-trash">
+				            	<f:setPropertyActionListener value="#{i}" target="#{instituicaoMB.instituicaoSelecionada}" />
+						    </p:commandButton>
+						    <p:tooltip id="excluirTipFade" for="excluir" value="Exluir Registro" trackMouse="true" showEffect="fade" hideEffect="fade" />
+						    
+				        </p:column>
+					    <p:column style="width:30px;" headerText="Id" sortBy="#{i.codigo}">
+					        <h:outputText value="#{i.codigo}" />
+					    </p:column>
+					 
+					    <p:column style="width:150px;" headerText="CNPJ" sortBy="#{i.cnpj}">
+					        <h:outputText value="#{i.cnpj}" converter="cnpjConverter" />
+					    </p:column>
+					 
+					    <p:column style="width:300px;" headerText="Nome" sortBy="#{i.nome}">
+					        <h:outputText value="#{i.nome}" />
+					    </p:column>
+					 
+					    <p:column headerText="Telefone" sortBy="#{a.telefone}">
+					    	<h:outputText value="#{i.telefoneResponsavel}" converter="telefoneConverter" />
+					    </p:column>
+					    
+					</p:dataTable>
+					
+					<h:inputHidden id="idInstituicao" value="#{instituicaoMB.id}" />
+					
+					<p:dialog header="Instituicao" widgetVar="instituicaoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				        <p:outputPanel id="instituicaoDetail" style="text-align:center;">
+				            <p:panelGrid  columns="2" rendered="#{not empty instituicaoMB.instituicaoSelecionada}" columnClasses="label,value">
+				                <f:facet name="header">
+				                	<img src="#{resource['images:/logoUsuario.png']}" title="Grupo Suria" />
+				                </f:facet>
+				 
+				                <h:outputText value="CNPJ:" />
+				                <h:outputText value="#{instituicaoMB.instituicaoSelecionada.cnpj}" converter="cnpjConverter" />
+				 
+				                <h:outputText value="Inscrição Estadual:" />
+				                <h:outputText value="#{instituicaoMB.instituicaoSelecionada.inscricaoEstadual}" />
+				                
+				                <h:outputText value="Nome:" />
+				                <h:outputText value="#{instituicaoMB.instituicaoSelecionada.nome}" />
+				 
+				                <h:outputText value="Endereço:" />
+				                <h:outputText value="#{instituicaoMB.instituicaoSelecionada.endereco}" />
+				                
+				                <h:outputText value="Responsável:" />
+				                <h:outputText value="#{instituicaoMB.instituicaoSelecionada.nomeResponsavel}" />
+				                
+				                <h:outputText value="Telefone:" />
+				                <h:outputText value="#{instituicaoMB.instituicaoSelecionada.telefoneResponsavel}" converter="telefoneConverter" />
+				               
+				            </p:panelGrid>
+				        </p:outputPanel>
+				    </p:dialog>
+				    
+				    <p:dialog header="Instituicao" widgetVar="instituicaoExclusaoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				        <p:outputPanel id="instituicaoExclusao" style="text-align:center;">
+				            <h:panelGrid columns="2" cellpadding="3" rendered="#{not empty instituicaoMB.instituicaoSelecionada}">
+					            <h:outputText value="Exclusão?" />
+					            <h:outputText value="" />
+				                <p:commandButton action="#{instituicaoMB.excluir()}" value="Sim">
+				                	<f:param name="instituicaoSelecionada" value="#{instituicaoMB.instituicaoSelecionada}" />
+					            </p:commandButton>
+				                <p:commandButton value="Não" onclick="PF('instituicaoExclusaoDialog').hide()" />
+				            </h:panelGrid>
+				        </p:outputPanel>
+				    </p:dialog>
+				    
+				    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				    </p:confirmDialog>
+				    
+				</ui:fragment>
+				
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

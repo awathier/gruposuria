@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:body>
+
+	<ui:composition template="template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Pesquisar Instrutor"
+						url="pesquisar-instrutor.jsf" />
+					<p:menuitem value="Cadastrar Instrutor"
+						url="cadastrar-instrutor.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+
+				<h:form id="frmInstrutor">
+
+					<p:messages id="msgs" closable="true" />
+					<p:growl id="growl" life="6000" />
+
+					<p:fieldset legend="Dados do Instrutor" style="margin-bottom:20px">
+						<h:panelGrid columns="4" cellpadding="5">
+
+							<ui:fragment rendered="#{!instrutorMB.acaoDeInclusao}">
+								<h:outputLabel for="codigo" value="Codigo: " />
+								<p:inputText id="codigo" value="#{instrutorMB.instrutor.codigo}"
+									required="true" size="20" readonly="true" />
+							</ui:fragment>
+
+						</h:panelGrid>
+						<h:panelGrid id="instrutorGrid" columns="2" cellpadding="5">
+
+							<h:outputLabel for="nome" value="Nome: " />
+							<p:inputText id="nome" value="#{instrutorMB.instrutor.nome}"
+								required="true" size="45" requiredMessage="Nome requerido">
+								<f:validateLength maximum="80" />
+								<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
+							</p:inputText>
+
+							<h:outputLabel for="curriculo" value="Currículo: " />
+							<p:inputTextarea id="curriculo" rows="3" cols="60"
+								value="#{instrutorMB.instrutor.curriculo}"
+								counter="displayCurriculo" maxlength="300"
+								counterTemplate="{0} caracteres restantes." autoResize="false"
+								requiredMessage="Curriculo requerido " required="true" />
+							<h:outputLabel for="displayCurriculo" value="" />
+							<h:outputText id="displayCurriculo" />
+
+						</h:panelGrid>
+
+
+						<h:panelGrid columns="4" cellpadding="5">
+							<p:commandButton value="Cancelar" id="cancelar"
+								actionListener="#{instrutorMB.cancelar()}" immediate="true"
+								icon="ui-icon-disk" />
+							<p:commandButton value="Salvar"
+								rendered="#{instrutorMB.mostrarBotaoAlterar}" id="btnAlterar"
+								actionListener="#{instrutorMB.alterar()}"
+								update="@form instrutorGrid" icon="ui-icon-disk" />
+							<p:commandButton value="Salvar"
+								rendered="#{!instrutorMB.mostrarBotaoAlterar}" id="btnIncluir"
+								actionListener="#{instrutorMB.salvar()}" update="@form"
+								icon="ui-icon-disk" />
+							<p:commandButton value="Limpar" id="limpar"
+								actionListener="#{instrutorMB.limpaFiltroDePesquisa()}"
+								update="@form" icon="ui-icon-disk" />
+						</h:panelGrid>
+
+					</p:fieldset>
+
+
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

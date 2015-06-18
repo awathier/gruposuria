@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:body>
+
+	<ui:composition template="/template/layoutPaginas.xhtml">
+	
+	<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Agenda de Cursos" url="agenda.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+			
+				<h:form>
+				    <p:growl id="messages" showDetail="true" />
+				 
+				    <h:panelGrid columnClasses="value">
+				        <p:schedule id="schedule" value="#{agendaMB.eventModel}" showWeekends="true" showHeader="true" widgetVar="myschedule" style="width:930px;" draggable="false" locale="pt">
+				 
+				            <!-- <p:ajax event="dateSelect" listener="#{agendaMB.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" /> -->
+				            <p:ajax event="eventSelect" listener="#{agendaMB.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+				            <p:ajax event="eventMove" listener="#{agendaMB.onEventMove}" update="messages" />
+				            <p:ajax event="eventResize" listener="#{agendaMB.onEventResize}" update="messages" />
+				 
+				        </p:schedule>
+				 
+				    </h:panelGrid>
+				 
+				    <p:dialog widgetVar="eventDialog" header="Detalhes do Curso" showEffect="clip" hideEffect="clip">
+				        <h:panelGrid id="eventDetails" columns="2">
+				            <h:outputLabel value="Curso:" />
+				            <h:outputLabel value="#{agendaMB.event.title}" />
+				 
+				            <h:outputLabel value="Data Início:" />
+				            <h:outputLabel value="#{agendaMB.event.startDate}" mask="99/99/9999">
+				                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+				            </h:outputLabel>
+				 
+				            <h:outputLabel value="Data Fim:" />
+				            <h:outputLabel value="#{agendaMB.event.endDate}" mask="99/99/9999">
+				                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+				            </h:outputLabel>
+				            
+				            <p:commandButton id="inscricao" value="Inscreva-se" />
+
+				        </h:panelGrid>
+				    </p:dialog>    
+				</h:form>
+				
+			</div>
+
+			<!-- <div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div> -->
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

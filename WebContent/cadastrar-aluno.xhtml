@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:body>
+
+	<ui:composition template="template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Pesquisar Aluno" url="pesquisar-aluno.jsf" />
+					<p:menuitem value="Cadastrar Aluno" url="cadastrar-aluno.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+		
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+			
+				<h:form id="frmAluno" >
+				
+				    <p:messages id="msgs" closable="true" />
+				 
+				    <p:fieldset legend="Dados do Aluno" style="margin-bottom:20px">
+				    	<h:panelGrid columns="4" cellpadding="5">
+				    	
+				    	<ui:fragment rendered="#{!alunoMB.acaoDeInclusao}">
+					        	<h:outputLabel for="codigo" value="Codigo: " />
+					        	<p:inputText id="codigo" value="#{alunoMB.aluno.codigo}" required="true" size="20" readonly="true" />
+					        </ui:fragment>
+				    	
+				    	</h:panelGrid>
+				        <h:panelGrid id="alunoGrid" columns="4" cellpadding="5">
+				        	
+				        	<h:outputLabel for="nome" value="Nome: " />
+				        	<p:inputText id="nome" value="#{alunoMB.aluno.nome}" required="true" size="45" requiredMessage="NOME requerido">
+								<f:validateLength maximum="80" />
+				        		<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
+							</p:inputText>
+							
+							<h:outputLabel for="cpf" value="CPF: " />
+				        	<p:inputMask id="cpf" value="#{alunoMB.aluno.cpf}" converter="cpfConverter" required="true" mask="999.999.999-99" size="20" requiredMessage="CPF requerido">
+				        		<f:validator validatorId="cpfValidator" />
+							</p:inputMask>
+							
+							<h:outputLabel for="email" value="Email: " />
+				        	<p:inputText id="email" value="#{alunoMB.aluno.email}" required="true" validatorMessage="Campo e-mail invalido!" size="45" requiredMessage="EMAIL requerido">
+				        		<f:validator validatorId="emailValidator" />
+				        		<f:validateRegex pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" />
+								<f:validateLength maximum="80" />
+							</p:inputText>
+							
+				        	<h:outputLabel for="telefone" value="Telefone: " />
+				        	<p:inputMask id="telefone" value="#{alunoMB.aluno.telefone}" converter="telefoneConverter" required="true" mask="(99) 9999-9999" size="20" validatorMessage="TELEFONE Invalido!"  requiredMessage="TELEFONE requerido">
+							</p:inputMask>
+							
+				        </h:panelGrid>
+				         <h:panelGrid columns="4" cellpadding="5">
+				        	
+				        	<ui:fragment rendered="#{alunoMB.acaoDeInclusao}">
+					        	<h:outputLabel for="senha1" value="Senha: " />
+					        	<p:password id="senha1" maxlength="8" value="#{alunoMB.aluno.senha}" match="senha2" size="20" validatorMessage="SENHAS devem ser IGUAIS e ter no mínimo 6 CARACTERES " requiredMessage="SENHA requerida">
+					        		<f:validateLength minimum="6" maximum="8" />
+								</p:password>
+								
+					        	<h:outputLabel for="senha2" maxlength="8" value="Confirma Senha: " />
+					        	<p:password id="senha2" size="20">
+								</p:password>
+							</ui:fragment>
+							
+				        	<ui:fragment rendered="#{!alunoMB.acaoDeInclusao}">
+					        	<h:outputLabel for="senha3" value="Senha: " />
+					        	<p:inputText id="senha3" maxlength="8" value="#{alunoMB.aluno.senha}" required="true" size="20" requiredMessage="SENHA requerida">
+								</p:inputText>
+							</ui:fragment>
+							
+						</h:panelGrid>
+							
+				         <h:panelGrid columns="4" cellpadding="5">
+					        <p:commandButton value="Cancelar" id="cancelar" actionListener="#{alunoMB.cancelar()}" immediate="true"  icon="ui-icon-disk" />
+					        <p:commandButton value="Salvar" rendered="#{alunoMB.mostrarBotaoAlterar}" id="btnAlterar" actionListener="#{alunoMB.alterar()}" update="@form alunoGrid" icon="ui-icon-disk" />
+					        <p:commandButton value="Salvar" rendered="#{!alunoMB.mostrarBotaoAlterar}" id="btnIncluir" actionListener="#{alunoMB.salvar()}" update="@form" icon="ui-icon-disk" />
+					        <p:commandButton value="Limpar" id="limpar" actionListener="#{alunoMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-disk" />
+				         </h:panelGrid>
+				        <p:growl id="growl" life="6000" />
+				    </p:fieldset>
+				
+				
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

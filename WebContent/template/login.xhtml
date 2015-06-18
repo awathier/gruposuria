@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="formLogin" rendered="#{!usuarioMB.usuarioLogado}">
+
+		<p:panel id="panel" header="Acesso Restrito"
+			style="margin-bottom:10px;width:290px;">
+			<p:messages id="messages" />
+			<h:panelGrid columns="3">
+				<h:outputLabel for="login" value="Login: " />
+				<p:inputText id="login" value="#{usuarioMB.usuario.login}"
+					required="true" label="login" size="15">
+					<f:validateLength minimum="2" />
+				</p:inputText>
+
+				<p:commandButton icon="ui-icon-key" title="Recuperar Senha" />
+
+				<h:outputLabel for="senha" value="Senha: " />
+				<p:inputText id="senha" value="#{usuarioMB.usuario.senha}"
+					required="true" label="Senha" size="15" />
+
+				<p:commandButton icon="ui-icon-locked" title="Logar" action="#{usuarioMB.efetuaLogin}" process="@form" />
+			</h:panelGrid>
+		</p:panel>
+
+	</h:form>
+
+	<!-- <p:calendar value="#{calendarBean.date1}" locale="pt" mode="inline" id="inlineCal" /> -->
+
+</ui:composition>

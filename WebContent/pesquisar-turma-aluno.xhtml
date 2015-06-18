@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	
+
+<h:body>
+
+	<ui:composition template="/template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Cadastro" url="#" />
+					<p:menuitem value="Pesquisar Inscrição" url="pesquisar-turma.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+		
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+			
+				<h:form id="frmTurma" >
+				 
+				    <p:fieldset legend="Dados Inscrição" style="margin-bottom:20px">
+				        <h:panelGrid columns="4" cellpadding="5">
+				        	<h:outputLabel for="codigo" value="Codigo: " />
+				        	<p:inputText id="codigo" value="#{turmaAlunoMB.turmaAluno.codigo}" size="5" maxlength="5" />
+				        </h:panelGrid>
+				         <h:panelGrid columns="4" cellpadding="5">
+					        <p:commandButton value="Consultar" id="consultar" actionListener="#{turmaAlunoMB.listar()}" update="@form" icon="ui-icon-search" />
+					        <p:commandButton value="Incluir" action="#{turmaAlunoMB.acaoInclusao}" process="@this" update="@form" icon="ui-icon-disk" />
+					        <p:commandButton value="Limpar" id="limpar" actionListener="#{turmaAlunoMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-document-b" />
+				         </h:panelGrid>
+				        <p:growl id="growl" life="6000" />
+				    </p:fieldset>
+				    
+				
+				<ui:fragment rendered="#{not empty turmaAlunoMB.turmasAluno}" id="listaDeTurmasAluno">
+					<p:dataTable var="t" value="#{turmaAlunoMB.turmasAluno}" stickyHeader="true" rows="10" 
+							paginator="true" 
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         	rowsPerPageTemplate="5,10,15">
+					<f:facet name="header">
+			            Lista de Turmas
+			        </f:facet>
+			        	<p:column headerText="Ações"  style="width:120px;text-align: center">
+				             <p:commandButton id="detalhes" update=":frmTurma:turmaDetail" oncomplete="PF('turmaDialog').show()" icon="ui-icon-search" title="Detalhes">
+				                <f:setPropertyActionListener value="#{t}" target="#{turmaAlunoMB.turmaAlunoSelecionada}" />
+				            </p:commandButton>
+				             <p:tooltip id="detalhesTipFade" for="detalhes" value="Exibir Detalhes" trackMouse="true" showEffect="fade" hideEffect="fade" />
+				             <p:commandButton id="editar" action="#{turmaAlunoMB.carregarCamposAlteracao()}" icon="ui-icon-pencil" title="Editar">
+								<f:param name="acaoDeInclusao" value="false" />
+				                <f:setPropertyActionListener value="#{t}" target="#{turmaAlunoMB.turmaAlunoSelecionada}" />
+				            </p:commandButton>
+				             <p:tooltip id="editarTipFade" for="editar" value="Alterar Registro" trackMouse="true" showEffect="fade" hideEffect="fade" />
+				            <p:commandButton id="excluir" update=":frmTurma:turmaExclusao" oncomplete="PF('turmaExclusaoDialog').show()" icon="ui-icon-trash">
+				            	<f:setPropertyActionListener value="#{t}" target="#{turmaAlunoMB.turmaAlunoSelecionada}" />
+						    </p:commandButton>
+						    <p:tooltip id="excluirTipFade" for="excluir" value="Exluir Registro" trackMouse="true" showEffect="fade" hideEffect="fade" />
+						    
+				        </p:column>
+					    <!-- <p:column style="width:30px;" headerText="Id" sortBy="#{t.codigo}">
+					        <h:outputText value="#{t.codigo}" />
+					    </p:column> -->
+					 
+					    <p:column style="width:150px;" headerText="Curso" sortBy="#{t.turma.curso.nome}">
+					        <h:outputText value="#{t.turma.curso.nome}" />
+					    </p:column>
+					 
+					    <p:column style="width:200px;" headerText="Aluno" sortBy="#{t.aluno.codigo}">
+					        <h:outputText value="#{t.aluno.nome}" />
+					    </p:column>
+					 
+					    <p:column style="width:100px;" headerText="CIDADE" sortBy="#{t.turma.cidadeCurso.nome}">
+					        <h:outputText value="#{t.turma.cidadeCurso.nome}"  />
+					    </p:column>
+					    
+					    <p:column style="width:40px;" headerText="UF" sortBy="#{t.turma.cidadeCurso.estado.uf}">
+					    	<h:outputText value="#{t.turma.cidadeCurso.estado.uf}" />
+					    </p:column>
+					    
+					    <p:column headerText="Data" sortBy="#{t.talData}">
+					    	<h:outputText value="#{t.talData}">
+					    		<f:convertDateTime pattern="dd/MM/yyyy"/>
+					    	</h:outputText>
+					    </p:column>
+					    
+					    <p:column headerText="Status" sortBy="#{t.statusAluno}">
+					    	<h:outputText value="#{t.statusAluno.descricao}" />
+					    </p:column>
+					    
+					</p:dataTable>
+					
+					<h:inputHidden id="idTurma" value="#{turmaAlunoMB.id}" />
+					
+					<p:dialog header="Inscrição Aluno/Turma" widgetVar="turmaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				        <p:outputPanel id="turmaDetail" style="text-align:center;">
+				            <p:panelGrid  columns="2" rendered="#{not empty turmaAlunoMB.turmaAlunoSelecionada}" columnClasses="label,value">
+				                <f:facet name="header">
+				                	<img src="#{resource['images:/logoUsuario.png']}" title="Inscrição" />
+				                </f:facet>
+				 
+				                <h:outputText value="Codigo Turma" />
+				                <h:outputText value="#{turmaAlunoMB.turmaAlunoSelecionada.codigo}" />
+				 
+				                <h:outputText value="Aluno" />
+				                <h:outputText value="#{turmaAlunoMB.turmaAlunoSelecionada.aluno.nome}" />
+				                
+				                <h:outputText value="CPF" />
+				                <h:outputText value="#{turmaAlunoMB.turmaAlunoSelecionada.aluno.cpf}" />
+				 
+				                <h:outputText value="Data" />
+				                <h:outputText value="#{turmaAlunoMB.turmaAlunoSelecionada.talData}">
+				                	<f:convertDateTime pattern="dd/MM/yyyy"/>
+				                </h:outputText>
+				                
+				                <h:outputText value="Cidade" />
+				                <h:outputText value="#{turmaAlunoMB.turmaAlunoSelecionada.turma.cidadeCurso.nome}" />
+				                
+				                <h:outputText value="UF" />
+				                <h:outputText value="#{turmaAlunoMB.turmaAlunoSelecionada.turma.cidadeCurso.estado.uf}" />
+				                
+				                <h:outputText value="Valor" />
+				                <h:outputText value="#{turmaAlunoMB.turmaAlunoSelecionada.talValorPago}">
+				                	<f:convertNumber currencySymbol="R$" type="currency"/>
+				                </h:outputText>
+
+				                <h:outputText value="Status" />
+				                <h:outputText value="Interessado" rendered="#{turmaAlunoMB.turmaAlunoSelecionada.statusAluno == 'D'}" />
+				                <h:outputText value="Inscrito" rendered="#{turmaAlunoMB.turmaAlunoSelecionada.statusAluno == 'I'}" />
+				                <h:outputText value="Confirmado" rendered="#{turmaAlunoMB.turmaAlunoSelecionada.statusAluno == 'C'}" />
+				                <h:outputText value="Pago" rendered="#{turmaAlunoMB.turmaAlunoSelecionada.statusAluno == 'P'}" />
+				                
+					            
+				            </p:panelGrid>
+				        </p:outputPanel>
+				    </p:dialog>
+				    
+				    <p:dialog header="Turma" widgetVar="turmaExclusaoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				        <p:outputPanel id="turmaExclusao" style="text-align:center;">
+				            <h:panelGrid columns="2" cellpadding="3" rendered="#{not empty turmaAlunoMB.turmaAlunoSelecionada}">
+					            <h:outputText value="Exclusão?" />
+					            <h:outputText value="" />
+				                <p:commandButton action="#{turmaAlunoMB.excluir()}" value="Sim">
+				                	<f:param name="turmaAlunoSelecionada" value="#{turmaAlunoMB.turmaAlunoSelecionada}" />
+					            </p:commandButton>
+				                <p:commandButton value="Não" onclick="PF('turmaExclusaoDialog').hide()" />
+				            </h:panelGrid>
+				        </p:outputPanel>
+				    </p:dialog>
+				    
+				    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				    </p:confirmDialog>
+				    
+				</ui:fragment>
+				
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

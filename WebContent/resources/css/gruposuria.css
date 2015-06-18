@@ -1,0 +1,519 @@
+/* CSS Document GrupoSuria */
+body {
+	margin: 0;
+	padding: 0;
+	background:#000000;
+	background-image:url(../resources/images/header-pattern.png);
+	/* background-color: #fff; */
+	background-position: top;
+	/*background-attachment:fixed;*/
+	/*font:100.01%/1.4 "Trebuchet MS";*/
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:active {
+	text-decoration: none;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #336699;
+}
+
+p {
+	line-height: 10px;
+}
+
+.textoJustificado {
+	text-align: justify
+}
+
+.textoCentralizado {
+	text-align: center;
+}
+
+.fonteAzul {
+	color: #336699;
+}
+
+.fonteLaranja {
+	color: #eb880e;
+	font-weight: bold;
+}
+
+.fonteBranca {
+	color: #ffffff;
+}
+
+.fonteCinza {
+	color: #ccc;
+}
+
+.fonteNegrito {
+	font-weight: bold;
+}
+
+.fonteRodape {
+	font-size: 18px;
+}
+
+.fonteLinks {
+	font-size: 20px;
+}
+
+.textoDestaque {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#tudo {
+	margin-top: 0px;
+	margin-bottom: 200px;
+}
+
+#bordaTopoGeral {
+	margin: 0 auto;
+	width: 100%;
+	height: 22px;
+	/*background-image:url(../images/topoTransp.png);*/
+}
+
+#geral {
+	margin: 0 auto;
+	width: 970px;
+	text-align: left; /* "remédio" para o hack do IE */
+	/*background-image:url(../images/fundoOpaco.png);*/
+}
+
+#geralPaginas {
+	margin: 0 auto;
+	width: 980px;
+	min-height: 400px;
+	padding: 0px;
+	text-align: left; /* "remédio" para o hack do IE */
+	background-image: url(../images/fundoOpaco.png);
+}
+
+#cabecalho {
+	width: 1024px;
+	/*height:194px;*/
+	/*margin:0 auto;*/
+	/*padding:0px;*/
+	/*text-align:left;*/ /* "remédio" para o hack do IE */
+	/*background-repeat:no-repeat;*/
+	background-position: top;
+}
+
+#logo {
+	float: left;
+    height: 70px;
+    width: 800px;
+    margin: 0 auto -46px 2px;
+    padding: 0;
+    /*margin-right: 328px;*/
+}
+
+#logoPequena {
+	float: left;
+    margin: 0 auto -46px 2px;
+    padding: 0;
+    width: 335px;
+}
+
+#logoGrande {
+	float: left;
+    margin: 0 auto -46px 2px;
+    padding: 0;
+}
+
+#login {
+	/*float: left;*/
+	margin-top: 155px;
+    padding: 0;
+    position: absolute;
+    right: 330px;
+    /* top: 200px; */
+    z-index: 4;
+}
+
+#menu {
+	float: left;
+    height: 45px;
+    margin-left: 0px;
+    margin-top: 60px;
+    padding: 0;
+    width: 960px;
+    margin-bottom: 3px
+	/*opacity:0.2;*/
+	/* border-radius: 1.5em; */
+}
+
+#empresaMenu {
+	width: 100px;
+	float: left;
+}
+
+#servicosMenu {
+	width: 100px;
+	float: left;
+}
+
+#wbrOnlineMenu {
+	width: 140px;
+	float: left;
+}
+
+#clientesMenu {
+	width: 100px;
+	float: left;
+}
+
+#cursosMenu {
+	width: 80px;
+	float: left;
+}
+
+#conteudo {
+	/* width: 1024px; */
+	margin: -10px auto;
+	padding: 5px;
+	text-align: left; /* "remédio" para o hack do IE */
+	background-color: #FFFFFF;
+	border-right: 2px solid #000;
+	border-left: 2px solid #000;
+	float: left;
+	border-radius: 1.0em;
+}
+
+#conteudo1 {
+	width: 958px;
+	margin-top: 0px;
+	background-color: #ededed;
+	border: 1px solid #1d1d1d;
+	float: left;
+	border-bottom-right-radius: 1.0em;
+	border-bottom-left-radius:  1.0em;
+}
+
+.ui-menubar  {
+    /* border-radius: 0.2em; */
+    height: 40px;
+    border-top-right-radius: 0.5em;
+	border-top-left-radius:  0.5em;
+    border-bottom-right-radius: 0em;
+	border-bottom-left-radius:  0em;
+    border: 1px solid #1d1d1d;
+    border-bottom: 0px;
+}
+
+#migalhadepao {
+	margin: 10px;
+}
+
+#rodape {
+	/* background-color: #333; */
+    /* border-radius: 0.5em; */
+    float: left;
+    height: 65px;
+    margin-left: 2px;
+    margin-top: -2px;
+    padding: 6px;
+    text-align: center;
+    width: 946px;
+    padding-top: 15px;
+}
+
+#bordaBaixoGeral {
+	width: 1038px;
+	height: 100px;
+	float: left;
+}
+
+#espacamentoMenuCima {
+	margin-top: 25px;
+	margin-right: 10px;
+	height: 0px;
+	float: right;
+}
+
+.espacamentoItensMenu {
+	margin-right: 20px;
+}
+
+.espacamentoImagem20 {
+	border-style: solid;
+	border-width: 20px;
+}
+
+.espacamentoImagem {
+	border-style: solid;
+	border-width: 8px;
+}
+
+.espacamentoImagem1 {
+	border-style: solid;
+	border-width: 3px;
+}
+
+.espacamentoImagem5 {
+	border-style: solid;
+	border-width: 5px;
+}
+
+.espacamentoImagemLateral {
+	border-style: solid;
+	border-left-width: 5px;
+	border-right-width: 5px;
+	border-bottom-width: 0px;
+	border-top-width: 0px;
+}
+
+.espacamentoImagemLateral20 {
+	border-style: solid;
+	border-left-width: 20px;
+	border-right-width: 20px;
+	border-bottom-width: 0px;
+	border-top-width: 0px;
+}
+
+.espacamentoImagemDirLateral20 {
+	border-style: solid;
+	border-right-width: 20px;
+	border-bottom-width: 0px;
+	border-top-width: 0px;
+}
+
+.espacamentoImagemEsqLateral20 {
+	border-style: solid;
+	border-left-width: 20px;
+	border-bottom-width: 0px;
+	border-top-width: 0px;
+}
+
+.corBordaBrancaImagem {
+	border-color: #ffffff;
+}
+
+.corBordaCinzaImagem {
+	border-color: #f5f5f5;
+}
+
+.margemConteudoPaginas {
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+#bannerPequeno {
+	margin-left: 95px;
+	padding: 5px;
+	width: 285px;
+	height: 375px;
+	float: right;
+	/* background-color:#003366; */
+	/*border-radius: 0.7em;*/
+}
+
+#bannerGrande {
+	width: 958px;
+	height: 341px;
+	float: left;
+	margin-bottom: 20px;
+	/* background-color:#003366; */
+	/*border-radius: 0.7em;*/
+}
+
+#bannerCimaPagina {
+	width: 960px;
+	float: left;
+	height: 340px;
+	/* background-color:#003366; */
+	/*border-radius: 0.7em;*/
+}
+
+#bannerBaixoPagina {
+	width: 950px;
+	height: 150px;
+	float: left;
+	margin-top: 20px;
+	/* margin-left: 13px;
+    margin-right: 13px; */
+    border-bottom-right-radius: 1em;
+	border-bottom-left-radius:  1em;
+}
+
+#conteudoPaginas {
+	margin-bottom: 20px;
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* #conteudoPaginas {
+	width: 914px;
+	min-height:500px;
+	margin:0 auto;
+	padding:0px;
+	text-align:left; "remédio" para o hack do IE
+	background-color:#FFFFFF;
+	border-right: 2px solid #4a789a;
+	border-left: 2px solid #4a789a;
+} */
+#textoSecao1 {
+	margin-top: 150px;
+	text-align: center;
+}
+
+#contorno {
+	width: 958px;
+	height: 500px;
+	margin-bottom: 20px;
+	/* margin:5px auto; */
+	background-color: #fff;
+	/* border-right: 2px solid #ccc;
+	border-left: 2px solid #ccc; */
+	float: left;
+	/* border-radius: 0.5em; */
+}
+
+#divisao {
+	width: 0px;
+	height: 300px;
+	border: 1px solid #ccc;
+	float: left;
+	margin-top: 80px;
+	margin-left: 15px;
+}
+
+.textoPaginas {
+	text-align: justify;
+	font-size: 16px;
+	padding: 10px;
+	float: left;
+}
+
+#banner1 {
+	width: 274px;
+	height: 417px;
+	/* padding:15px; */
+	margin-left: 30px;
+	margin-top: 30px;
+	/* padding-top:150px; */
+	float: left;
+	/* border:1px solid #cccccc; */
+	/* background-image:url(../resources/images/missao.png);
+	background-position:top; */
+	/*background-attachment:fixed;*/
+}
+
+#banner2 {
+	width: 274px;
+	height: 417px;
+	margin-left: 20px;
+	margin-top: 30px;
+	float: left;
+	/* border:1px solid #cccccc; */
+	/* background-image:url(../resources/images/treinamentos.png);
+	background-position:top; */
+}
+
+#banner3 {
+	width: 274px;
+	height: 417px;
+	margin-left: 20px;
+	margin-top: 30px;
+	float: left;
+	/* border:1px solid #cccccc; */
+	/* background-image:url(../resources/images/consultoria.png);
+	background-position:top; */
+}
+
+.bannersPeq {
+	margin-left: 30px;
+	margin-bottom: 70px;
+	float: left;
+	margin-left: 10px;
+    margin-right: 10px;
+}
+
+#banner4 {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-left: 20px;
+	padding: 15px;
+	width: 655px;
+	height: 120px;
+	float: left;
+	background-color: gray;
+}
+
+/*#bannerGrandeImagem {
+	width:571px;
+	height:280px;
+	background-image:url(../images/rh.jpg);
+	background-repeat:no-repeat;
+	background-position:bottom;
+	float:left;
+}*/
+#bannerGrandeImagem {
+	width: 600px;
+	height: 200px;
+	background-image: url(../resources/images/banner2.png);
+	background-repeat: no-repeat;
+	/*background-position:bottom;*/
+	float: left;
+}
+
+#sigla {
+	width: 590px;
+	background-color: #FFFFFF;
+	opacity: 0.7;
+	padding: 5px;
+	float: left;
+}
+
+/*#bannerGrandeTexto {
+	width:551px;
+	height:80px;
+	padding:5px;
+	float:left;
+	background-color:#0066FF;
+	margin-top:-100px;
+	opacity:0.9;
+}*/
+#bannerGrandeTexto {
+	width: 590px;
+	height: 100px;
+	padding: 5px;
+	float: left;
+	margin-top: 20px;
+	/*background-color:#ccccff;*/
+}
+
+/*#bordaBaixoConteudo {
+	margin:0 auto;
+	padding-top:30px;
+	width: 918px;
+	height:25px;
+	background-image:url(../images/baixoCorpo.png);
+	background-repeat:no-repeat;
+	background-color: #4a789a; 
+	text-align:center;
+	vertical-align:middle;
+	float:left;
+}*/
+.complementoConteudoBaixo {
+	width: 980px;
+	height: 62px;
+	padding: 0px;
+	background-image: url(../images/fundoOpaco.png);
+	margin: 0 auto;
+}

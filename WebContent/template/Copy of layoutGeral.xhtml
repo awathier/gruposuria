@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Grupo Suria - Gestão em Convênios Públicos</title>
+	<h:outputStylesheet name="gruposuria.css" library="css" />
+	<h:outputScript name="gruposuria.js" library="js" />
+</h:head>
+<h:body>
+
+	<div id="tudo">
+		<div id="bordaTopoGeral"></div>
+		<div id="geral">
+			<!--<div id="cabecalho"> -->
+			<div id="logo">
+				<a href="default.jsf"><img src="resources/images/logo.png"
+					border="0" /></a>
+			</div>
+			<div id="menu">
+				<ui:include src="/template/menu.xhtml" />
+				<!-- <img src="resources/images/menu.png" border="0" /> -->
+				<!-- <ui:include src="/template/bannerPropaganda.xhtml" /> -->
+			</div>
+			<div id="espacamentoMenuCima">
+				<!-- <ui:include src="/template/menu.xhtml" /> -->
+			</div>
+			<!--</div> -->
+			<div id="conteudo1">
+				<!-- <ui:insert name="migalhadepao">
+					<div id="migalhadepao">
+						<ui:include src="/template/migalhaPao.xhtml" />
+
+					</div>
+				</ui:insert> -->
+				<ui:insert name="conteudo">
+					<!--<div id="menu1">menu</div> -->
+					<div id="bannerGrande">
+						<!-- <ui:insert name="bannerGrande"> -->
+						<ui:include src="/template/bannerGrande.xhtml" />
+						<!-- </ui:insert> -->
+					</div>
+					<!-- <div id="bannerPequeno">
+						<ui:include src="/template/login.xhtml" />
+					</div> -->
+
+					<div id="contorno">
+						<div id="banner1">
+							<div>
+								<h:link outcome="empresa.jsf">
+									<img src="resources/images/missao.png" border="0" />
+								</h:link>
+							</div>
+						</div>
+						<div id="divisao"></div>
+						<div id="banner2">
+							<div>
+								<h:link outcome="visao.jsf">
+									<img src="resources/images/visao.png" border="0" />
+								</h:link>
+							</div>
+						</div>
+						<div id="divisao"></div>
+						<div id="banner3">
+							<div>
+								<h:link outcome="valor.jsf">
+									<img src="resources/images/valor.png" border="0" />
+								</h:link>
+							</div>
+						</div>
+					</div>
+					<!-- 
+					<div id="banner6" class="bannersPeq">
+						<a href="default.jsf"><img src="resources/images/vagasEmprego.png" border="0" /></a>
+					</div>
+					<div id="banner7" class="bannersPeq">
+						<a href="default.jsf"><img src="resources/images/trabalheConosco.png" border="0" /></a>
+					</div>
+					<div id="banner8" class="bannersPeq">
+						<a href="default.jsf"><img src="resources/images/contato.png" border="0" /></a>
+					</div> -->
+					<!-- <div id="banner4">Lorem ipsum dolor sit amet, consectetur
+						adipiscing elit. Etiam quam ipsum, ullamcorper non ultrices nec,
+						gravida non ligula.</div> -->
+
+				</ui:insert>
+			</div>
+			<div id="rodape" class="textoCentralizado">
+				<ui:insert name="rodape">
+					<ui:include src="/template/rodape.xhtml" />
+				</ui:insert>
+			</div>
+			<div id="bordaBaixoGeral"></div>
+		</div>
+	</div>
+
+</h:body>
+
+</html>
