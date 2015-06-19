@@ -47,7 +47,7 @@
 							<p:outputLabel for="turma" value="Turma" />
 							<p:selectOneMenu id="turma" 
 								required="true"
-								value="#{turmaAlunoMB.alunoSelecionado.codigo}" 
+								value="#{turmaAlunoMB.turmaSelecionada.codigo}" 
 								converter="turmaConverter"
 								style="width:300px"
 								panelStyle="width:180px" 
@@ -61,7 +61,7 @@
 							<p:outputLabel for="aluno" value="Aluno:" />
 							<p:selectOneMenu id="aluno" 
 								required="true"
-								value="#{turmaAlunoMB.turmaSelecionada.codigo}" 
+								value="#{turmaAlunoMB.alunoSelecionado.codigo}" 
 								converter="alunoConverter"
 								style="width:300px"
 								panelStyle="width:180px" 

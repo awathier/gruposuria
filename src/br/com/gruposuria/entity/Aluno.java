@@ -16,48 +16,47 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ALUNO")
+@Table(name = "ALUNO")
 @NamedQueries({
-		@NamedQuery(name="Aluno.listaTodos", query="SELECT a FROM Aluno a"),
-		@NamedQuery(name="Aluno.consultaPorCodigo", query="SELECT a FROM Aluno a WHERE a.codigo = :codigo"),
-		@NamedQuery(name="Aluno.consultaPorCpf", query="SELECT a FROM Aluno a WHERE a.cpf = :cpf"),
-		@NamedQuery(name="Aluno.consultaPorNome", query="SELECT a FROM Aluno a WHERE a.nome LIKE :nome"),
-		@NamedQuery(name="Aluno.consultaPorNomeCpf", query="SELECT a FROM Aluno a WHERE a.nome LIKE :nome AND a.cpf = :cpf")
-})
+		@NamedQuery(name = "Aluno.listaTodos", query = "SELECT a FROM Aluno a"),
+		@NamedQuery(name = "Aluno.consultaPorCodigo", query = "SELECT a FROM Aluno a WHERE a.codigo = :codigo"),
+		@NamedQuery(name = "Aluno.consultaPorCpf", query = "SELECT a FROM Aluno a WHERE a.cpf = :cpf"),
+		@NamedQuery(name = "Aluno.consultaPorNome", query = "SELECT a FROM Aluno a WHERE a.nome LIKE :nome"),
+		@NamedQuery(name = "Aluno.consultaPorNomeCpf", query = "SELECT a FROM Aluno a WHERE a.nome LIKE :nome AND a.cpf = :cpf") })
 public class Aluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ALU_NU")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ALU_NU")
 	private Long codigo;
 
-	@Column(name="ALU_CPF")
+	@Column(name = "ALU_CPF")
 	private String cpf;
 
-	@Column(name="ALU_EMAIL")
+	@Column(name = "ALU_EMAIL")
 	private String email;
 
-	@Column(name="ALU_NOME")
+	@Column(name = "ALU_NOME")
 	private String nome;
 
-	@Column(name="ALU_TELEFONE")
+	@Column(name = "ALU_TELEFONE")
 	private String telefone;
 
-	@Column(name="ALU_SENHA")
+	@Column(name = "ALU_SENHA")
 	private String senha;
-	
-	@Column(name="ALU_NECESSIDADE_ESPECIAL")
+
+	@Column(name = "ALU_NECESSIDADE_ESPECIAL")
 	private String especial;
-	
+
 	@ManyToOne
-	@JoinColumn(name="INT_NU")
+	@JoinColumn(name = "INT_NU")
 	private Instituicao instituicao;
 
-	@OneToMany(mappedBy="aluno")
+	@OneToMany(mappedBy = "aluno")
 	private List<TurmaAluno> turmaAlunos;
 
-	@OneToMany(mappedBy="aluno")
+	@OneToMany(mappedBy = "aluno")
 	private List<InteresseCurso> interesseCursos;
 
 	public Aluno(Long codigo, String cpf, String email, String nome,
@@ -117,7 +116,7 @@ public class Aluno implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
@@ -125,7 +124,7 @@ public class Aluno implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
 	public Instituicao getInstituicao() {
 		return this.instituicao;
 	}
@@ -179,28 +178,29 @@ public class Aluno implements Serializable {
 	}
 
 	public int hashCode() {
-        int hash = 1;
-        if(nome != null)
-            hash = hash * 31 + nome.hashCode();
-         
-        if(cpf != null)
-            hash = hash * 29 + cpf.hashCode();
- 
-        return hash;
-    }
+		int hash = 1;
+		if (nome != null)
+			hash = hash * 31 + nome.hashCode();
+
+		if (cpf != null)
+			hash = hash * 29 + cpf.hashCode();
+
+		return hash;
+	}
 
 	public boolean equals(Object obj) {
-        if(!(obj instanceof Aluno))
-            return false;
-         
-        Aluno aluno = (Aluno) obj;
-         
-        return (aluno.getNome() != null && aluno.getNome().equals(nome)) && (aluno.getCpf() != null && aluno.getCpf().equals(cpf));
-    }
-	
+		if (!(obj instanceof Aluno))
+			return false;
+
+		Aluno aluno = (Aluno) obj;
+
+		return (aluno.getNome() != null && aluno.getNome().equals(nome))
+				&& (aluno.getCpf() != null && aluno.getCpf().equals(cpf));
+	}
+
 	@Override
 	public String toString() {
-		//return "Aluno [codigo=" + codigo + ", nome=" + nome + "]";
+		// return "Aluno [codigo=" + codigo + ", nome=" + nome + "]";
 		return this.codigo.toString();
 	}
 

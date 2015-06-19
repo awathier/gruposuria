@@ -1,7 +1,9 @@
 package br.com.gruposuria.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -12,7 +14,7 @@ public class Estado implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="EST_ID")
-	private long idEstado;
+	private Long idEstado;
 
 	@Column(name="EST_NOME")
 	private String nome;
@@ -33,7 +35,7 @@ public class Estado implements Serializable {
 	public void setIdEstado(Long idEstado) {
 		this.idEstado = idEstado;
 	}
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -70,6 +72,39 @@ public class Estado implements Serializable {
 		cidade.setEstado(null);
 
 		return cidade;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (idEstado ^ (idEstado >>> 32));
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Estado other = (Estado) obj;
+		if (idEstado != other.idEstado)
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return this.idEstado.toString();
 	}
 
 }

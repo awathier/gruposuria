@@ -142,8 +142,6 @@
 									<f:validateLength maximum="80" />
 								</p:inputText>
 
-
-
 								<h:outputLabel value="" />
 								<h:outputLabel value="" />
 
@@ -211,13 +209,16 @@
 								<p:outputLabel for="estado" value="Estado:" />
 								<p:selectOneMenu id="estado" required="true"
 									requiredMessage="UF requerida"
-									value="#{instituicaoMB.idEstado}">
-									<f:selectItem itemLabel="Selecione..." itemValue=""
-										noSelectionOption="true" />
-									<f:selectItems value="#{instituicaoMB.estados}" var="e"
-										itemValue="#{e.idEstado}" itemLabel="#{e.nome}" />
-									<p:ajax listener="#{instituicaoMB.consultaCidadePorUf()}"
-										event="change" process="@this" update="@this cidade" />
+									value="#{instituicaoMB.instituicao.cidadeInstituicao.estado.idEstado}" 
+									converter="estadoConverter"
+									style="width:300px"
+									panelStyle="width:180px" 
+									effect="fade"
+									filter="true" 
+									filterMatchMode="startsWith">
+									<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+									<f:selectItems value="#{instituicaoMB.estados}" var="e" itemValue="#{e.idEstado}" itemLabel="#{e.nome}" />
+									<p:ajax listener="#{instituicaoMB.consultaCidadePorUf()}" event="change" process="@this" update="@this cidade" />
 								</p:selectOneMenu>
 
 								<p:outputLabel for="cidade" value="Cidade:" />
