@@ -267,9 +267,9 @@
 
 									<p:outputLabel for="formaPagamento" value="Forma Pagamento: " />
 									<p:selectOneMenu id="formaPagamento" required="true"
-										value="#{turmaAlunoMB.turmaAluno.formaPagamento}">
+										value="#{inscricaoMB.turmaAluno.formaPagamento}">
 										<f:selectItem itemLabel="Selecione..." itemValue="E" />
-										<f:selectItems value="#{turmaAlunoMB.formaPagamento}" var="fp"
+										<f:selectItems value="#{inscricaoMB.formaPagamento}" var="fp"
 											itemValue="#{fp}" itemLabel="#{fp.descricao}" />
 									</p:selectOneMenu>
 
@@ -435,7 +435,7 @@
 										<h:panelGrid columns="2" columnClasses="label, value">
 											<h:outputText value="Forma de Pagamento: " />
 											<h:outputText
-												value="#{turmaAlunoMB.turmaAluno.formaPagamento}"
+												value="#{inscricaoMB.turmaAluno.formaPagamento}"
 												styleClass="outputLabel" />
 
 											<h:outputText

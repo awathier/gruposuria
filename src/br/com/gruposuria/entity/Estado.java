@@ -26,11 +26,11 @@ public class Estado implements Serializable {
 	public Estado() {
 	}
 
-	public long getIdEstado() {
+	public Long getIdEstado() {
 		return idEstado;
 	}
 
-	public void setIdEstado(long idEstado) {
+	public void setIdEstado(Long idEstado) {
 		this.idEstado = idEstado;
 	}
 

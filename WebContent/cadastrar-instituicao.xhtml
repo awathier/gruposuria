@@ -232,7 +232,7 @@
 
 								<h:outputLabel for="cep" value="CEP: " />
 								<p:inputMask id="cep" mask="99999-999"
-									value="#{inscricaoMB.instituicao.cep}" />
+									value="#{instituicaoMB.instituicao.cep}" />
 
 							</h:panelGrid>
 						</p:panel>
@@ -244,7 +244,7 @@
 							<p:commandButton value="Salvar"
 								rendered="#{instituicaoMB.mostrarBotaoAlterar}" id="btnAlterar"
 								actionListener="#{instituicaoMB.alterar()}"
-								update="@form painelBasico" icon="ui-icon-disk" />
+								update="@form painelBasico painelBasico1" icon="ui-icon-disk" />
 							<p:commandButton value="Salvar"
 								rendered="#{!instituicaoMB.mostrarBotaoAlterar}" id="btnIncluir"
 								actionListener="#{instituicaoMB.salvar()}" update="@form"
