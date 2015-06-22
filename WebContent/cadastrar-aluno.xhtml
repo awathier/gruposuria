@@ -35,12 +35,12 @@
 				    	
 				    	<ui:fragment rendered="#{!alunoMB.acaoDeInclusao}">
 					        	<h:outputLabel for="codigo" value="Codigo: " />
-					        	<p:inputText id="codigo" value="#{alunoMB.aluno.codigo}" required="true" size="20" readonly="true" />
+					        	<p:inputText id="codigo" value="#{alunoMB.aluno.codigo}" required="true" size="10" readonly="true" />
 					        </ui:fragment>
 				    	
 				    	</h:panelGrid>
 				        <h:panelGrid id="alunoGrid" columns="4" cellpadding="5">
-				        	
+				        
 				        	<h:outputLabel for="nome" value="Nome: " />
 				        	<p:inputText id="nome" value="#{alunoMB.aluno.nome}" required="true" size="45" requiredMessage="NOME requerido">
 								<f:validateLength maximum="80" />
@@ -62,6 +62,20 @@
 				        	<h:outputLabel for="telefone" value="Telefone: " />
 				        	<p:inputMask id="telefone" value="#{alunoMB.aluno.telefone}" converter="telefoneConverter" required="true" mask="(99) 9999-9999" size="20" validatorMessage="TELEFONE Invalido!"  requiredMessage="TELEFONE requerido">
 							</p:inputMask>
+							
+							<p:outputLabel for="instituicao" value="Instituição:" />
+					        <p:selectOneMenu id="instituicao" value="#{alunoMB.idInstituicao}" 	style="width:300px">
+					            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+					           <f:selectItem itemLabel="Sem vinculação com Instituição" itemValue="3" noSelectionOption="true" />
+					            <f:selectItems value="#{alunoMB.instituicoes}" var="i" itemValue="#{i.codigo}" itemLabel="#{i.nome}" />
+					        </p:selectOneMenu>
+					        
+					        <p:outputLabel for="participanteNecessidadesEspeciais" value="Portador de Necessidades Especiais?" />
+							<p:selectOneMenu id="participanteNecessidadesEspeciais"
+								required="false" value="#{alunoMB.aluno.especial}">
+								<f:selectItem itemLabel="Selecione..." itemValue="N" />
+								<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl" itemValue="#{vl}" itemLabel="#{vl.descricao}" />
+							</p:selectOneMenu>
 							
 				        </h:panelGrid>
 				         <h:panelGrid columns="4" cellpadding="5">

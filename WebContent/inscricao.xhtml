@@ -64,13 +64,29 @@
 									<h:panelGrid id="instituicaoGridBasico" columns="4"
 										cellpadding="5">
 
+										
+										
 										<h:outputLabel for="nome" value="Nome: " />
-										<p:inputText id="nome"
-											value="#{inscricaoMB.instituicao.nome}" required="true"
-											size="30" requiredMessage="Nome requerido">
-											<f:validateLength maximum="80" />
-											<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
-										</p:inputText>
+										<p:autoComplete id="nome"
+											value="#{inscricaoMB.instituicao}"
+											completeMethod="#{inscricaoMB.listaInstituicoes()}"
+											var="instituicao"
+											itemLabel="#{inscricaoMB.instituicao.nome}"
+											itemValue="#{instituicao}"
+											converter="instituicaoConverter"
+											styleClass="f12col cheetos"
+											effect="fade" size="30"
+											minQueryLength="3"
+											label="#{msgs.nome}" required="true"
+											>
+											<p:ajax event="itemSelect" listener="#{inscricaoMB.onItemSelectInstituicao}" update="nome growl" />
+											<p:column>
+								                 <h:outputText value="#{instituicao.nome}" />
+								            </p:column>
+								            <p:column>
+								                <h:outputText value="#{instituicao.codigo}" />
+								            </p:column>
+										</p:autoComplete>
 
 										<h:outputLabel for="cnpj" value="CNPJ: " />
 										<p:inputMask id="cnpj"
@@ -92,9 +108,9 @@
 										<h:outputLabel value="" />
 
 										<h:outputLabel for="endereco" value="Endereço: " />
-										<p:inputTextarea id="endereco" rows="3" cols="28"
+										<p:inputTextarea id="endereco" rows="3" cols="35"
 											value="#{inscricaoMB.instituicao.endereco}"
-											counter="displayEndereco" maxlength="45"
+											counter="displayEndereco" maxlength="200"
 											counterTemplate="{0} caracteres restantes."
 											autoResize="false" requiredMessage="Tamanha máximo " />
 										<h:outputLabel for="displayEndereco" value="" />
@@ -158,8 +174,6 @@
 											<!-- <f:validateRegex pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" /> -->
 											<f:validateLength maximum="80" />
 										</p:inputText>
-
-
 
 										<h:outputLabel value="" />
 										<h:outputLabel value="" />
@@ -422,10 +436,59 @@
 											<h:outputText value="#{inscricaoMB.instituicao.cnpj}"
 												styleClass="outputLabel" />
 
+											<h:outputText value="Inscrição Estadual: " />
+											<h:outputText value="#{inscricaoMB.instituicao.inscricaoEstadual}"
+												styleClass="outputLabel" />
+												
+											<h:outputText value="Endereço: " />
+											<h:outputText value="#{inscricaoMB.instituicao.endereco}"
+												styleClass="outputLabel" />
+
 											<h:outputText value="Responsavel: " />
 											<h:outputText
 												value="#{inscricaoMB.instituicao.nomeResponsavel.toUpperCase()}"
 												styleClass="outputLabel" />
+												
+											<h:outputText value="Setor Responsável: " />
+											<h:outputText
+												value="#{inscricaoMB.instituicao.setorResponsavel.toUpperCase()}"
+												styleClass="outputLabel" />
+												
+											<h:outputText value="Telefone Responsável: " />
+											<h:outputText
+												value="#{inscricaoMB.instituicao.telefoneResponsavel}" converter="telefoneConverter"
+												styleClass="outputLabel" />
+												
+											<h:outputText value="Celular Responsável: " />
+											<h:outputText
+												value="#{inscricaoMB.instituicao.celularResponsavel}" converter="telefoneConverter"
+												styleClass="outputLabel" />
+												
+											<h:outputText value="Email Responsável: " />
+											<h:outputText
+												value="#{inscricaoMB.instituicao.emailResponsavel}"
+												styleClass="outputLabel" />
+												
+											<h:outputText value="Responsável Financeiro: " />
+											<h:outputText
+												value="#{inscricaoMB.instituicao.nomeFinanceiro.toUpperCase()}"
+												styleClass="outputLabel" />
+												
+											<h:outputText value="Telefone Financeiro " />
+											<h:outputText
+												value="#{inscricaoMB.instituicao.telefoneFinanceiro}" converter="telefoneConverter"
+												styleClass="outputLabel" />
+												
+											<h:outputText value="Celular Financeiro " />
+											<h:outputText
+												value="#{inscricaoMB.instituicao.celularFinanceiro}" converter="telefoneConverter"
+												styleClass="outputLabel" />
+												
+											<h:outputText value="Email Financeiro: " />
+											<h:outputText
+												value="#{inscricaoMB.instituicao.emailFinanceiro}"
+												styleClass="outputLabel" />
+												
 										</h:panelGrid>
 
 									</p:fieldset>
@@ -436,12 +499,6 @@
 											<h:outputText value="Forma de Pagamento: " />
 											<h:outputText
 												value="#{inscricaoMB.turmaAluno.formaPagamento}"
-												styleClass="outputLabel" />
-
-											<h:outputText
-												value="Dados do Responsável do Setor Financeiro: " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.nomeResponsavel.toUpperCase()}"
 												styleClass="outputLabel" />
 
 										</h:panelGrid>
@@ -466,6 +523,21 @@
 													sortBy="#{als.nome}">
 													<h:outputText value="#{als.cpf}" />
 												</p:column>
+												
+												<p:column style="width:100px;" headerText="Email"
+													sortBy="#{als.email}">
+													<h:outputText value="#{als.email}" />
+												</p:column>
+
+												<p:column style="width:100px;" headerText="Telefone"
+													sortBy="#{als.telefone}">
+													<h:outputText value="#{als.telefone}" converter="telefoneConverter" />
+												</p:column>
+
+												<p:column style="width:100px;" headerText="Necessid. Especiais?"
+													sortBy="#{als.especial}">
+													<h:outputText value="#{als.especial}" />
+												</p:column>
 
 											</p:dataTable>
 
@@ -475,8 +547,8 @@
 
 								</h:panelGrid>
 
-								<p:commandButton value="Salvar Cadastro"
-									actionListener="#{inscricaoMB.save}" update="growl"
+								<p:commandButton value="Salvar Cadastro" style="width:870px;height:100px"
+									actionListener="#{inscricaoMB.salvar}" update="growl"
 									process="@this" />
 							</p:panel>
 						</p:tab>

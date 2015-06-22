@@ -12,7 +12,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import br.com.gruposuria.entity.Aluno;
+import br.com.gruposuria.entity.Instituicao;
+import br.com.gruposuria.enums.ValorLogico;
 import br.com.gruposuria.model.AlunoModel;
+import br.com.gruposuria.model.InstituicaoModel;
 
 @ManagedBean
 @SessionScoped
@@ -21,17 +24,26 @@ public class AlunoMB {
 	@Inject
 	private AlunoModel alunoModel;
 	
+	@Inject
+	private InstituicaoModel instituicaoModel;
+	
 	private Aluno aluno = new Aluno();
 	private Aluno alunoSelecionado;
+	private Instituicao instituicaoSelecionada = new Instituicao();
 	private List<Aluno> alunos = new ArrayList<Aluno>();
+	private List<Instituicao> instituicoes = new ArrayList<Instituicao>();
 	private boolean mostrarBotaoAlterar = false;
 	private boolean acaoDeInclusao;
 	private String id;
-	
+	private String idInstituicao;
 	
 	@PostConstruct
 	public void init() {
-
+		listaInstituicoes();
+	}
+	
+	public ValorLogico[] getValorLogico() {
+		return ValorLogico.values();
 	}
 	
 	public void excluir() {
@@ -67,6 +79,7 @@ public class AlunoMB {
 			try {
 				mostrarBotaoAlterar = true;
 				this.aluno = alunoModel.consultarPorCodigo(alunoSelecionado.getCodigo());
+				listaInstituicoes();
 				resultado  = "cadastrar-aluno.jsf?faces-redirect=true";
 			    FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);  
 			} catch (Exception e){
@@ -125,6 +138,8 @@ public class AlunoMB {
 		
 		try {
 			System.out.println("alterar");
+			this.instituicaoSelecionada.setCodigo(Long.parseLong(this.idInstituicao));
+			this.aluno.setInstituicao(instituicaoSelecionada);
 			this.aluno.setCpf(this.aluno.getCpf().replaceAll("\\.", "").replaceAll("\\-", ""));
 			this.aluno.setNome(this.aluno.getNome().toUpperCase());
 			this.aluno = alunoModel.alterar(this.aluno);
@@ -142,6 +157,11 @@ public class AlunoMB {
 			e.printStackTrace();
 		}
 		return resultado;
+	}
+	
+	public List<Instituicao> listaInstituicoes() {
+		this.instituicoes = instituicaoModel.listaInstituicoes();
+		return this.instituicoes;
 	}
 	
 	public List<Aluno> listaAlunos(){
@@ -219,6 +239,30 @@ public class AlunoMB {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Instituicao getInstituicaoSelecionada() {
+		return instituicaoSelecionada;
+	}
+
+	public void setInstituicaoSelecionada(Instituicao instituicaoSelecionada) {
+		this.instituicaoSelecionada = instituicaoSelecionada;
+	}
+
+	public List<Instituicao> getInstituicoes() {
+		return instituicoes;
+	}
+
+	public void setInstituicoes(List<Instituicao> instituicoes) {
+		this.instituicoes = instituicoes;
+	}
+
+	public String getIdInstituicao() {
+		return idInstituicao;
+	}
+
+	public void setIdInstituicao(String idInstituicao) {
+		this.idInstituicao = idInstituicao;
 	}
 	
 }

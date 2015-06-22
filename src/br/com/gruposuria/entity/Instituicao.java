@@ -189,28 +189,6 @@ public class Instituicao implements Serializable {
 		this.cidadeInstituicao = cidadeInstituicao;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (codigo ^ (codigo >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Instituicao other = (Instituicao) obj;
-		if (codigo != other.codigo)
-			return false;
-		return true;
-	}
-
 	public String getSetorResponsavel() {
 		return setorResponsavel;
 	}
@@ -227,4 +205,29 @@ public class Instituicao implements Serializable {
 		this.emailResponsavel = emailResponsavel;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Instituicao other = (Instituicao) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}
+	
 }

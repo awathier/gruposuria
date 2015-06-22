@@ -67,6 +67,7 @@ public class InscricaoMB implements Serializable {
 
 	private List<TurmaAluno> turmasAluno = new ArrayList<TurmaAluno>();
 	private List<Aluno> alunos = new ArrayList<Aluno>();
+	private List<Instituicao> instituicoes = new ArrayList<Instituicao>();
 	private List<Turma> turmas = new ArrayList<Turma>();
 	private List<Estado> estados = new ArrayList<Estado>();
 	private List<Cidade> cidades = new ArrayList<Cidade>();
@@ -83,6 +84,7 @@ public class InscricaoMB implements Serializable {
 	private String idEstado;
 	private String idTurma;
 	private String idAluno;
+	private String idInstituicao;
 
 	private boolean skip;
 
@@ -114,10 +116,7 @@ public class InscricaoMB implements Serializable {
 		alunoSelecionado.setNome(alunoTemporario.getNome());
 		// servicoTemporario = servico;
 		// }
-		FacesContext.getCurrentInstance().addMessage(
-				null,
-				new FacesMessage("Aluno:", alunoSelecionado.getNome() + " - "
-						+ alunoSelecionado.getCodigo()));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aluno:", alunoSelecionado.getNome() + " - " + alunoSelecionado.getCodigo()));
 		// FacesContext.getCurrentInstance().addMessage(null, new
 		// FacesMessage("Serviï¿½o Postal:", event.getObject().toString()));
 	}
@@ -144,27 +143,18 @@ public class InscricaoMB implements Serializable {
 		String resultado = null;
 
 		try {
-			this.turmaAlunoSelecionada = turmaAlunoModel
-					.excluir(turmaAlunoSelecionada);
+			this.turmaAlunoSelecionada = turmaAlunoModel.excluir(turmaAlunoSelecionada);
 			if (this.turmaAlunoSelecionada != null) {
-				FacesContext.getCurrentInstance().getExternalContext()
-						.getFlash().setKeepMessages(true);
-				FacesContext.getCurrentInstance().addMessage(
-						null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO,
-								"Excluido com sucesso!", "."));
+				FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Excluido com sucesso!", "."));
 				setTurmaAluno(new TurmaAluno());
 				setTurmasAluno(new ArrayList<TurmaAluno>());
 				setAcaoDeInclusao(false);
 			} else {
-				FacesContext.getCurrentInstance().addMessage(
-						null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR,
-								"Erro ao Excluir!", "."));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao Excluir!", "."));
 			}
 			resultado = "pesquisar-turma-aluno.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -219,6 +209,18 @@ public class InscricaoMB implements Serializable {
 		setTurmaAluno(new TurmaAluno());
 		return this.turmasAluno;
 	}
+	
+	public void onItemSelectInstituicao(SelectEvent event) {
+        
+		Instituicao instituicaoTemporaria = ((Instituicao) event.getObject());
+        //if(servico.getNome() == null){
+        	this.instituicao.setCodigo(instituicaoTemporaria.getCodigo());
+        	this.instituicao.setNome(instituicaoTemporaria.getNome());
+        	//servicoTemporario = servico;
+        //}
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Instituição:", this.instituicao.getNome() + " - " + this.instituicao.getCodigo()));
+		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Serviço Postal:", event.getObject().toString()));
+    }
 
 	public String onFlowProcess(FlowEvent event) {
 		if (skip) {
@@ -241,6 +243,12 @@ public class InscricaoMB implements Serializable {
 		try {
 			System.out.println("incluir");
 
+			if ((this.instituicao.getNome() != null)
+					&& (!"".equals(this.instituicao.getNome()))) {
+				this.instituicao.setNome(this.instituicao.getNome()
+						.toUpperCase());
+			}
+
 			if ((this.instituicao.getCnpj() != null)
 					&& (!"".equals(this.instituicao.getCnpj()))) {
 				this.instituicao.setCnpj(this.instituicao.getCnpj()
@@ -255,12 +263,6 @@ public class InscricaoMB implements Serializable {
 						.replaceAll("\\-", "").replaceAll("/", ""));
 			}
 
-			if ((this.instituicao.getNome() != null)
-					&& (!"".equals(this.instituicao.getNome()))) {
-				this.instituicao.setNome(this.instituicao.getNome()
-						.toUpperCase());
-			}
-
 			if ((this.instituicao.getEndereco() != null)
 					&& (!"".equals(this.instituicao.getEndereco()))) {
 				this.instituicao.setEndereco(this.instituicao.getEndereco()
@@ -271,6 +273,12 @@ public class InscricaoMB implements Serializable {
 					&& (!"".equals(this.instituicao.getNomeResponsavel()))) {
 				this.instituicao.setNomeResponsavel(this.instituicao
 						.getNomeResponsavel().toUpperCase());
+			}
+
+			if ((this.instituicao.getSetorResponsavel() != null)
+					&& (!"".equals(this.instituicao.getSetorResponsavel()))) {
+				this.instituicao.setSetorResponsavel(this.instituicao
+						.getSetorResponsavel().toUpperCase());
 			}
 
 			if ((this.instituicao.getTelefoneResponsavel() != null)
@@ -337,11 +345,14 @@ public class InscricaoMB implements Serializable {
 						.replaceAll("\\.", "").replaceAll("\\-", "")
 						.replaceAll("/", ""));
 			}
-
+			System.out.println("inclusaoInstituicao");
 			this.instituicao = instituicaoModel.salvar(this.instituicao);
-
-			this.turmaAlunoSelecionada = turmaAlunoModel
-					.salvar(this.turmaAluno);
+			
+			System.out.println("inclusaoAluno");
+			
+			//this.aluno = alunoModel.salvar(this.aluno);
+			
+			this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAluno);
 
 			setTurmaAluno(new TurmaAluno());
 			setTurmasAluno(new ArrayList<TurmaAluno>());
@@ -352,20 +363,12 @@ public class InscricaoMB implements Serializable {
 			setCidades(new ArrayList<Cidade>());
 			setIdCidade("");
 			setAcaoDeInclusao(false);
-			FacesContext.getCurrentInstance().getExternalContext().getFlash()
-					.setKeepMessages(true);
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Gravado com sucesso!", "."));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
 			resultado = "pesquisar-turma-aluno.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Falha ao Gravar!", "."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Gravar!", "."));
 			System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -402,10 +405,7 @@ public class InscricaoMB implements Serializable {
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect(resultado);
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Falha ao Gravar!", "."));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Gravar!", "."));
 			System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -436,6 +436,13 @@ public class InscricaoMB implements Serializable {
 	public List<Estado> listaEstados() {
 		this.estados = estadoModel.listaEstados();
 		return this.estados;
+	}
+	
+	public List<Instituicao> listaInstituicoes() {
+		setInstituicoes(new ArrayList<Instituicao>());
+		
+		this.instituicoes = instituicaoModel.listaInstituicoes();
+		return this.instituicoes;
 	}
 
 	public String acaoInclusao() {
@@ -680,5 +687,21 @@ public class InscricaoMB implements Serializable {
 
 	public void setInstituicao(Instituicao instituicao) {
 		this.instituicao = instituicao;
+	}
+
+	public String getIdInstituicao() {
+		return idInstituicao;
+	}
+
+	public void setIdInstituicao(String idInstituicao) {
+		this.idInstituicao = idInstituicao;
+	}
+
+	public List<Instituicao> getInstituicoes() {
+		return instituicoes;
+	}
+
+	public void setInstituicoes(List<Instituicao> instituicoes) {
+		this.instituicoes = instituicoes;
 	}
 }
