@@ -75,9 +75,9 @@
 								<h:outputLabel value="" />
 
 								<h:outputLabel for="endereco" value="Endereço: " />
-								<p:inputTextarea id="endereco" rows="3" cols="28"
+								<p:inputTextarea id="endereco" rows="3" cols="35"
 									value="#{instituicaoMB.instituicao.endereco}"
-									counter="displayEndereco" maxlength="45"
+									counter="displayEndereco" maxlength="200"
 									counterTemplate="{0} caracteres restantes." autoResize="false"
 									requiredMessage="Tamanha máximo " />
 								<h:outputLabel for="displayEndereco" value="" />
@@ -209,31 +209,21 @@
 								<p:outputLabel for="estado" value="Estado:" />
 								<p:selectOneMenu id="estado" required="true"
 									requiredMessage="UF requerida"
-									value="#{instituicaoMB.instituicao.cidadeInstituicao.estado.idEstado}" 
-									converter="estadoConverter"
-									style="width:300px"
-									panelStyle="width:180px" 
-									effect="fade"
-									filter="true" 
-									filterMatchMode="startsWith">
+									value="#{instituicaoMB.idEstado}">
 									<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
 									<f:selectItems value="#{instituicaoMB.estados}" var="e" itemValue="#{e.idEstado}" itemLabel="#{e.nome}" />
-									<p:ajax listener="#{instituicaoMB.consultaCidadePorUf()}" event="change" process="@this" update="@this cidade" />
+									<p:ajax listener="#{instituicaoMB.consultaCidadePorUf()}" event="change" process="@this" update="cidade" />
 								</p:selectOneMenu>
 
 								<p:outputLabel for="cidade" value="Cidade:" />
-								<p:selectOneMenu id="cidade" required="true"
-									requiredMessage="Cidade requerida"
+								<p:selectOneMenu id="cidade" required="true" requiredMessage="Cidade requerida"
 									value="#{instituicaoMB.idCidade}">
-									<f:selectItem itemLabel="Selecione..." itemValue=""
-										noSelectionOption="true" />
-									<f:selectItems value="#{instituicaoMB.cidades}" var="c"
-										itemValue="#{c.idCidade}" itemLabel="#{c.nome}" />
+									<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+									<f:selectItems value="#{instituicaoMB.cidades}" var="c" itemValue="#{c.idCidade}" itemLabel="#{c.nome}" />
 								</p:selectOneMenu>
 
 								<h:outputLabel for="cep" value="CEP: " />
-								<p:inputMask id="cep" mask="99999-999"
-									value="#{instituicaoMB.instituicao.cep}" />
+								<p:inputMask id="cep" mask="99999-999" value="#{instituicaoMB.instituicao.cep}" />
 
 							</h:panelGrid>
 						</p:panel>

@@ -67,7 +67,7 @@ public class InstituicaoMB {
 	}
 
 	public List<Cidade> consultaCidadePorUf() {
-		this.estadoSelecionado.setIdEstado(this.instituicao.getCidadeInstituicao().getEstado().getIdEstado());
+		this.estadoSelecionado.setIdEstado(Long.parseLong(idEstado));
 		this.cidades = cidadeModel.consultaCidadePorUf(this.estadoSelecionado);
 		return this.cidades;
 	}
@@ -120,7 +120,9 @@ public class InstituicaoMB {
 				resultado = "cadastrar-instituicao.jsf?faces-redirect=true";
 				FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
 			} catch (Exception e) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Excluir!", "."));
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Excluir!", "."));
 				System.out.println("Erro: " + e.getMessage());
 				e.printStackTrace();
 			}
@@ -297,48 +299,78 @@ public class InstituicaoMB {
 		try {
 			System.out.println("alterar");
 
-			if ((this.instituicao.getNome() != null) && (!"".equals(this.instituicao.getNome()))) {
-				this.instituicao.setNome(this.instituicao.getNome().toUpperCase());
+			if ((this.instituicao.getNome() != null)
+					&& (!"".equals(this.instituicao.getNome()))) {
+				this.instituicao.setNome(this.instituicao.getNome()
+						.toUpperCase());
 			}
 
-			if ((this.instituicao.getCnpj() != null) && (!"".equals(this.instituicao.getCnpj()))) {
-				this.instituicao.setCnpj(this.instituicao.getCnpj().replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("/", ""));
+			if ((this.instituicao.getCnpj() != null)
+					&& (!"".equals(this.instituicao.getCnpj()))) {
+				this.instituicao.setCnpj(this.instituicao.getCnpj()
+						.replaceAll("\\.", "").replaceAll("\\-", "")
+						.replaceAll("/", ""));
 			}
 
-			if ((this.instituicao.getInscricaoEstadual() != null) && (!"".equals(this.instituicao.getInscricaoEstadual()))) {
-				this.instituicao.setInscricaoEstadual(this.instituicao.getInscricaoEstadual().replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("/", ""));
+			if ((this.instituicao.getInscricaoEstadual() != null)
+					&& (!"".equals(this.instituicao.getInscricaoEstadual()))) {
+				this.instituicao.setInscricaoEstadual(this.instituicao
+						.getInscricaoEstadual().replaceAll("\\.", "")
+						.replaceAll("\\-", "").replaceAll("/", ""));
 			}
 
-			if ((this.instituicao.getEndereco() != null) && (!"".equals(this.instituicao.getEndereco()))) {
-				this.instituicao.setEndereco(this.instituicao.getEndereco().toUpperCase());
+			if ((this.instituicao.getEndereco() != null)
+					&& (!"".equals(this.instituicao.getEndereco()))) {
+				this.instituicao.setEndereco(this.instituicao.getEndereco()
+						.toUpperCase());
 			}
 
-			if ((this.instituicao.getNomeResponsavel() != null) && (!"".equals(this.instituicao.getNomeResponsavel()))) {
-				this.instituicao.setNomeResponsavel(this.instituicao.getNomeResponsavel().toUpperCase());
+			if ((this.instituicao.getNomeResponsavel() != null)
+					&& (!"".equals(this.instituicao.getNomeResponsavel()))) {
+				this.instituicao.setNomeResponsavel(this.instituicao
+						.getNomeResponsavel().toUpperCase());
 			}
 
-			if ((this.instituicao.getSetorResponsavel() != null) && (!"".equals(this.instituicao.getSetorResponsavel()))) {
-				this.instituicao.setSetorResponsavel(this.instituicao.getSetorResponsavel().toUpperCase());
+			if ((this.instituicao.getSetorResponsavel() != null)
+					&& (!"".equals(this.instituicao.getSetorResponsavel()))) {
+				this.instituicao.setSetorResponsavel(this.instituicao
+						.getSetorResponsavel().toUpperCase());
 			}
 
-			if ((this.instituicao.getTelefoneResponsavel() != null) && (!"".equals(this.instituicao.getTelefoneResponsavel()))) {
-				this.instituicao.setTelefoneResponsavel(this.instituicao.getTelefoneResponsavel().replaceAll("\\_", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("\\-", "").replaceAll("/", ""));
+			if ((this.instituicao.getTelefoneResponsavel() != null)
+					&& (!"".equals(this.instituicao.getTelefoneResponsavel()))) {
+				this.instituicao.setTelefoneResponsavel(this.instituicao
+						.getTelefoneResponsavel().replaceAll("\\_", "")
+						.replaceAll("\\(", "").replaceAll("\\)", "")
+						.replaceAll("\\-", "").replaceAll("/", ""));
 			}
 
-			if ((this.instituicao.getCelularResponsavel() != null) && (!"".equals(this.instituicao.getCelularResponsavel()))) {
-				this.instituicao.setCelularResponsavel(this.instituicao.getCelularResponsavel().replaceAll("\\_", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("\\-", "").replaceAll("/", ""));
+			if ((this.instituicao.getCelularResponsavel() != null)
+					&& (!"".equals(this.instituicao.getCelularResponsavel()))) {
+				this.instituicao.setCelularResponsavel(this.instituicao
+						.getCelularResponsavel().replaceAll("\\_", "")
+						.replaceAll("\\(", "").replaceAll("\\)", "")
+						.replaceAll("\\-", "").replaceAll("/", ""));
 			}
 
-			if ((this.instituicao.getEmailResponsavel() != null) && (!"".equals(this.instituicao.getEmailResponsavel()))) {
-				this.instituicao.setEmailResponsavel(this.instituicao.getEmailResponsavel());
+			if ((this.instituicao.getEmailResponsavel() != null)
+					&& (!"".equals(this.instituicao.getEmailResponsavel()))) {
+				this.instituicao.setEmailResponsavel(this.instituicao
+						.getEmailResponsavel());
 			}
 
-			if ((this.instituicao.getNomeFinanceiro() != null) && (!"".equals(this.instituicao.getNomeFinanceiro()))) {
-				this.instituicao.setNomeFinanceiro(this.instituicao.getNomeFinanceiro().toUpperCase());
+			if ((this.instituicao.getNomeFinanceiro() != null)
+					&& (!"".equals(this.instituicao.getNomeFinanceiro()))) {
+				this.instituicao.setNomeFinanceiro(this.instituicao
+						.getNomeFinanceiro().toUpperCase());
 			}
 
-			if ((this.instituicao.getTelefoneFinanceiro() != null) && (!"".equals(this.instituicao.getTelefoneFinanceiro()))) {
-				this.instituicao.setTelefoneFinanceiro(this.instituicao.getTelefoneFinanceiro().replaceAll("\\_", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("\\-", "").replaceAll("/", ""));
+			if ((this.instituicao.getTelefoneFinanceiro() != null)
+					&& (!"".equals(this.instituicao.getTelefoneFinanceiro()))) {
+				this.instituicao.setTelefoneFinanceiro(this.instituicao
+						.getTelefoneFinanceiro().replaceAll("\\_", "")
+						.replaceAll("\\(", "").replaceAll("\\)", "")
+						.replaceAll("\\-", "").replaceAll("/", ""));
 			}
 
 			if ((this.instituicao.getCelularFinanceiro() != null)
@@ -349,11 +381,14 @@ public class InstituicaoMB {
 						.replaceAll("\\-", "").replaceAll("/", ""));
 			}
 
-			if ((this.instituicao.getEmailFinanceiro() != null) && (!"".equals(this.instituicao.getEmailFinanceiro()))) {
-				this.instituicao.setEmailFinanceiro(this.instituicao.getEmailFinanceiro());
+			if ((this.instituicao.getEmailFinanceiro() != null)
+					&& (!"".equals(this.instituicao.getEmailFinanceiro()))) {
+				this.instituicao.setEmailFinanceiro(this.instituicao
+						.getEmailFinanceiro());
 			}
 
-			if ((this.idEstado != null) && (!"".equals(this.idEstado)) && (this.idCidade != null) && (!"".equals(this.idCidade))) {
+			if ((this.idEstado != null) && (!"".equals(this.idEstado))
+					&& (this.idCidade != null) && (!"".equals(this.idCidade))) {
 				this.estadoSelecionado.setIdEstado(Long.parseLong(idEstado));
 				this.cidadeSelecionada.setIdCidade(Long.parseLong(idCidade));
 				this.cidadeSelecionada.setEstado(estadoSelecionado);
@@ -362,7 +397,9 @@ public class InstituicaoMB {
 
 			if ((this.instituicao.getCep() != null)
 					&& (!"".equals(this.instituicao.getCep()))) {
-				this.instituicao.setCep(this.instituicao.getCep().replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("/", ""));
+				this.instituicao.setCep(this.instituicao.getCep()
+						.replaceAll("\\.", "").replaceAll("\\-", "")
+						.replaceAll("/", ""));
 			}
 
 			this.instituicao = instituicaoModel.alterar(this.instituicao);
@@ -374,12 +411,20 @@ public class InstituicaoMB {
 			setCidades(new ArrayList<Cidade>());
 			setIdCidade("");
 			setAcaoDeInclusao(false);
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash()
+					.setKeepMessages(true);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Gravado com sucesso!", "."));
 			resultado = "pesquisar-instituicao.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Gravar!", "."));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Falha ao Gravar!", "."));
 			System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
