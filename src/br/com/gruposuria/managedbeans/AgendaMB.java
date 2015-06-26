@@ -38,7 +38,7 @@ public class AgendaMB {
         eventModel = new DefaultScheduleModel();
 
     	for (Turma turma : turmas) {
-    		eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome(), turma.getData(), turma.getDataFim()));
+    		eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome(), turma.getData(), turma.getDataFim(), turma.getCodigo()));
 		}
     }
               

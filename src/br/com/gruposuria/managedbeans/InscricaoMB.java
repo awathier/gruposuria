@@ -474,6 +474,7 @@ public class InscricaoMB implements Serializable {
 	
 	public String acaoInscricao() {
 		
+		setCursoSelecionado(new Curso());
 		System.out.println("acaoInscricao");
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
