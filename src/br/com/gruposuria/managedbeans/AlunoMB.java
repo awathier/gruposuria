@@ -39,6 +39,8 @@ public class AlunoMB {
 	
 	@PostConstruct
 	public void init() {
+		this.instituicaoSelecionada = new Instituicao();
+		this.idInstituicao = "";
 		listaInstituicoes();
 	}
 	
@@ -78,7 +80,11 @@ public class AlunoMB {
 		if( (!"".equals(acaoDeInclusao)) && (acaoDeInclusao == false) ){
 			try {
 				mostrarBotaoAlterar = true;
+				this.idInstituicao = "";
 				this.aluno = alunoModel.consultarPorCodigo(alunoSelecionado.getCodigo());
+				if ( (this.aluno.getInstituicao() != null) &&(this.aluno.getInstituicao().getCodigo() != null) && (!"".equals(this.aluno.getInstituicao().getCodigo()))) {
+					this.idInstituicao = this.aluno.getInstituicao().getCodigo().toString();
+				}
 				listaInstituicoes();
 				resultado  = "cadastrar-aluno.jsf?faces-redirect=true";
 			    FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);  

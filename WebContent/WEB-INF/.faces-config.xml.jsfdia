@@ -9,18 +9,15 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#default.xhtml" PATH="/default.xhtml"
   SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#inscricao.xhtml" PATH="/inscricao.xhtml"
-  SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#inscricao.xhtml:0" NAME="item"
-   PATH="/inscricao.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="loginPage::#inscricao.xhtml" NAME="output"
-    PATH="/inscricao.xhtml" TARGET="rules:#inscricao.xhtml"
-    TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#agenda.xhtml" PATH="/agenda.xhtml"
   SHAPE="240,145,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#agenda.xhtml:0" NAME="item"
+   PATH="/agenda.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="preInscricao::#preInscricao.xhtml"
+    NAME="output" PATH="/preInscricao.xhtml"
+    TARGET="rules:#preInscricao.xhtml" TITLE="preInscricao" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#agenda.xhtml:1" NAME="item1"
    PATH="/agenda.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="loginPage::#agenda.xhtml" NAME="output"
     PATH="/agenda.xhtml" TARGET="rules:#agenda.xhtml" TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
@@ -35,4 +32,23 @@
     TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#preInscricao.xhtml"
+  PATH="/preInscricao.xhtml" SHAPE="464,273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#preInscricao.xhtml:0" NAME="item"
+   PATH="/preInscricao.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="loginPage::#inscricaoPJ.xhtml" NAME="output"
+    PATH="/inscricaoPJ.xhtml" TARGET="rules:#inscricaoPJ.xhtml"
+    TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#preInscricao.xhtml:1" NAME="item1"
+   PATH="/preInscricao.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="loginPage::#inscricaoPF.xhtml" NAME="output"
+    PATH="/inscricaoPF.xhtml" TARGET="rules:#inscricaoPF.xhtml"
+    TITLE="loginPage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#inscricaoPJ.xhtml" PATH="/inscricaoPJ.xhtml"
+  SHAPE="32,385,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#inscricaoPF.xhtml" PATH="/inscricaoPF.xhtml"
+  SHAPE="688,289,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

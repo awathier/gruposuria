@@ -68,6 +68,7 @@ public class TurmaMB {
 	@PostConstruct
 	public void init() {
 		this.turmas = listaTurmas();
+		listaEstados();
 	}
 	
 	public StatusTurma[] getStatusTurma(){  
@@ -109,6 +110,7 @@ public class TurmaMB {
 				this.turma = turmaModel.consultarPorCodigo(turmaSelecionada.getCodigo());
 				this.idInstrutor = this.turma.getInstrutor().getCodigo().toString();
 				this.idCurso = this.turma.getCurso().getCodigo().toString();
+				this.cidades.add(this.turma.getCidadeCurso());
 				this.idEstado = this.turma.getUf().toString();
 				this.idCidade = this.turma.getCidade().toString();
 				listaCursos();

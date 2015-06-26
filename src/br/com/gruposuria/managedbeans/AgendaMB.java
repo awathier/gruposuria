@@ -16,6 +16,7 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
+import br.com.gruposuria.entity.Aluno;
 import br.com.gruposuria.entity.Turma;
 import br.com.gruposuria.model.TurmaModel;
 
@@ -56,7 +57,7 @@ public class AgendaMB {
     public void onDateSelect(SelectEvent selectEvent) {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
-
+    
 	public List<Turma> getTurmas() {
 		return turmas;
 	}

@@ -41,6 +41,7 @@
 				 
 				    <p:dialog widgetVar="eventDialog" header="Detalhes do Curso" showEffect="clip" hideEffect="clip">
 				        <h:panelGrid id="eventDetails" columns="2">
+				        	<h:outputLabel value="#{agendaMB.event.id.toString()}" />
 				            <h:outputLabel value="Curso:" />
 				            <h:outputLabel value="#{agendaMB.event.title}" />
 				 
@@ -54,7 +55,14 @@
 				                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
 				            </h:outputLabel>
 				            
-				            <p:commandButton id="inscricao" value="Inscreva-se" />
+				            <p:link outcome="preInscricao" value="Inscreva-se">
+							    <f:param name="idCurso" value="#{agendaMB.event.id}" />
+							</p:link>
+				            
+				            <p:commandButton id="inscricao"  value="Inscreva-se" action="#{inscricaoMB.acaoInscricao}" process="@this" update="@form" icon="ui-icon-disk">
+				            	<f:param name="idCurso" value="#{agendaMB.event.id}" />
+				            </p:commandButton>
+				            
 
 				        </h:panelGrid>
 				    </p:dialog>    

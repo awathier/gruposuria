@@ -45,10 +45,16 @@
 					<f:facet name="header">
 			            Lista de Turmas
 			        </f:facet>
-			        	<p:column headerText="" style="width:30px;text-align:center">
+			        	<p:column headerText="" style="width:200px;text-align:center">
+			        	
+			        		<p:commandButton id="inscricao"  value="Inscreva-se" action="#{inscricaoMB.acaoInscricao}" process="@this" update="@form" icon="ui-icon-disk">
+				            	<f:param name="idCurso" value="#{t.curso.codigo}" />
+				            </p:commandButton>
+			        	
 				             <p:commandButton id="detalhes" update=":frmTurma:turmaDetail" oncomplete="PF('turmaDialog').show()" icon="ui-icon-search" title="Detalhes">
 				                <f:setPropertyActionListener value="#{t}" target="#{consultaTurmaMB.turmaSelecionada}" />
 				            </p:commandButton>
+				            
 				             <p:tooltip id="detalhesTipFade" for="detalhes" value="Exibir Detalhes" trackMouse="true" showEffect="fade" hideEffect="fade" />
 						    
 				        </p:column>
@@ -64,7 +70,7 @@
 					        <h:outputText value="#{t.instrutor.nome}" />
 					    </p:column> -->
 					 
-					    <p:column style="width:120px;" headerText="CIDADE" sortBy="#{t.cidadeCurso.nome}">
+					    <p:column style="width:100px;" headerText="CIDADE" sortBy="#{t.cidadeCurso.nome}">
 					        <h:outputText value="#{t.cidadeCurso.nome}"  />
 					    </p:column>
 					    

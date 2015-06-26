@@ -16,7 +16,7 @@
 			<div id="migalhadepao">
 				<p:breadCrumb>
 					<p:menuitem value="home" url="default.jsf" />
-					<p:menuitem value="Inscrição" url="inscricao.jsf" />
+					<p:menuitem value="Inscrição no #{inscricaoMB.cursoSelecionado.nome}" url="inscricao.jsf" />
 				</p:breadCrumb>
 			</div>
 		</ui:define>
@@ -79,7 +79,7 @@
 											minQueryLength="3"
 											label="#{msgs.nome}" required="true"
 											>
-											<p:ajax event="itemSelect" listener="#{inscricaoMB.onItemSelectInstituicao}" update="nome growl" />
+											<p:ajax event="itemSelect" listener="#{inscricaoMB.onItemSelectInstituicao}" update="@form nome growl" />
 											<p:column>
 								                 <h:outputText value="#{instituicao.nome}" />
 								            </p:column>
@@ -255,11 +255,10 @@
 										<p:outputLabel for="cidade" value="Cidade:" />
 										<p:selectOneMenu id="cidade" required="true"
 											requiredMessage="Cidade requerida"
-											value="#{inscricaoMB.idCidade}">
-											<f:selectItem itemLabel="Selecione..." itemValue=""
-												noSelectionOption="true" />
-											<f:selectItems value="#{inscricaoMB.cidades}" var="c"
-												itemValue="#{c.idCidade}" itemLabel="#{c.nome}" />
+											value="#{inscricaoMB.idCidade}"
+										>
+											<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+											<f:selectItems value="#{inscricaoMB.cidades}" var="c" itemValue="#{c.idCidade}" itemLabel="#{c.nome}" />
 										</p:selectOneMenu>
 
 										<h:outputLabel for="cep" value="CEP: " />

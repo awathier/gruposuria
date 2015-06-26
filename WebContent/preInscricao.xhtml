@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+
+	<ui:composition template="template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem
+						value="Inscrição no #{inscricaoMB.cursoSelecionado.nome}"
+						url="preIscricao.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+
+				<h:form>
+
+					<!-- <f:metadata> 
+				    <f:viewParam  name="idCurso" value="#{inscricaoMB.idCurso}" /> 
+				</f:metadata> -->
+
+					<p:growl id="msgs" showDetail="true" />
+
+					<p:fieldset legend="Realizador da Inscrição?" style="margin-bottom:20px">
+
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<p:link outcome="inscricaoPF" value="Próprio Aluno Interessado">
+							    <f:param name="idCurso" value="#{inscricaoMB.idCurso}" />
+							</p:link>
+							<br /><br />
+							<p:link outcome="inscricaoPJ" value="Instituição">
+							    <f:param name="idCurso" value="#{inscricaoMB.idCurso}" />
+							</p:link>
+						</h:panelGrid>
+					</p:fieldset>
+
+				</h:form>
+
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>
