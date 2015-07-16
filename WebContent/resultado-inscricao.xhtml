@@ -28,24 +28,19 @@
 
 				<h:form>
 
-					<!-- <f:metadata> 
-				    <f:viewParam  name="idCurso" value="#{inscricaoMB.idCurso}" /> 
-				</f:metadata> -->
-
-					<p:growl id="msgs" showDetail="true" />
-
-					<p:fieldset legend="Realizador da Inscrição?" style="margin-bottom:20px">
-
-						<h:panelGrid columns="2" columnClasses="label, value">
-							<p:link outcome="inscricaoPF" value="Pessoa Física">
-							    <f:param name="idTurma" value="#{inscricaoMB.idTurma}" />
-							</p:link>
-							<br /><br />
-							<p:link outcome="inscricaoPJ" value="Pessoa Jurídica">
-							    <f:param name="idTurma" value="#{inscricaoMB.idTurma}" />
-							</p:link>
-						</h:panelGrid>
-					</p:fieldset>
+					Inscrição Realizada com sucesso!!!
+					Você receberá um email com os dados de sua inscrição.
+					
+					Att Equipe Suria
+					
+					<br /><br /><br />
+					
+					<p:commandButton 	value="Voltar para a agenda de cursos" 
+										actionListener="#{inscricaoMB.acaoAgendaDeCursos}" 
+										ajax="false" 
+										style="width:300px;height:100px; align=center"
+					/>
+				        
 
 				</h:form>
 

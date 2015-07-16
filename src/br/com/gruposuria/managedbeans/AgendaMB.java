@@ -1,7 +1,6 @@
 package br.com.gruposuria.managedbeans;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +15,8 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
-import br.com.gruposuria.entity.Aluno;
+import br.com.gruposuria.entity.Curso;
+import br.com.gruposuria.entity.Instituicao;
 import br.com.gruposuria.entity.Turma;
 import br.com.gruposuria.model.TurmaModel;
 
@@ -31,16 +31,35 @@ public class AgendaMB {
     private ScheduleEvent event = new DefaultScheduleEvent();
     
     private List<Turma> turmas = new ArrayList<Turma>();
+    private Instituicao instituicao = new Instituicao();
+    private Turma turma = new Turma();
+    private Curso curso = new Curso();
  
     @PostConstruct
     public void init() {
+    	
     	this.turmas = turmaModel.listaTurmas();
-        eventModel = new DefaultScheduleModel();
+    	this.eventModel = new DefaultScheduleModel();
 
     	for (Turma turma : turmas) {
-    		eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome(), turma.getData(), turma.getDataFim(), turma.getCodigo()));
+    		this.eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome(), turma.getData(), turma.getDataFim(), turma.getCodigo()));
 		}
+    	
     }
+    
+    /*public List<Turma> listaTurmas(){
+    	
+    	setTurmas(new ArrayList<Turma>());
+		this.turmas = turmaModel.listaTurmas();
+		
+		this.eventModel = new DefaultScheduleModel();
+
+    	for (Turma turma : turmas) {
+    		this.eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome(), turma.getData(), turma.getDataFim(), turma.getCodigo()));
+		}
+    	
+		return this.turmas;
+	}*/
               
     public ScheduleModel getEventModel() {
         return eventModel;
@@ -69,4 +88,29 @@ public class AgendaMB {
 	public void setEvent(ScheduleEvent event) {
 		this.event = event;
 	}
+
+	public Instituicao getInstituicao() {
+		return instituicao;
+	}
+
+	public void setInstituicao(Instituicao instituicao) {
+		this.instituicao = instituicao;
+	}
+
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
  }

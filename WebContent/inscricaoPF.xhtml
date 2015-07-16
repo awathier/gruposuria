@@ -16,7 +16,9 @@
 			<div id="migalhadepao">
 				<p:breadCrumb>
 					<p:menuitem value="home" url="default.jsf" />
-					<p:menuitem value="Inscrição" url="inscricao.jsf" />
+					<p:menuitem
+						value="Inscrição no #{inscricaoMB.cursoSelecionado.nome}"
+						url="inscricao.jsf" />
 				</p:breadCrumb>
 			</div>
 		</ui:define>
@@ -49,275 +51,31 @@
 				<h:form id="frmInscricao">
 
 					<!-- <p:messages id="msgs" closable="true" /> -->
-					<p:growl id="growl" sticky="true" life="6000" showDetail="true" />
+					<p:growl id="growl" life="6000" closable="true" />
 					<!-- <p:growl id="growl" life="6000" /> -->
 
 					<p:wizard flowListener="#{inscricaoMB.onFlowProcess}"
 						widgetVar="wiz" nextLabel="Próximo" backLabel="Anterior">
 
-						<p:tab id="instituicao" title="Instituição">
+						<p:tab id="participante" title="Participante">
 
-							<p:panel header="Dados da Instituição">
+							<p:panel header="Dados do Participante">
 								<p:messages />
 
-								<p:panel id="painelBasico" style="margin-bottom:20px">
-									<h:panelGrid id="instituicaoGridBasico" columns="4"
-										cellpadding="5">
 
-										
-										
-										<h:outputLabel for="nome" value="Nome: " />
-										<p:autoComplete id="nome"
-											value="#{inscricaoMB.instituicao}"
-											completeMethod="#{inscricaoMB.listaInstituicoes()}"
-											var="instituicao"
-											itemLabel="#{inscricaoMB.instituicao.nome}"
-											itemValue="#{instituicao}"
-											converter="instituicaoConverter"
-											styleClass="f12col cheetos"
-											effect="fade" size="30"
-											minQueryLength="3"
-											label="#{msgs.nome}" required="true"
-											>
-											<p:ajax event="itemSelect" listener="#{inscricaoMB.onItemSelectInstituicao}" update="@form nome growl" />
-											<p:column>
-								                 <h:outputText value="#{instituicao.nome}" />
-								            </p:column>
-								            <p:column>
-								                <h:outputText value="#{instituicao.codigo}" />
-								            </p:column>
-										</p:autoComplete>
-
-										<h:outputLabel for="cnpj" value="CNPJ: " />
-										<p:inputMask id="cnpj"
-											value="#{inscricaoMB.instituicao.cnpj}"
-											converter="cnpjConverter" required="true"
-											mask="99.999.999/9999-99" size="20"
-											requiredMessage="CNPJ requerido">
-											<f:validator validatorId="cnpjValidator" />
-										</p:inputMask>
-
-										<h:outputLabel for="inscricaoEstadual"
-											value="Inscrição Estadual: " />
-										<p:inputText id="inscricaoEstadual"
-											value="#{inscricaoMB.instituicao.inscricaoEstadual}"
-											size="30" requiredMessage="INSCRIÇÃO ESTADUAL requerido">
-										</p:inputText>
-
-										<h:outputLabel value="" />
-										<h:outputLabel value="" />
-
-										<h:outputLabel for="endereco" value="Endereço: " />
-										<p:inputTextarea id="endereco" rows="3" cols="35"
-											value="#{inscricaoMB.instituicao.endereco}"
-											counter="displayEndereco" maxlength="200"
-											counterTemplate="{0} caracteres restantes."
-											autoResize="false" requiredMessage="Tamanha máximo " />
-										<h:outputLabel for="displayEndereco" value="" />
-										<h:outputText id="displayEndereco" />
-
-									</h:panelGrid>
-								</p:panel>
-
-								<p:panel id="dadosResponsavel" style="margin-bottom:20px">
-									<h:panelGrid id="instituicaoGridResponsavel" columns="4"
-										cellpadding="5">
-
-										<h:outputLabel for="responsavelInstituicao"
-											value="Responsável: " />
-										<p:inputText id="responsavelInstituicao"
-											value="#{inscricaoMB.instituicao.nomeResponsavel}"
-											required="true" size="30"
-											requiredMessage="Responsável requerido">
-											<f:validateLength maximum="80" />
-											<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
-										</p:inputText>
-
-										<h:outputLabel for="setorResponsavelInstituicao"
-											value="Setor Responsável: " />
-										<p:inputText id="setorResponsavelInstituicao"
-											value="#{inscricaoMB.instituicao.setorResponsavel}"
-											required="false" size="30"
-											requiredMessage="Responsável: requerido">
-											<f:validateLength maximum="80" />
-											<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
-										</p:inputText>
-
-										<h:outputLabel for="telefoneResponsavel"
-											value="Telefone Responsável: " />
-										<p:inputMask id="telefoneResponsavel"
-											value="#{inscricaoMB.instituicao.telefoneResponsavel}"
-											converter="telefoneConverter" required="false"
-											mask="(99) 9999-9999" size="12"
-											validatorMessage="Telefone Invalido!"
-											requiredMessage="Telefone Responsável requerido">
-										</p:inputMask>
-
-										<h:outputLabel for="celularResponsavel"
-											value="Celular Responsável: " />
-										<p:inputMask id="celularResponsavel"
-											value="#{inscricaoMB.instituicao.celularResponsavel}"
-											converter="telefoneConverter" required="false"
-											mask="(99) 9999-9999" size="12"
-											validatorMessage="Celular Invalido!"
-											requiredMessage="Celular Responsável requerido">
-										</p:inputMask>
-
-										<h:outputLabel for="emailResponsavel"
-											value="Email Responsável: " />
-										<p:inputText id="emailResponsavel"
-											value="#{inscricaoMB.instituicao.emailResponsavel}"
-											required="false"
-											validatorMessage="Campo Email Responsável invalido!"
-											size="20" requiredMessage="Email Responsável: requerido">
-											<!-- <f:validator validatorId="emailValidator" /> -->
-											<!-- <f:validateRegex pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" /> -->
-											<f:validateLength maximum="80" />
-										</p:inputText>
-
-										<h:outputLabel value="" />
-										<h:outputLabel value="" />
-
-										<h:outputLabel value="" />
-										<h:outputLabel value="" />
-
-										<h:outputLabel value="" />
-										<h:outputLabel value="" />
-
-									</h:panelGrid>
-								</p:panel>
-
-								<p:panel id="dadosFinanceiro" style="margin-bottom:20px">
-									<h:panelGrid id="instituicaoGridFinanceiro" columns="4"
-										cellpadding="5">
-
-										<h:outputLabel for="responsavelFinanceiro"
-											value="Responsável Financeiro: " />
-										<p:inputText id="responsavelFinanceiro"
-											value="#{inscricaoMB.instituicao.nomeFinanceiro}"
-											required="false" size="30"
-											requiredMessage="Responsável Financeiro requerido">
-											<f:validateLength maximum="80" />
-											<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
-										</p:inputText>
-
-										<h:outputLabel for="telefoneFinanceiro"
-											value="Telefone Financeiro: " />
-										<p:inputMask id="telefoneFinanceiro"
-											value="#{inscricaoMB.instituicao.telefoneFinanceiro}"
-											converter="telefoneConverter" required="false"
-											mask="(99) 9999-9999" size="12"
-											validatorMessage="Telefone Invalido!"
-											requiredMessage="Telefone Financeiro requerido">
-										</p:inputMask>
-
-										<h:outputLabel for="celularFinanceiro"
-											value="Celular Financeiro: " />
-										<p:inputMask id="celularFinanceiro"
-											value="#{inscricaoMB.instituicao.celularFinanceiro}"
-											converter="telefoneConverter" required="false"
-											mask="(99) 9999-9999" size="12"
-											validatorMessage="Celular Invalido!"
-											requiredMessage="Celular Financeiro requerido">
-										</p:inputMask>
-
-										<h:outputLabel for="emailFinanceiro"
-											value="Email Financeiro: " />
-										<p:inputText id="emailFinanceiro"
-											value="#{inscricaoMB.instituicao.emailFinanceiro}"
-											required="false"
-											validatorMessage="Campo Email Financeiro invalido!" size="20"
-											requiredMessage="Email Financeiro requerido">
-											<!-- <f:validator validatorId="emailValidator" /> -->
-											<!-- <f:validateRegex pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" /> -->
-											<f:validateLength maximum="80" />
-										</p:inputText>
-
-									</h:panelGrid>
-								</p:panel>
-
-								<p:panel id="painelBasico1" style="margin-bottom:20px">
-									<h:panelGrid id="instituicaoGridBasico1" columns="4"
-										cellpadding="5">
-
-										<p:outputLabel for="estado" value="Estado:" />
-										<p:selectOneMenu id="estado" required="true"
-											requiredMessage="UF requerida"
-											value="#{inscricaoMB.idEstado}">
-											<f:selectItem itemLabel="Selecione..." itemValue=""
-												noSelectionOption="true" />
-											<f:selectItems value="#{inscricaoMB.estados}" var="e"
-												itemValue="#{e.idEstado}" itemLabel="#{e.nome}" />
-											<p:ajax listener="#{inscricaoMB.consultaCidadePorUf()}"
-												event="change" process="@this" update="@this cidade" />
-										</p:selectOneMenu>
-
-										<p:outputLabel for="cidade" value="Cidade:" />
-										<p:selectOneMenu id="cidade" required="true"
-											requiredMessage="Cidade requerida"
-											value="#{inscricaoMB.idCidade}"
-										>
-											<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
-											<f:selectItems value="#{inscricaoMB.cidades}" var="c" itemValue="#{c.idCidade}" itemLabel="#{c.nome}" />
-										</p:selectOneMenu>
-
-										<h:outputLabel for="cep" value="CEP: " />
-										<p:inputMask id="cep" mask="99999-999"
-											value="#{inscricaoMB.instituicao.cep}" />
-
-									</h:panelGrid>
-								</p:panel>
-
-							</p:panel>
-
-						</p:tab>
-
-						<p:tab id="pagamento" title="Pagamento">
-							<p:panel header="Forma de Pagamento">
-								<p:messages />
-								<h:panelGrid id="pagamentoGrid" columns="4" cellpadding="5"
-									columnClasses="label, value">
-
-									<p:outputLabel for="formaPagamento" value="Forma Pagamento: " />
-									<p:selectOneMenu id="formaPagamento" required="true"
-										value="#{inscricaoMB.turmaAluno.formaPagamento}">
-										<f:selectItem itemLabel="Selecione..." itemValue="E" />
-										<f:selectItems value="#{inscricaoMB.formaPagamento}" var="fp"
-											itemValue="#{fp}" itemLabel="#{fp.descricao}" />
-									</p:selectOneMenu>
-
-									<!-- <h:outputText value="Pular para o final: " />
-									<h:selectBooleanCheckbox value="#{inscricaoMB.skip}" /> -->
-								</h:panelGrid>
-							</p:panel>
-						</p:tab>
-
-						<p:tab id="participantes" title="Participantes">
-							<p:panel header="Dados dos Participantes">
-								<p:messages />
-								<h:panelGrid columns="2" columnClasses="label, value">
-
-									<p:outputLabel for="participanteNecessidadesEspeciais"
-										value="Algum Participante Portador de Necessidades Especiais?" />
-									<p:selectOneMenu id="participanteNecessidadesEspeciais"
-										required="false" value="#{inscricaoMB.aluno.especial}">
-										<f:selectItem itemLabel="Selecione..." itemValue="N" />
-										<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl"
-											itemValue="#{vl}" itemLabel="#{vl.descricao}" />
-									</p:selectOneMenu>
+								<h:panelGrid id="participanteGridBasico" columns="4" cellpadding="5">
 
 									<h:outputLabel value="Participante : *" for="participanteNome"></h:outputLabel>
 									<p:inputText id="participanteNome"
-										value="#{inscricaoMB.aluno.nome}" size="45"
+										value="#{inscricaoMB.aluno.nome}" size="40"
 										requiredMessage="Participante requerido" required="true">
 										<f:validateLength maximum="80" />
 										<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
 									</p:inputText>
 
-									<p:watermark for="participanteNome" value="Nome completo"
-										id="participanteNomeWatermark" />
+									<p:watermark for="participanteNome" value="Nome completo" id="participanteNomeWatermark" />
 									<h:outputLabel value="" />
-
+									
 									<h:outputLabel value="" />
 									<p:tooltip id="participanteNomeTipFade" for="participanteNome"
 										value="Nome completo do participante" trackMouse="true"
@@ -350,159 +108,46 @@
 										requiredMessage="TELEFONE requerido">
 									</p:inputMask>
 
+									<p:outputLabel for="participanteNecessidadesEspeciais"
+										value="Algum Participante Portador de Necessidades Especiais?" />
+									<p:selectOneMenu id="participanteNecessidadesEspeciais"
+										required="false" value="#{inscricaoMB.aluno.especial}">
+										<f:selectItem itemLabel="Selecione..." itemValue="N" />
+										<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl"
+											itemValue="#{vl}" itemLabel="#{vl.descricao}" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+
+
+							</p:panel>
+
+						</p:tab>
+
+						<p:tab id="pagamento" title="Pagamento">
+							<p:panel header="Forma de Pagamento">
+								<p:messages />
+								<h:panelGrid id="pagamentoGrid" columns="4" cellpadding="5"
+									columnClasses="label, value">
+
+									<p:outputLabel for="formaPagamento" value="Forma Pagamento: " />
+									<p:selectOneMenu id="formaPagamento" required="true"
+										value="#{inscricaoMB.turmaAluno.formaPagamento}">
+										<f:selectItem itemLabel="Selecione..." itemValue="E" />
+										<f:selectItems value="#{inscricaoMB.formaPagamento}" var="fp"
+											itemValue="#{fp}" itemLabel="#{fp.descricao}" />
+									</p:selectOneMenu>
+
 									<!-- <h:outputText value="Pular para o final: " />
 									<h:selectBooleanCheckbox value="#{inscricaoMB.skip}" /> -->
-
-								</h:panelGrid>
-								<h:panelGrid columns="4" cellpadding="5">
-									<p:commandButton id="btn_reset" value="Limpar" type="reset" />
-									<p:commandButton id="btn_add" value="Adicionar"
-										update="alunos growl @parent" action="#{inscricaoMB.reinit}">
-										<p:collector value="#{inscricaoMB.aluno}"
-											addTo="#{inscricaoMB.alunos}" unique="true" />
-									</p:commandButton>
 								</h:panelGrid>
 							</p:panel>
-							<p:outputPanel id="alunos">
-								<h:panelGrid columns="2" columnClasses="label, value">
-									<ui:fragment rendered="#{not empty inscricaoMB.alunos}"
-										id="listaDeAlunos">
-										<p:dataTable value="#{inscricaoMB.alunos}" var="a"
-											id="alunosTable">
-
-											<p:column headerText="Nome">
-												<h:outputText value="#{a.nome.toUpperCase()}" />
-											</p:column>
-
-
-											<p:column headerText="CPF">
-												<f:facet name="header">
-													<h:outputText value="CPF" />
-												</f:facet>
-												<h:outputText value="#{a.cpf}" />
-											</p:column>
-
-											<p:column headerText="Email">
-												<f:facet name="header">
-													<h:outputText value="Email" />
-												</f:facet>
-												<h:outputText value="#{a.email}" />
-											</p:column>
-
-											<p:column headerText="Telefone">
-												<f:facet name="header">
-													<h:outputText value="Telefone"
-														converter="telefoneConverter" />
-												</f:facet>
-												<h:outputText value="#{a.telefone}" />
-											</p:column>
-
-											<p:column headerText="Ação" style="text-align: center">
-												<p:commandLink value="." update=":frmInscricao:alunos"
-													process=":frmInscricao:alunos">
-													<p:collector value="#{a}"
-														removeFrom="#{inscricaoMB.alunos}" unique="true" />
-												</p:commandLink>
-												<p:commandButton id="removerParticipante"
-													update=":frmInscricao:alunos"
-													process=":frmInscricao:alunos" icon="ui-icon-trash"
-													title="Remover Participante">
-													<p:collector value="#{a}"
-														removeFrom="#{inscricaoMB.alunos}" unique="true" />
-												</p:commandButton>
-											</p:column>
-
-										</p:dataTable>
-									</ui:fragment>
-								</h:panelGrid>
-							</p:outputPanel>
 						</p:tab>
 
 						<p:tab id="confirm" title="Confirmação">
 							<p:panel header="Confirmação do Cadastro">
 								<h:panelGrid id="confirmation" columns="1"
 									columnClasses="grid,grid,grid">
-
-									<p:fieldset legend="Instituição">
-
-										<h:panelGrid columns="2" columnClasses="label, value">
-											<h:outputText value="Instituição: " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.nome.toUpperCase()}"
-												styleClass="outputLabel" />
-
-											<h:outputText value="CNPJ: " />
-											<h:outputText value="#{inscricaoMB.instituicao.cnpj}"
-												styleClass="outputLabel" />
-
-											<h:outputText value="Inscrição Estadual: " />
-											<h:outputText value="#{inscricaoMB.instituicao.inscricaoEstadual}"
-												styleClass="outputLabel" />
-												
-											<h:outputText value="Endereço: " />
-											<h:outputText value="#{inscricaoMB.instituicao.endereco}"
-												styleClass="outputLabel" />
-
-											<h:outputText value="Responsavel: " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.nomeResponsavel.toUpperCase()}"
-												styleClass="outputLabel" />
-												
-											<h:outputText value="Setor Responsável: " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.setorResponsavel.toUpperCase()}"
-												styleClass="outputLabel" />
-												
-											<h:outputText value="Telefone Responsável: " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.telefoneResponsavel}" converter="telefoneConverter"
-												styleClass="outputLabel" />
-												
-											<h:outputText value="Celular Responsável: " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.celularResponsavel}" converter="telefoneConverter"
-												styleClass="outputLabel" />
-												
-											<h:outputText value="Email Responsável: " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.emailResponsavel}"
-												styleClass="outputLabel" />
-												
-											<h:outputText value="Responsável Financeiro: " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.nomeFinanceiro.toUpperCase()}"
-												styleClass="outputLabel" />
-												
-											<h:outputText value="Telefone Financeiro " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.telefoneFinanceiro}" converter="telefoneConverter"
-												styleClass="outputLabel" />
-												
-											<h:outputText value="Celular Financeiro " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.celularFinanceiro}" converter="telefoneConverter"
-												styleClass="outputLabel" />
-												
-											<h:outputText value="Email Financeiro: " />
-											<h:outputText
-												value="#{inscricaoMB.instituicao.emailFinanceiro}"
-												styleClass="outputLabel" />
-												
-										</h:panelGrid>
-
-									</p:fieldset>
-
-									<p:fieldset legend="Pagamento">
-
-										<h:panelGrid columns="2" columnClasses="label, value">
-											<h:outputText value="Forma de Pagamento: " />
-											<h:outputText
-												value="#{inscricaoMB.turmaAluno.formaPagamento}"
-												styleClass="outputLabel" />
-
-										</h:panelGrid>
-
-									</p:fieldset>
 
 									<p:fieldset legend="Participantes" style="margin-bottom:20px">
 
@@ -522,7 +167,7 @@
 													sortBy="#{als.nome}">
 													<h:outputText value="#{als.cpf}" />
 												</p:column>
-												
+
 												<p:column style="width:100px;" headerText="Email"
 													sortBy="#{als.email}">
 													<h:outputText value="#{als.email}" />
@@ -530,11 +175,12 @@
 
 												<p:column style="width:100px;" headerText="Telefone"
 													sortBy="#{als.telefone}">
-													<h:outputText value="#{als.telefone}" converter="telefoneConverter" />
+													<h:outputText value="#{als.telefone}"
+														converter="telefoneConverter" />
 												</p:column>
 
-												<p:column style="width:100px;" headerText="Necessid. Especiais?"
-													sortBy="#{als.especial}">
+												<p:column style="width:100px;"
+													headerText="Necessid. Especiais?" sortBy="#{als.especial}">
 													<h:outputText value="#{als.especial}" />
 												</p:column>
 
@@ -544,9 +190,24 @@
 
 									</p:fieldset>
 
+									<p:fieldset legend="Pagamento">
+
+										<h:panelGrid columns="2" columnClasses="label, value">
+											<h:outputText value="Forma de Pagamento: " />
+											<h:outputText
+												value="#{inscricaoMB.turmaAluno.formaPagamento}"
+												styleClass="outputLabel" />
+
+										</h:panelGrid>
+
+									</p:fieldset>
+
+									
+
 								</h:panelGrid>
 
-								<p:commandButton value="Salvar Cadastro" style="width:870px;height:100px"
+								<p:commandButton value="Salvar Inscrição"
+									style="width:870px;height:100px"
 									actionListener="#{inscricaoMB.salvar}" update="growl"
 									process="@this" />
 							</p:panel>

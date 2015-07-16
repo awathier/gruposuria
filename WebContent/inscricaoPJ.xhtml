@@ -49,7 +49,7 @@
 				<h:form id="frmInscricao">
 
 					<!-- <p:messages id="msgs" closable="true" /> -->
-					<p:growl id="growl" sticky="true" life="6000" showDetail="true" />
+					<p:growl id="growl" life="6000" closable="true" />
 					<!-- <p:growl id="growl" life="6000" /> -->
 
 					<p:wizard flowListener="#{inscricaoMB.onFlowProcess}"
@@ -63,8 +63,6 @@
 								<p:panel id="painelBasico" style="margin-bottom:20px">
 									<h:panelGrid id="instituicaoGridBasico" columns="4"
 										cellpadding="5">
-
-										
 										
 										<h:outputLabel for="nome" value="Nome: " />
 										<p:autoComplete id="nome"
@@ -546,7 +544,7 @@
 
 								</h:panelGrid>
 
-								<p:commandButton value="Salvar Cadastro" style="width:870px;height:100px"
+								<p:commandButton value="Salvar Inscrição" style="width:870px;height:100px"
 									actionListener="#{inscricaoMB.salvar}" update="growl"
 									process="@this" />
 							</p:panel>

@@ -25,6 +25,7 @@
 			<div id="conteudoPaginas">
 			
 				<h:form>
+				
 				    <p:growl id="messages" showDetail="true" />
 				 
 				    <h:panelGrid columnClasses="value">
@@ -32,8 +33,8 @@
 				 
 				            <!-- <p:ajax event="dateSelect" listener="#{agendaMB.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" /> -->
 				            <p:ajax event="eventSelect" listener="#{agendaMB.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-				            <p:ajax event="eventMove" listener="#{agendaMB.onEventMove}" update="messages" />
-				            <p:ajax event="eventResize" listener="#{agendaMB.onEventResize}" update="messages" />
+				            <!-- <p:ajax event="eventMove" listener="#{agendaMB.onEventMove}" update="messages" /> -->
+				            <!-- <p:ajax event="eventResize" listener="#{agendaMB.onEventResize}" update="messages" /> -->
 				 
 				        </p:schedule>
 				 
@@ -54,12 +55,12 @@
 				                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
 				            </h:outputLabel>
 				            
-				            <p:link outcome="preInscricao" value="Inscreva-se">
-							    <f:param name="idCurso" value="#{agendaMB.event.data}" />
-							</p:link>
+				            <!-- <p:link outcome="preInscricao" value="Inscreva-se">
+							    <f:param name="idTurma" value="#{agendaMB.event.data}" />
+							</p:link> -->
 				            
 				            <p:commandButton id="inscricao"  value="Inscreva-se" action="#{inscricaoMB.acaoInscricao}" process="@this" update="@form" icon="ui-icon-disk">
-				            	<f:param name="idCurso" value="#{agendaMB.event.data}" />
+				            	<f:param name="idTurma" value="#{agendaMB.event.data}" />
 				            </p:commandButton>
 				            
 
