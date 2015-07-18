@@ -46,7 +46,7 @@ public class InscricaoMB implements Serializable {
 
 	@Inject
 	private TurmaModel turmaModel;
-	
+
 	@Inject
 	private CursoModel cursoModel;
 
@@ -79,7 +79,7 @@ public class InscricaoMB implements Serializable {
 	private List<Turma> turmas = new ArrayList<Turma>();
 	private List<Estado> estados = new ArrayList<Estado>();
 	private List<Cidade> cidades = new ArrayList<Cidade>();
-	
+
 	private Curso cursoSelecionado = new Curso();
 
 	private Estado estado = new Estado();
@@ -126,7 +126,10 @@ public class InscricaoMB implements Serializable {
 		alunoSelecionado.setNome(alunoTemporario.getNome());
 		// servicoTemporario = servico;
 		// }
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aluno:", alunoSelecionado.getNome() + " - " + alunoSelecionado.getCodigo()));
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage("Aluno:", alunoSelecionado.getNome() + " - "
+						+ alunoSelecionado.getCodigo()));
 		// FacesContext.getCurrentInstance().addMessage(null, new
 		// FacesMessage("Serviï¿½o Postal:", event.getObject().toString()));
 	}
@@ -153,18 +156,27 @@ public class InscricaoMB implements Serializable {
 		String resultado = null;
 
 		try {
-			this.turmaAlunoSelecionada = turmaAlunoModel.excluir(turmaAlunoSelecionada);
+			this.turmaAlunoSelecionada = turmaAlunoModel
+					.excluir(turmaAlunoSelecionada);
 			if (this.turmaAlunoSelecionada != null) {
-				FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Excluido com sucesso!", "."));
+				FacesContext.getCurrentInstance().getExternalContext()
+						.getFlash().setKeepMessages(true);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO,
+								"Excluido com sucesso!", "."));
 				setTurmaAluno(new TurmaAluno());
 				setTurmasAluno(new ArrayList<TurmaAluno>());
 				setAcaoDeInclusao(false);
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao Excluir!", "."));
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR,
+								"Erro ao Excluir!", "."));
 			}
 			resultado = "pesquisar-turma-aluno.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -179,15 +191,22 @@ public class InscricaoMB implements Serializable {
 		if ((!"".equals(acaoDeInclusao)) && (acaoDeInclusao == false)) {
 			try {
 				mostrarBotaoAlterar = true;
-				this.turmaAluno = turmaAlunoModel.consultarPorCodigo(turmaAlunoSelecionada.getCodigo());
+				this.turmaAluno = turmaAlunoModel
+						.consultarPorCodigo(turmaAlunoSelecionada.getCodigo());
 				this.turmaSelecionada = this.turmaAluno.getTurma();
-				this.idTurma = this.turmaAluno.getTurma().getCodigo().toString();
+				this.idTurma = this.turmaAluno.getTurma().getCodigo()
+						.toString();
 				this.alunoSelecionado = this.turmaAluno.getAluno();
-				this.idAluno = this.turmaAluno.getAluno().getCodigo().toString();
+				this.idAluno = this.turmaAluno.getAluno().getCodigo()
+						.toString();
 				resultado = "cadastrar-turma-aluno.jsf?faces-redirect=true";
-				FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect(resultado);
 			} catch (Exception e) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Excluir!", "."));
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR,
+								"Falha ao Excluir!", "."));
 				System.out.println("Erro: " + e.getMessage());
 				e.printStackTrace();
 			}
@@ -212,21 +231,27 @@ public class InscricaoMB implements Serializable {
 		setTurmaAluno(new TurmaAluno());
 		return this.turmasAluno;
 	}
-	
+
 	public void onItemSelectInstituicao(SelectEvent event) {
-        
+
 		Instituicao instituicaoTemporaria = ((Instituicao) event.getObject());
-        //if(servico.getNome() == null){
-			this.cidades.add(instituicaoTemporaria.getCidadeInstituicao());
-			idEstado = instituicaoTemporaria.getCidadeInstituicao().getEstado().getIdEstado().toString();
-			idCidade = instituicaoTemporaria.getCidadeInstituicao().getIdCidade().toString();
-        	this.instituicao.setCodigo(instituicaoTemporaria.getCodigo());
-        	this.instituicao.setNome(instituicaoTemporaria.getNome());
-        	//servicoTemporario = servico;
-        //}
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Instituição:", this.instituicao.getNome() + " - " + this.instituicao.getCodigo()));
-		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Serviço Postal:", event.getObject().toString()));
-    }
+		// if(servico.getNome() == null){
+		this.cidades.add(instituicaoTemporaria.getCidadeInstituicao());
+		idEstado = instituicaoTemporaria.getCidadeInstituicao().getEstado()
+				.getIdEstado().toString();
+		idCidade = instituicaoTemporaria.getCidadeInstituicao().getIdCidade()
+				.toString();
+		this.instituicao.setCodigo(instituicaoTemporaria.getCodigo());
+		this.instituicao.setNome(instituicaoTemporaria.getNome());
+		// servicoTemporario = servico;
+		// }
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage("Instituição:", this.instituicao.getNome()
+						+ " - " + this.instituicao.getCodigo()));
+		// FacesContext.getCurrentInstance().addMessage(null, new
+		// FacesMessage("Serviço Postal:", event.getObject().toString()));
+	}
 
 	public String onFlowProcess(FlowEvent event) {
 		if (skip) {
@@ -249,16 +274,24 @@ public class InscricaoMB implements Serializable {
 		try {
 			System.out.println("incluir");
 
-			if ((this.instituicao.getNome() != null) && (!"".equals(this.instituicao.getNome()))) {
-				this.instituicao.setNome(this.instituicao.getNome().toUpperCase());
+			if ((this.instituicao.getNome() != null)
+					&& (!"".equals(this.instituicao.getNome()))) {
+				this.instituicao.setNome(this.instituicao.getNome()
+						.toUpperCase());
 			}
 
-			if ((this.instituicao.getCnpj() != null) && (!"".equals(this.instituicao.getCnpj()))) {
-				this.instituicao.setCnpj(this.instituicao.getCnpj().replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("/", ""));
+			if ((this.instituicao.getCnpj() != null)
+					&& (!"".equals(this.instituicao.getCnpj()))) {
+				this.instituicao.setCnpj(this.instituicao.getCnpj()
+						.replaceAll("\\.", "").replaceAll("\\-", "")
+						.replaceAll("/", ""));
 			}
 
-			if ((this.instituicao.getInscricaoEstadual() != null) && (!"".equals(this.instituicao.getInscricaoEstadual()))) {
-				this.instituicao.setInscricaoEstadual(this.instituicao.getInscricaoEstadual().replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("/", ""));
+			if ((this.instituicao.getInscricaoEstadual() != null)
+					&& (!"".equals(this.instituicao.getInscricaoEstadual()))) {
+				this.instituicao.setInscricaoEstadual(this.instituicao
+						.getInscricaoEstadual().replaceAll("\\.", "")
+						.replaceAll("\\-", "").replaceAll("/", ""));
 			}
 
 			if ((this.instituicao.getEndereco() != null)
@@ -344,32 +377,36 @@ public class InscricaoMB implements Serializable {
 						.replaceAll("/", ""));
 			}
 
-			if( (this.instituicao != null) && (!"".equals(this.instituicao)) ){
+			if ((this.instituicao != null) && (!"".equals(this.instituicao))) {
 				System.out.println("inclusaoInstituicao");
-				if( (this.instituicao.getCodigo()!= null) && (!"".equals(this.instituicao.getCodigo())) ){
-					this.instituicao = instituicaoModel.alterar(this.instituicao);
+				if ((this.instituicao.getCodigo() != null)
+						&& (!"".equals(this.instituicao.getCodigo()))) {
+					this.instituicao = instituicaoModel
+							.alterar(this.instituicao);
 				} else {
-					this.instituicao = instituicaoModel.salvar(this.instituicao);
+					this.instituicao = instituicaoModel
+							.salvar(this.instituicao);
 				}
-				
+
 			}
-			
+
 			System.out.println("inclusaoAluno");
-			
-			String data = "yyyy/MM/dd";  
-			String hora = "h:mm - a";  
-			String data1, hora1;  
-			  
-			java.util.Date dataAtual = new java.util.Date();;  
-			SimpleDateFormat formata = new SimpleDateFormat(data);  
-			data1 = formata.format(dataAtual);  
-			//formata = new SimpleDateFormat(hora);  
-			//hora1 = formata.format(dataAtual);  
-			
-			//this.aluno = alunoModel.salvar(this.aluno);
-			
+
+			String data = "yyyy/MM/dd";
+			String hora = "h:mm - a";
+			String data1, hora1;
+
+			java.util.Date dataAtual = new java.util.Date();
+			;
+			SimpleDateFormat formata = new SimpleDateFormat(data);
+			data1 = formata.format(dataAtual);
+			// formata = new SimpleDateFormat(hora);
+			// hora1 = formata.format(dataAtual);
+
+			// this.aluno = alunoModel.salvar(this.aluno);
+
 			for (Aluno aluno : alunos) {
-				
+
 				System.out.println("incluirAluno");
 				this.aluno.setCpf(aluno.getCpf());
 				this.aluno.setNome(aluno.getNome().toUpperCase());
@@ -377,24 +414,122 @@ public class InscricaoMB implements Serializable {
 				this.aluno.setTelefone(aluno.getTelefone());
 				this.aluno.setEspecial(aluno.getEspecial());
 				this.aluno.setInstituicao(this.instituicao);
-				
-				if(existeAluno(aluno)){
+
+				if (existeAluno(aluno)) {
 					this.aluno = consultaAluno(aluno);
 					this.aluno = alunoModel.alterar(this.aluno);
 				} else {
 					this.aluno = alunoModel.salvar(this.aluno);
 				}
-				
-				if(!alunoJaInscritoNaTurma(aluno, this.turmaSelecionada)){
+
+				if (!alunoJaInscritoNaTurma(aluno, this.turmaSelecionada)) {
 					this.turmaAlunoSelecionada.setAluno(this.aluno);
-					this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno.getFormaPagamento());
-					this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);//setando na mão por enquanto
+					this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno
+							.getFormaPagamento());
+					this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);// setando
+																				// na
+																				// mão
+																				// por
+																				// enquanto
 					this.turmaAlunoSelecionada.setTurma(this.turmaSelecionada);
 					this.turmaAlunoSelecionada.setTalData(dataAtual);
-					this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
+					this.turmaAlunoSelecionada = turmaAlunoModel
+							.salvar(this.turmaAlunoSelecionada);
 				}
-				
-				
+
+			}
+
+			setTurmaAluno(new TurmaAluno());
+			setTurmasAluno(new ArrayList<TurmaAluno>());
+			setAlunoSelecionado(new Aluno());
+			setTurmaSelecionada(new Turma());
+			setEstados(new ArrayList<Estado>());
+			setIdEstado("");
+			setCidades(new ArrayList<Cidade>());
+			setIdCidade("");
+			setAluno(new Aluno());
+			setAlunos(new ArrayList<Aluno>());
+			setInstituicao(new Instituicao());
+			setCursoSelecionado(new Curso());
+			setAcaoDeInclusao(false);
+			FacesContext.getCurrentInstance().getExternalContext().getFlash()
+					.setKeepMessages(true);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Gravado com sucesso!", "."));
+			resultado = "resultado-inscricao.jsf?faces-redirect=true";
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Falha ao Gravar!", "."));
+			System.out.println("Erro: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+
+	public String salvarPF() {
+
+		String resultado = null;
+
+		try {
+			System.out.println("incluir");
+
+			if ((this.aluno.getNome() != null)
+					&& (!"".equals(this.aluno.getNome()))) {
+				this.aluno.setNome(this.aluno.getNome().toUpperCase());
+			}
+
+			if ((this.aluno.getCpf() != null)
+					&& (!"".equals(this.aluno.getCpf()))) {
+				this.aluno.setCpf(this.aluno.getCpf().replaceAll("\\.", "")
+						.replaceAll("\\-", "").replaceAll("/", ""));
+			}
+
+			if ((this.aluno.getTelefone() != null)
+					&& (!"".equals(this.aluno.getTelefone()))) {
+				this.aluno.setTelefone(this.aluno.getTelefone()
+						.replaceAll("\\_", "").replaceAll("\\(", "")
+						.replaceAll("\\)", "").replaceAll("\\-", "")
+						.replaceAll("/", ""));
+			}
+
+			if ((this.aluno.getEmail() != null)
+					&& (!"".equals(this.aluno.getEmail()))) {
+				this.aluno.setEmail(this.aluno.getEmail());
+			}
+
+			System.out.println("inclusaoAluno");
+
+			String data = "yyyy/MM/dd";
+			String hora = "h:mm - a";
+			String data1, hora1;
+
+			java.util.Date dataAtual = new java.util.Date();
+			SimpleDateFormat formata = new SimpleDateFormat(data);
+			data1 = formata.format(dataAtual);
+
+			System.out.println("incluirAluno");
+
+			if (existeAluno(aluno)) {
+				this.aluno = consultaAluno(aluno);
+				this.aluno = alunoModel.alterar(this.aluno);
+			} else {
+				this.aluno = alunoModel.salvar(this.aluno);
+			}
+
+			if (!alunoJaInscritoNaTurma(aluno, this.turmaSelecionada)) {
+				this.turmaAlunoSelecionada = new TurmaAluno();
+				this.turmaAlunoSelecionada.setAluno(this.aluno);
+				this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno.getFormaPagamento());
+				this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);// setando na mão por enquanto
+				this.turmaAlunoSelecionada.setTurma(this.turmaSelecionada);
+				this.turmaAlunoSelecionada.setTalData(dataAtual);
+				this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
 			}
 
 			setTurmaAluno(new TurmaAluno());
@@ -422,7 +557,7 @@ public class InscricaoMB implements Serializable {
 		return resultado;
 	}
 
-	public String alterar() {
+/*	public String alterar() {
 
 		String resultado = null;
 
@@ -435,23 +570,32 @@ public class InscricaoMB implements Serializable {
 			this.turmaSelecionada.setCodigo(Long.parseLong(idTurma));
 			this.turmaAluno.setTurma(turmaSelecionada);
 
-			this.turmaAlunoSelecionada = turmaAlunoModel.alterar(this.turmaAluno);
+			this.turmaAlunoSelecionada = turmaAlunoModel
+					.alterar(this.turmaAluno);
 
 			setTurmaAluno(new TurmaAluno());
 			setTurmasAluno(new ArrayList<TurmaAluno>());
 			setAcaoDeInclusao(false);
 
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash()
+					.setKeepMessages(true);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Gravado com sucesso!", "."));
 			resultado = "agenda.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Gravar!", "."));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Falha ao Gravar!", "."));
 			System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return resultado;
-	}
+	}*/
 
 	public List<Turma> listaTurmas() {
 		this.turmas = turmaModel.listaTurmas();
@@ -478,10 +622,10 @@ public class InscricaoMB implements Serializable {
 		this.estados = estadoModel.listaEstados();
 		return this.estados;
 	}
-	
+
 	public List<Instituicao> listaInstituicoes() {
 		setInstituicoes(new ArrayList<Instituicao>());
-		
+
 		this.instituicoes = instituicaoModel.listaInstituicoes();
 		return this.instituicoes;
 	}
@@ -500,39 +644,43 @@ public class InscricaoMB implements Serializable {
 		return "cadastrar-turma-aluno.jsf?faces-redirect=true";
 
 	}
-	
+
 	public String acaoInscricao() {
-		
+
 		setInstituicao(new Instituicao());
 		setInstituicaoSelecionada(new Instituicao());
 		setCursoSelecionado(new Curso());
 		System.out.println("acaoInscricao");
 		FacesContext fc = FacesContext.getCurrentInstance();
-		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+		Map<String, String> params = fc.getExternalContext()
+				.getRequestParameterMap();
 		this.idTurma = params.get("idTurma");
-		this.turmaSelecionada = turmaModel.consultarPorCodigo(Long.parseLong(this.idTurma));
+		this.turmaSelecionada = turmaModel.consultarPorCodigo(Long
+				.parseLong(this.idTurma));
 		this.cursoSelecionado = this.turmaSelecionada.getCurso();
 		return "preInscricao.jsf?faces-redirect=true";
-		
+
 	}
-	
+
 	public void acaoAgendaDeCursos() {
-		
+
 		String resultado = "";
-		
+
 		setInstituicao(new Instituicao());
 		setInstituicaoSelecionada(new Instituicao());
 		setCursoSelecionado(new Curso());
 		System.out.println("acaoAgendaDeCursos");
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash()
+				.setKeepMessages(true);
 		resultado = "agenda.jsf?faces-redirect=true";
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void cancelar() {
@@ -547,46 +695,47 @@ public class InscricaoMB implements Serializable {
 		setMostrarBotaoAlterar(false);
 		String resultado = "pesquisar-turma-aluno.jsf?faces-redirect=true";
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-	
-	public boolean existeAluno(Aluno aluno){
-		
+
+	public boolean existeAluno(Aluno aluno) {
+
 		boolean retorno = false;
 		Aluno alunoTMP = new Aluno();
 		alunoTMP = alunoModel.consultarPorCpf(aluno.getCpf());
-		
-		if( (alunoTMP!= null) && (!"".equals(alunoTMP)) ){
+
+		if ((alunoTMP != null) && (!"".equals(alunoTMP))) {
 			retorno = true;
 		}
-		
+
 		return retorno;
 	}
-	
-public boolean alunoJaInscritoNaTurma(Aluno aluno, Turma turma){
-		
+
+	public boolean alunoJaInscritoNaTurma(Aluno aluno, Turma turma) {
+
 		boolean retorno = false;
-		
+
 		List<TurmaAluno> listaTurmaAlunos = turmaAlunoModel.listaTurmaAlunos();
-		
+
 		for (TurmaAluno turmaAluno : listaTurmaAlunos) {
-			if( (aluno == turmaAluno.getAluno() && (turma == turmaAluno.getTurma())) ){
+			if ((aluno == turmaAluno.getAluno() && (turma == turmaAluno.getTurma()))) {
 				retorno = true;
 			}
 		}
-		
+
 		return retorno;
 	}
-	
-public Aluno consultaAluno(Aluno aluno){
-		
+
+	public Aluno consultaAluno(Aluno aluno) {
+
 		this.aluno = alunoModel.consultarPorCpf(aluno.getCpf());
-		
+
 		return this.aluno;
 	}
 

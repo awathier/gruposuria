@@ -62,63 +62,94 @@
 							<p:panel header="Dados do Participante">
 								<p:messages />
 
+								<p:panel id="painelBasicoPF" style="margin-bottom:20px">
 
-								<h:panelGrid id="participanteGridBasico" columns="4" cellpadding="5">
+									<h:panelGrid id="participanteGridBasico" columns="4"
+										cellpadding="5" style="margin-bottom:20px">
 
-									<h:outputLabel value="Participante : *" for="participanteNome"></h:outputLabel>
-									<p:inputText id="participanteNome"
-										value="#{inscricaoMB.aluno.nome}" size="40"
-										requiredMessage="Participante requerido" required="true">
-										<f:validateLength maximum="80" />
-										<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
-									</p:inputText>
+										<h:outputLabel value="Participante: *" for="participanteNome"></h:outputLabel>
+										<p:inputText id="participanteNome"
+											value="#{inscricaoMB.aluno.nome}" size="40"
+											requiredMessage="Participante requerido" required="true">
+											<f:validateLength maximum="80" />
+											<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
+										</p:inputText>
 
-									<p:watermark for="participanteNome" value="Nome completo" id="participanteNomeWatermark" />
-									<h:outputLabel value="" />
-									
-									<h:outputLabel value="" />
-									<p:tooltip id="participanteNomeTipFade" for="participanteNome"
-										value="Nome completo do participante" trackMouse="true"
-										showEffect="fade" hideEffect="fade" />
+										<h:outputLabel for="participanteCpf" value="CPF: *" />
+										<p:inputMask id="participanteCpf"
+											value="#{inscricaoMB.aluno.cpf}" converter="cpfConverter"
+											required="true" mask="999.999.999-99" size="20"
+											requiredMessage="CPF requerido">
+											<f:validator validatorId="cpfValidator" />
+										</p:inputMask>
 
-									<h:outputLabel for="participanteCpf" value="CPF: *" />
-									<p:inputMask id="participanteCpf"
-										value="#{inscricaoMB.aluno.cpf}" converter="cpfConverter"
-										required="true" mask="999.999.999-99" size="20"
-										requiredMessage="CPF requerido">
-										<f:validator validatorId="cpfValidator" />
-									</p:inputMask>
+										<p:watermark for="participanteNome" value="Nome completo"
+											id="participanteNomeWatermark" />
+										<h:outputLabel value="" />
 
-									<h:outputLabel for="participanteEmail" value="Email: *" />
-									<p:inputText id="participanteEmail"
-										value="#{inscricaoMB.aluno.email}" required="true"
-										validatorMessage="Campo e-mail invalido!" size="45"
-										requiredMessage="EMAIL requerido">
-										<f:validator validatorId="emailValidator" />
-										<f:validateRegex pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" />
-										<f:validateLength maximum="80" />
-									</p:inputText>
+										<h:outputLabel value="" />
+										<p:tooltip id="participanteNomeTipFade" for="participanteNome"
+											value="Nome completo do participante" trackMouse="true"
+											showEffect="fade" hideEffect="fade" />
 
-									<h:outputLabel for="participanteTelefone" value="Telefone: " />
-									<p:inputMask id="participanteTelefone"
-										value="#{inscricaoMB.aluno.telefone}"
-										converter="telefoneConverter" required="false"
-										mask="(99) 9999-9999" size="20"
-										validatorMessage="TELEFONE Invalido!"
-										requiredMessage="TELEFONE requerido">
-									</p:inputMask>
+										<h:outputLabel for="participanteEmail" value="Email: *" />
+										<p:inputText id="participanteEmail"
+											value="#{inscricaoMB.aluno.email}" required="true"
+											validatorMessage="Campo e-mail invalido!" size="40"
+											requiredMessage="EMAIL requerido">
+											<f:validator validatorId="emailValidator" />
+											<f:validateRegex
+												pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" />
+											<f:validateLength maximum="80" />
+										</p:inputText>
 
-									<p:outputLabel for="participanteNecessidadesEspeciais"
-										value="Algum Participante Portador de Necessidades Especiais?" />
-									<p:selectOneMenu id="participanteNecessidadesEspeciais"
-										required="false" value="#{inscricaoMB.aluno.especial}">
-										<f:selectItem itemLabel="Selecione..." itemValue="N" />
-										<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl"
-											itemValue="#{vl}" itemLabel="#{vl.descricao}" />
-									</p:selectOneMenu>
+										<h:outputLabel for="participanteTelefone" value="Telefone: " />
+										<p:inputMask id="participanteTelefone"
+											value="#{inscricaoMB.aluno.telefone}"
+											converter="telefoneConverter" required="true"
+											mask="(99) 9999-9999" size="20"
+											validatorMessage="TELEFONE Invalido!"
+											requiredMessage="TELEFONE requerido">
+										</p:inputMask>
 
-								</h:panelGrid>
 
+									</h:panelGrid>
+
+									<h:panelGrid columns="2">
+
+										<p:outputLabel for="participanteNecessidadesEspeciais"
+											value="Algum Participante Portador de Necessidades Especiais?" />
+										<p:selectOneMenu id="participanteNecessidadesEspeciais"
+											required="false" value="#{inscricaoMB.aluno.especial}">
+											<f:selectItem itemLabel="Selecione..." itemValue="N" />
+											<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl"
+												itemValue="#{vl}" itemLabel="#{vl.descricao}" />
+										</p:selectOneMenu>
+
+									</h:panelGrid>
+
+								</p:panel>
+
+								<p:panel id="painelBasicoSenha" style="margin-bottom:20px">
+
+									<h:panelGrid columns="4" cellpadding="5">
+
+										<h:outputLabel for="senha1" value="Senha: " />
+										<p:password id="senha1" maxlength="8"
+											value="#{inscricaoMB.aluno.senha}" match="senha2" size="20"
+											validatorMessage="SENHAS devem ser IGUAIS e ter no mínimo 6 CARACTERES "
+											requiredMessage="SENHA requerida">
+											<f:validateLength minimum="6" maximum="8" />
+										</p:password>
+
+										<h:outputLabel for="senha2" maxlength="8"
+											value="Confirma Senha: " />
+										<p:password id="senha2" size="20">
+										</p:password>
+
+									</h:panelGrid>
+
+								</p:panel>
 
 							</p:panel>
 
@@ -152,39 +183,21 @@
 									<p:fieldset legend="Participantes" style="margin-bottom:20px">
 
 										<h:panelGrid columns="2" columnClasses="label, value">
+											<h:outputText value="Nome: " />
+											<h:outputText value="#{inscricaoMB.aluno.nome.toUpperCase()}"
+												styleClass="outputLabel" />
 
-											<p:dataTable var="als" value="#{inscricaoMB.alunos}"
-												stickyHeader="true">
-												<f:facet name="header">
-									            Participantes
-									        </f:facet>
-												<p:column style="width:30px;" headerText="Nome"
-													sortBy="#{als.codigo}">
-													<h:outputText value="#{als.nome.toUpperCase()}" />
-												</p:column>
+											<h:outputText value="CPF: " />
+											<h:outputText value="#{inscricaoMB.aluno.cpf}"
+												styleClass="outputLabel" />
 
-												<p:column style="width:100px;" headerText="CPF"
-													sortBy="#{als.nome}">
-													<h:outputText value="#{als.cpf}" />
-												</p:column>
+											<h:outputText value="Email: " />
+											<h:outputText value="#{inscricaoMB.aluno.email}"
+												styleClass="outputLabel" />
 
-												<p:column style="width:100px;" headerText="Email"
-													sortBy="#{als.email}">
-													<h:outputText value="#{als.email}" />
-												</p:column>
-
-												<p:column style="width:100px;" headerText="Telefone"
-													sortBy="#{als.telefone}">
-													<h:outputText value="#{als.telefone}"
-														converter="telefoneConverter" />
-												</p:column>
-
-												<p:column style="width:100px;"
-													headerText="Necessid. Especiais?" sortBy="#{als.especial}">
-													<h:outputText value="#{als.especial}" />
-												</p:column>
-
-											</p:dataTable>
+											<h:outputText value="Telefone: " />
+											<h:outputText value="#{inscricaoMB.aluno.telefone}"
+												styleClass="outputLabel" />
 
 										</h:panelGrid>
 
@@ -202,13 +215,11 @@
 
 									</p:fieldset>
 
-									
-
 								</h:panelGrid>
 
 								<p:commandButton value="Salvar Inscrição"
 									style="width:870px;height:100px"
-									actionListener="#{inscricaoMB.salvar}" update="growl"
+									actionListener="#{inscricaoMB.salvarPF}" update="growl"
 									process="@this" />
 							</p:panel>
 						</p:tab>
