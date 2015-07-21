@@ -645,7 +645,7 @@ public class InscricaoMB implements Serializable {
 		setInstituicoes(new ArrayList<Instituicao>());
 
 		setInstituicoes(new ArrayList<Instituicao>());
-		this.instituicoes = instituicaoModel.listaInstituicoes(query);
+		this.instituicoes = instituicaoModel.listaInstituicoesPorNome(query);
 		return this.instituicoes;
 	}
 

@@ -51,7 +51,11 @@ public class InstituicaoModel implements Serializable {
 		return instituicao;
 	}
 
-	public List<Instituicao> listaInstituicoes(String nome){
+	public List<Instituicao> listaInstituicoes(){
+		return instituicaoDAO.listaTodos();
+	}
+	
+	public List<Instituicao> listaInstituicoesPorNome(String nome){
 		return instituicaoDAO.consultarPorNome(nome);
 	}
 	
