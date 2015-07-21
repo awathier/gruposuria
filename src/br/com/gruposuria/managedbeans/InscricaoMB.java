@@ -35,6 +35,7 @@ import br.com.gruposuria.model.EstadoModel;
 import br.com.gruposuria.model.InstituicaoModel;
 import br.com.gruposuria.model.TurmaAlunoModel;
 import br.com.gruposuria.model.TurmaModel;
+import br.com.gruposuria.util.EmailUtil;
 
 @ManagedBean
 @SessionScoped
@@ -439,8 +440,11 @@ public class InscricaoMB implements Serializable {
 					this.turmaAlunoSelecionada.setTalData(dataAtual);
 					this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
 				}
+				
+				EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
 
 			}
+			
 
 			setTurmaAluno(new TurmaAluno());
 			setTurmasAluno(new ArrayList<TurmaAluno>());
