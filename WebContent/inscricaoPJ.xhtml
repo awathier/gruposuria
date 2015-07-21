@@ -67,7 +67,7 @@
 										<h:outputLabel for="nome" value="Nome: " />
 										<p:autoComplete id="nome"
 											value="#{inscricaoMB.instituicao}"
-											completeMethod="#{inscricaoMB.listaInstituicoes()}"
+											completeMethod="#{inscricaoMB.listaInstituicoes}"
 											var="instituicao"
 											itemLabel="#{inscricaoMB.instituicao.nome}"
 											itemValue="#{instituicao}"
@@ -81,9 +81,9 @@
 											<p:column>
 								                 <h:outputText value="#{instituicao.nome}" />
 								            </p:column>
-								            <p:column>
+								            <!-- <p:column>
 								                <h:outputText value="#{instituicao.codigo}" />
-								            </p:column>
+								            </p:column> -->
 										</p:autoComplete>
 
 										<h:outputLabel for="cnpj" value="CNPJ: " />

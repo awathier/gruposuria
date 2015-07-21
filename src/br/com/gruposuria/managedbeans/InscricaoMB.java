@@ -254,8 +254,8 @@ public class InscricaoMB implements Serializable {
 		this.instituicao.setNome(instituicaoTemporaria.getNome());
 		// servicoTemporario = servico;
 		// }
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Instituição:", this.instituicao.getNome()
-						+ " - " + this.instituicao.getCodigo()));
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Instituição: " + this.instituicao.getNome(), "."));
 		// FacesContext.getCurrentInstance().addMessage(null, new
 		// FacesMessage("Serviï¿½o Postal:", event.getObject().toString()));
 	}
@@ -455,15 +455,10 @@ public class InscricaoMB implements Serializable {
 			setInstituicao(new Instituicao());
 			setCursoSelecionado(new Curso());
 			setAcaoDeInclusao(false);
-			FacesContext.getCurrentInstance().getExternalContext().getFlash()
-					.setKeepMessages(true);
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Gravado com sucesso!", "."));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
 			resultado = "resultado-inscricao.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
@@ -646,10 +641,11 @@ public class InscricaoMB implements Serializable {
 		return this.estados;
 	}
 
-	public List<Instituicao> listaInstituicoes() {
+	public List<Instituicao> listaInstituicoes(String query) {
 		setInstituicoes(new ArrayList<Instituicao>());
 
-		this.instituicoes = instituicaoModel.listaInstituicoes();
+		setInstituicoes(new ArrayList<Instituicao>());
+		this.instituicoes = instituicaoModel.listaInstituicoes(query);
 		return this.instituicoes;
 	}
 
