@@ -237,18 +237,24 @@ public class InscricaoMB implements Serializable {
 
 		Instituicao instituicaoTemporaria = ((Instituicao) event.getObject());
 		// if(servico.getNome() == null){
+		this.cidades = new ArrayList<Cidade>();
+		this.cidade = new Cidade();
+		this.estados = new ArrayList<Estado>();
+		this.estado = new Estado();
+		this.cidade = instituicaoTemporaria.getCidadeInstituicao();
+		this.estado = instituicaoTemporaria.getCidadeInstituicao().getEstado();
 		this.cidades.add(instituicaoTemporaria.getCidadeInstituicao());
-		idEstado = instituicaoTemporaria.getCidadeInstituicao().getEstado()
-				.getIdEstado().toString();
-		idCidade = instituicaoTemporaria.getCidadeInstituicao().getIdCidade()
-				.toString();
+		this.estados.add(instituicaoTemporaria.getCidadeInstituicao().getEstado());
+		
+		
+		idEstado = instituicaoTemporaria.getCidadeInstituicao().getEstado().getIdEstado().toString();
+		idCidade = instituicaoTemporaria.getCidadeInstituicao().getIdCidade().toString();
+		
 		this.instituicao.setCodigo(instituicaoTemporaria.getCodigo());
 		this.instituicao.setNome(instituicaoTemporaria.getNome());
 		// servicoTemporario = servico;
 		// }
-		FacesContext.getCurrentInstance().addMessage(
-				null,
-				new FacesMessage("Instituição:", this.instituicao.getNome()
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Instituição:", this.instituicao.getNome()
 						+ " - " + this.instituicao.getCodigo()));
 		// FacesContext.getCurrentInstance().addMessage(null, new
 		// FacesMessage("Serviï¿½o Postal:", event.getObject().toString()));
@@ -424,19 +430,14 @@ public class InscricaoMB implements Serializable {
 					this.aluno = alunoModel.salvar(this.aluno);
 				}
 
+				this.turmaAlunoSelecionada = new TurmaAluno();
 				if (!alunoJaInscritoNaTurma(aluno, this.turmaSelecionada)) {
 					this.turmaAlunoSelecionada.setAluno(this.aluno);
-					this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno
-							.getFormaPagamento());
-					this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);// setando
-																				// na
-																				// mï¿½o
-																				// por
-																				// enquanto
+					this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno.getFormaPagamento());
+					this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);
 					this.turmaAlunoSelecionada.setTurma(this.turmaSelecionada);
 					this.turmaAlunoSelecionada.setTalData(dataAtual);
-					this.turmaAlunoSelecionada = turmaAlunoModel
-							.salvar(this.turmaAlunoSelecionada);
+					this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
 				}
 
 			}
