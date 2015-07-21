@@ -117,13 +117,9 @@
 
 									<h:panelGrid columns="2">
 
-										<p:outputLabel for="participanteNecessidadesEspeciais"
-											value="Algum Participante Portador de Necessidades Especiais?" />
-										<p:selectOneMenu id="participanteNecessidadesEspeciais"
-											required="false" value="#{inscricaoMB.aluno.especial}">
-											<f:selectItem itemLabel="Selecione..." itemValue="N" />
-											<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl"
-												itemValue="#{vl}" itemLabel="#{vl.descricao}" />
+										<p:outputLabel for="participanteNecessidadesEspeciais" value="Algum Participante Portador de Necessidades Especiais?" />
+										<p:selectOneMenu id="participanteNecessidadesEspeciais" required="false" value="#{inscricaoMB.aluno.especial}">
+											<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl" itemValue="#{vl}" itemLabel="#{vl.descricao}" />
 										</p:selectOneMenu>
 
 									</h:panelGrid>
@@ -164,7 +160,7 @@
 									<p:outputLabel for="formaPagamento" value="Forma Pagamento: " />
 									<p:selectOneMenu id="formaPagamento" required="true"
 										value="#{inscricaoMB.turmaAluno.formaPagamento}">
-										<f:selectItem itemLabel="Selecione..." itemValue="E" />
+										<!-- <f:selectItem itemLabel="Selecione..." itemValue="E" /> -->
 										<f:selectItems value="#{inscricaoMB.formaPagamento}" var="fp"
 											itemValue="#{fp}" itemLabel="#{fp.descricao}" />
 									</p:selectOneMenu>
@@ -198,6 +194,9 @@
 											<h:outputText value="Telefone: " />
 											<h:outputText value="#{inscricaoMB.aluno.telefone}"
 												styleClass="outputLabel" />
+												
+											<h:outputText value="Possui Necessidades Especiais: " />
+											<h:outputText value="#{inscricaoMB.aluno.especial.descricao}" styleClass="outputLabel" />
 
 										</h:panelGrid>
 
@@ -207,9 +206,7 @@
 
 										<h:panelGrid columns="2" columnClasses="label, value">
 											<h:outputText value="Forma de Pagamento: " />
-											<h:outputText
-												value="#{inscricaoMB.turmaAluno.formaPagamento}"
-												styleClass="outputLabel" />
+											<h:outputText value="#{inscricaoMB.turmaAluno.formaPagamento.descricao}" styleClass="outputLabel" />
 
 										</h:panelGrid>
 
@@ -217,10 +214,8 @@
 
 								</h:panelGrid>
 
-								<p:commandButton value="Salvar Inscrição"
-									style="width:870px;height:100px"
-									actionListener="#{inscricaoMB.salvarPF}" update="growl"
-									process="@this" />
+								<p:commandButton value="Salvar Inscrição" style="width:870px;height:100px"
+									actionListener="#{inscricaoMB.salvarPF}" update="growl" process="@this" />
 							</p:panel>
 						</p:tab>
 

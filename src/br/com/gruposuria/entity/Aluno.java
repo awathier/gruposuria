@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import br.com.gruposuria.enums.ValorLogico;
 
 @Entity
 @Table(name = "ALUNO")
@@ -47,7 +51,8 @@ public class Aluno implements Serializable {
 	private String senha;
 
 	@Column(name = "ALU_NECESSIDADE_ESPECIAL")
-	private String especial;
+	@Enumerated(EnumType.STRING)
+	private ValorLogico especial;
 
 	@ManyToOne
 	@JoinColumn(name = "INT_NU")
@@ -177,25 +182,29 @@ public class Aluno implements Serializable {
 		return interesseCurso;
 	}
 
+	@Override
 	public int hashCode() {
-		int hash = 1;
-		if (nome != null)
-			hash = hash * 31 + nome.hashCode();
-
-		if (cpf != null)
-			hash = hash * 29 + cpf.hashCode();
-
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		return result;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Aluno))
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-
-		Aluno aluno = (Aluno) obj;
-
-		return (aluno.getNome() != null && aluno.getNome().equals(nome))
-				&& (aluno.getCpf() != null && aluno.getCpf().equals(cpf));
+		if (getClass() != obj.getClass())
+			return false;
+		Aluno other = (Aluno) obj;
+		if (cpf == null) {
+			if (other.cpf != null)
+				return false;
+		} else if (!cpf.equals(other.cpf))
+			return false;
+		return true;
 	}
 
 	@Override
@@ -204,11 +213,11 @@ public class Aluno implements Serializable {
 		return this.codigo.toString();
 	}
 
-	public String getEspecial() {
+	public ValorLogico getEspecial() {
 		return especial;
 	}
 
-	public void setEspecial(String especial) {
+	public void setEspecial(ValorLogico especial) {
 		this.especial = especial;
 	}
 

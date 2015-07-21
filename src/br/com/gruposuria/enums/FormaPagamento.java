@@ -1,9 +1,9 @@
 package br.com.gruposuria.enums;
 
 public enum FormaPagamento {
+	E("EMPRENHO"),
 	B("BOLETO"),
 	C("CARTAO"),
-	E("EMPRENHO"),
 	D("DEPOSITO"),
 	T("TRANSFERENCIA"),
 	I("INDEFINIDO");

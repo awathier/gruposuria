@@ -138,7 +138,7 @@ public class InscricaoMB implements Serializable {
 	public void createNew() {
 		if (this.alunos.contains(this.aluno)) {
 			FacesMessage msg = new FacesMessage("Duplicado",
-					"Participante jï¿½ incluï¿½do");
+					"Participante jÃ¡ incluÃ­do");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
 			alunos.add(aluno);
@@ -255,7 +255,7 @@ public class InscricaoMB implements Serializable {
 		// servicoTemporario = servico;
 		// }
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Instituição: " + this.instituicao.getNome(), "."));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "InstituiÃ§Ã£o: " + this.instituicao.getNome(), "."));
 		// FacesContext.getCurrentInstance().addMessage(null, new
 		// FacesMessage("Serviï¿½o Postal:", event.getObject().toString()));
 	}
@@ -547,10 +547,10 @@ public class InscricaoMB implements Serializable {
 			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
 			
-			String mensagem = "Inscrição Realizada com sucesso!!! \n"
-					+ "Você receberá um email com os dados de sua inscrição.\n";
+			String mensagem = "InscriÃ§Ã£o Realizada com sucesso!!! \n"
+					+ "VocÃª receber um email com os dados de sua InscriÃ§Ã£o.\n";
 					
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da Inscrição", mensagem);
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da InscriÃ§Ã£o", mensagem);
 	         
 	        RequestContext.getCurrentInstance().showMessageInDialog(message);
 			
@@ -567,10 +567,10 @@ public class InscricaoMB implements Serializable {
 	
 	public void showMessageCadastroSucesso() {
 		
-		String mensagem = "Inscrição Realizada com sucesso!!! \n"
-				+ "Você receberá um email com os dados de sua inscrição.\n";
+		String mensagem = "InscriÃ§Ã£o Realizada com sucesso!!! \n"
+				+ "VocÃª receber um email com os dados de sua InscriÃ§Ã£o.\n";
 		
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da Inscrição", mensagem);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da InscriÃ§Ã£o", mensagem);
          
         RequestContext.getCurrentInstance().showMessageInDialog(message);
     }
@@ -642,10 +642,13 @@ public class InscricaoMB implements Serializable {
 	}
 
 	public List<Instituicao> listaInstituicoes(String query) {
-		setInstituicoes(new ArrayList<Instituicao>());
 
 		setInstituicoes(new ArrayList<Instituicao>());
 		this.instituicoes = instituicaoModel.listaInstituicoesPorNome(query);
+		if(this.instituicoes.size()<=0){
+			this.instituicao.setNome(query);
+			//this.instituicoes.add(this.instituicao);
+		}
 		return this.instituicoes;
 	}
 
