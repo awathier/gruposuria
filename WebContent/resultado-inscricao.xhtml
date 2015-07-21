@@ -28,19 +28,16 @@
 
 				<h:form>
 
-					Inscrição Realizada com sucesso!!!
-					Você receberá um email com os dados de sua inscrição.
-					
-					Att Equipe Suria
-					
-					<br /><br /><br />
-					
-					<p:commandButton 	value="Voltar para a agenda de cursos" 
-										actionListener="#{inscricaoMB.acaoAgendaDeCursos}" 
-										ajax="false" 
-										style="width:300px;height:100px; align=center"
-					/>
-				        
+					<f:event listener="#{inscricaoMB.showMessageCadastroSucesso()}" type="preRenderView" />
+					<div class="textoCentralizado textoDestaque">
+					<br /><br />
+					Inscrição Realizada com sucesso!!! <br />
+					Você receberá um email com os dados de sua inscrição. <br />
+					<br /><br /><br /><br />
+					<p:commandButton value="Voltar para a agenda de cursos"
+						actionListener="#{inscricaoMB.acaoAgendaDeCursos}" ajax="false"
+						style="width:500px;height:80px; align=center" />
+					</div>
 
 				</h:form>
 

@@ -248,7 +248,7 @@ public class InscricaoMB implements Serializable {
 		// }
 		FacesContext.getCurrentInstance().addMessage(
 				null,
-				new FacesMessage("InstituiÃ§Ã£o:", this.instituicao.getNome()
+				new FacesMessage("Instituição:", this.instituicao.getNome()
 						+ " - " + this.instituicao.getCodigo()));
 		// FacesContext.getCurrentInstance().addMessage(null, new
 		// FacesMessage("Serviï¿½o Postal:", event.getObject().toString()));
@@ -551,10 +551,10 @@ public class InscricaoMB implements Serializable {
 			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
 			
-			String mensagem = "InscriÃ§Ã£o Realizada com sucesso!!! \n"
-					+ "VocÃª receberÃ¡ um email com os dados de sua inscriÃ§Ã£o.\n"
-					+ "Att Equipe Suria";
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da InscriÃ§Ã£o", mensagem);
+			String mensagem = "Inscrição Realizada com sucesso!!! \n"
+					+ "Você receberá um email com os dados de sua inscrição.\n";
+					
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da Inscrição", mensagem);
 	         
 	        RequestContext.getCurrentInstance().showMessageInDialog(message);
 			
@@ -571,9 +571,10 @@ public class InscricaoMB implements Serializable {
 	
 	public void showMessageCadastroSucesso() {
 		
-		String mensagem = "InscriÃ§Ã£o Realizada com sucesso!!!  <br />"
-				+ "VocÃª receberÃ¡ um email com os dados de sua inscriÃ§Ã£o. <br />";
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da InscriÃ§Ã£o", mensagem);
+		String mensagem = "Inscrição Realizada com sucesso!!! \n"
+				+ "Você receberá um email com os dados de sua inscrição.\n";
+		
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da Inscrição", mensagem);
          
         RequestContext.getCurrentInstance().showMessageInDialog(message);
     }
