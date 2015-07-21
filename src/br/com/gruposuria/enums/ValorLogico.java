@@ -4,7 +4,7 @@ public enum ValorLogico {
 
 	S("SIM"),
 
-	N("N√O");
+	N("N√ÉO");
 
 	private String descricao;
 

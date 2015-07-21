@@ -14,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
 
@@ -137,7 +138,7 @@ public class InscricaoMB implements Serializable {
 	public void createNew() {
 		if (this.alunos.contains(this.aluno)) {
 			FacesMessage msg = new FacesMessage("Duplicado",
-					"Participante j� inclu�do");
+					"Participante j� inclu�do");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
 			alunos.add(aluno);
@@ -247,10 +248,10 @@ public class InscricaoMB implements Serializable {
 		// }
 		FacesContext.getCurrentInstance().addMessage(
 				null,
-				new FacesMessage("Institui��o:", this.instituicao.getNome()
+				new FacesMessage("Instituição:", this.instituicao.getNome()
 						+ " - " + this.instituicao.getCodigo()));
 		// FacesContext.getCurrentInstance().addMessage(null, new
-		// FacesMessage("Servi�o Postal:", event.getObject().toString()));
+		// FacesMessage("Servi�o Postal:", event.getObject().toString()));
 	}
 
 	public String onFlowProcess(FlowEvent event) {
@@ -410,6 +411,7 @@ public class InscricaoMB implements Serializable {
 				System.out.println("incluirAluno");
 				this.aluno.setCpf(aluno.getCpf());
 				this.aluno.setNome(aluno.getNome().toUpperCase());
+				this.aluno.setSenha("123456");
 				this.aluno.setEmail(aluno.getEmail());
 				this.aluno.setTelefone(aluno.getTelefone());
 				this.aluno.setEspecial(aluno.getEspecial());
@@ -428,7 +430,7 @@ public class InscricaoMB implements Serializable {
 							.getFormaPagamento());
 					this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);// setando
 																				// na
-																				// m�o
+																				// m�o
 																				// por
 																				// enquanto
 					this.turmaAlunoSelecionada.setTurma(this.turmaSelecionada);
@@ -526,7 +528,7 @@ public class InscricaoMB implements Serializable {
 				this.turmaAlunoSelecionada = new TurmaAluno();
 				this.turmaAlunoSelecionada.setAluno(this.aluno);
 				this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno.getFormaPagamento());
-				this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);// setando na m�o por enquanto
+				this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);// setando na m�o por enquanto
 				this.turmaAlunoSelecionada.setTurma(this.turmaSelecionada);
 				this.turmaAlunoSelecionada.setTalData(dataAtual);
 				this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
@@ -545,10 +547,20 @@ public class InscricaoMB implements Serializable {
 			setInstituicao(new Instituicao());
 			setCursoSelecionado(new Curso());
 			setAcaoDeInclusao(false);
+			
 			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
+			
+			String mensagem = "Inscrição Realizada com sucesso!!! \n"
+					+ "Você receberá um email com os dados de sua inscrição.\n"
+					+ "Att Equipe Suria";
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da Inscrição", mensagem);
+	         
+	        RequestContext.getCurrentInstance().showMessageInDialog(message);
+			
 			resultado = "resultado-inscricao.jsf?faces-redirect=true";
 			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Gravar!", "."));
 			System.out.println("Erro: " + e.getMessage());
@@ -556,7 +568,16 @@ public class InscricaoMB implements Serializable {
 		}
 		return resultado;
 	}
-
+	
+	public void showMessageCadastroSucesso() {
+		
+		String mensagem = "Inscrição Realizada com sucesso!!!  <br />"
+				+ "Você receberá um email com os dados de sua inscrição. <br />";
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da Inscrição", mensagem);
+         
+        RequestContext.getCurrentInstance().showMessageInDialog(message);
+    }
+	
 /*	public String alterar() {
 
 		String resultado = null;
