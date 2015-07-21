@@ -413,7 +413,7 @@ public class InscricaoMB implements Serializable {
 			// this.aluno = alunoModel.salvar(this.aluno);
 
 			for (Aluno aluno : alunos) {
-
+				this.aluno = new Aluno();
 				System.out.println("incluirAluno");
 				this.aluno.setCpf(aluno.getCpf());
 				this.aluno.setNome(aluno.getNome().toUpperCase());
