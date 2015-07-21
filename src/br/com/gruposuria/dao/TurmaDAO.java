@@ -1,5 +1,10 @@
 package br.com.gruposuria.dao;
 
+import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MILLISECOND;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.SECOND;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 import br.com.gruposuria.constantes.SQL;
@@ -76,6 +82,27 @@ public class TurmaDAO extends DAO<Turma> {
 	public List<Turma> listaTodos(){
 		TypedQuery<Turma> query = getEntityManager().createNamedQuery("Turma.listaTodos", Turma.class);
 
+		List<Turma> lista = null;
+		try{
+			lista = query.getResultList();			
+		}catch(javax.persistence.NoResultException e){
+			//não é necessário tratamento
+		}
+		return lista;	
+	}
+	
+	public List<Turma> listaTodosVigentes(){
+		
+		Calendar cal = Calendar.getInstance();
+        cal.set( HOUR_OF_DAY, 0 );
+        cal.set( MINUTE, 0 );
+        cal.set( SECOND, 0 );
+        cal.set( MILLISECOND, 0 );
+        System.out.println( cal.getTime() );
+		
+		TypedQuery<Turma> query = getEntityManager().createNamedQuery("Turma.listaTodosVigentes", Turma.class);
+		query.setParameter("today",cal.getTime(),TemporalType.DATE);
+		
 		List<Turma> lista = null;
 		try{
 			lista = query.getResultList();			

@@ -51,6 +51,10 @@ public class TurmaModel implements Serializable {
 		return turmaDAO.listaTodos();
 	}
 	
+	public List<Turma> listaTurmasVigentes(){
+		return turmaDAO.listaTodosVigentes();
+	}
+	
 	public List<Turma> listar(Turma Turma){
 		return turmaDAO.listar(Turma);
 	}

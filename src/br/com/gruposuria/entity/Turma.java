@@ -33,9 +33,11 @@ import br.com.gruposuria.enums.StatusTurma;
 	@NamedQuery(name="Turma.consultaPorCidade", query="SELECT t FROM Turma t WHERE t.cidade = :cidade"),
 	@NamedQuery(name="Turma.consultaPorUf", query="SELECT t FROM Turma t WHERE t.uf = :uf"),
 	@NamedQuery(name="Turma.consultaPorData", query="SELECT t FROM Turma t WHERE t.data = :data"),
+	@NamedQuery(name="Turma.listaTodosVigentes", query="SELECT t FROM Turma t WHERE t.dataFim >= :today ORDER BY t.codigo DESC"),
 	@NamedQuery(name="Turma.listaTodos", query="SELECT t FROM Turma t ORDER BY t.codigo DESC")
 })
 public class Turma implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id

@@ -38,7 +38,7 @@ public class AgendaMB {
     @PostConstruct
     public void init() {
     	
-    	this.turmas = turmaModel.listaTurmas();
+    	this.turmas = turmaModel.listaTurmasVigentes();
     	this.eventModel = new DefaultScheduleModel();
 
     	for (Turma turma : turmas) {
