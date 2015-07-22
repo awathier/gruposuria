@@ -30,6 +30,7 @@ public class TurmaAlunoDAO extends DAO<TurmaAluno> {
 		EditorDeConsultaSQL editor = new EditorDeConsultaSQL(sql,campos);
 		
 		editor.adicionarFiltroEParametrosNaConsultaJPQL(SQL.FILTRO_POR_CODIGO_TURMA_ALUNO, TurmaAluno.getCodigo(), "codigo");
+		editor.adicionarFiltroEParametrosNaConsultaJPQL(SQL.FILTRO_POR_CODIGO_TURMA_TURMA_ALUNO, TurmaAluno.getTurma().getCodigo(), "codigoTurma");
 		editor.adicionarOrdenacaoConsulta(SQL.ORDENAR_POR_ID_TURMA_ALUNO_DECRESCENTE);
 		sql = editor.getSql();
 		//parametros = editor.getParams();

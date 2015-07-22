@@ -51,6 +51,7 @@ public class SQL {
 	
 	/*FILTROS TURMA_ALUNO*/
 	public static String FILTRO_POR_CODIGO_TURMA_ALUNO = " AND ta.codigo =:codigo " ;
+	public static String FILTRO_POR_CODIGO_TURMA_TURMA_ALUNO = " AND ta.turma.codigo =:codigoTurma " ;
 	
 	public static String ORDENAR_POR_ID_TURMA_ALUNO_CRESCENTE = " ORDER BY ta.codigo " ;
 	public static String ORDENAR_POR_ID_TURMA_ALUNO_DECRESCENTE = " ORDER BY ta.codigo DESC " ;

@@ -65,15 +65,15 @@
 							
 							<p:outputLabel for="instituicao" value="Instituição:" />
 					        <p:selectOneMenu id="instituicao" value="#{alunoMB.idInstituicao}" 	style="width:300px">
-					            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
-					           <f:selectItem itemLabel="Sem vinculação com Instituição" itemValue="3" noSelectionOption="true" />
+<!-- 					            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" /> -->
+					           <f:selectItem itemLabel="Sem vinculação com Instituição" itemValue="" noSelectionOption="true" />
 					            <f:selectItems value="#{alunoMB.instituicoes}" var="i" itemValue="#{i.codigo}" itemLabel="#{i.nome}" />
 					        </p:selectOneMenu>
 					        
 					        <p:outputLabel for="participanteNecessidadesEspeciais" value="Portador de Necessidades Especiais?" />
 							<p:selectOneMenu id="participanteNecessidadesEspeciais"
 								required="false" value="#{alunoMB.aluno.especial}">
-								<f:selectItem itemLabel="Selecione..." itemValue="N" />
+<!-- 								<f:selectItem itemLabel="Selecione..." itemValue="N" /> -->
 								<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl" itemValue="#{vl}" itemLabel="#{vl.descricao}" />
 							</p:selectOneMenu>
 							

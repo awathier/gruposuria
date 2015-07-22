@@ -532,6 +532,8 @@ public class InscricaoMB implements Serializable {
 				this.turmaAlunoSelecionada.setTurma(this.turmaSelecionada);
 				this.turmaAlunoSelecionada.setTalData(dataAtual);
 				this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
+				
+				EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
 			}
 
 			setTurmaAluno(new TurmaAluno());

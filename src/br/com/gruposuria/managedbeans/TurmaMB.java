@@ -11,16 +11,19 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import br.com.gruposuria.entity.Aluno;
 import br.com.gruposuria.entity.Cidade;
 import br.com.gruposuria.entity.Curso;
 import br.com.gruposuria.entity.Estado;
 import br.com.gruposuria.entity.Instrutor;
 import br.com.gruposuria.entity.Turma;
+import br.com.gruposuria.entity.TurmaAluno;
 import br.com.gruposuria.enums.StatusTurma;
 import br.com.gruposuria.model.CidadeModel;
 import br.com.gruposuria.model.CursoModel;
 import br.com.gruposuria.model.EstadoModel;
 import br.com.gruposuria.model.InstrutorModel;
+import br.com.gruposuria.model.TurmaAlunoModel;
 import br.com.gruposuria.model.TurmaModel;
 
 @ManagedBean
@@ -29,6 +32,9 @@ public class TurmaMB {
 	
 	@Inject
 	private TurmaModel turmaModel;
+	
+	@Inject
+	private TurmaAlunoModel turmaAlunoModel;
 	
 	@Inject
 	private CursoModel cursoModel;
@@ -56,6 +62,12 @@ public class TurmaMB {
 	
 	private Estado estado = new Estado();
 	private Cidade cidade = new Cidade();
+	
+	private TurmaAluno turmaAluno = new TurmaAluno();
+	private List<TurmaAluno> turmasAluno = new ArrayList<TurmaAluno>();
+	
+	private Aluno aluno = new Aluno();
+	private List<Aluno> alunos = new ArrayList<Aluno>();
 
 	private boolean mostrarBotaoAlterar = false;
 	private boolean acaoDeInclusao;
@@ -132,9 +144,16 @@ public class TurmaMB {
 
 	public List<Turma> listar(){
 		
-		setturmas(new ArrayList<Turma>());
+		setTurmas(new ArrayList<Turma>());
 		if(turma != null) {
 			this.turmas = turmaModel.listar(this.turma);
+			setTurmaAluno(new TurmaAluno());
+			setAlunos(new ArrayList<Aluno>());
+			setAluno(new Aluno());
+			for (Turma t : turmas) {
+				this.turmaAluno.setTurma(t);
+				this.turmasAluno = turmaAlunoModel.listar(this.turmaAluno);
+			}
 		}
 		setTurma(new Turma());
 		return this.turmas;
@@ -447,6 +466,38 @@ public class TurmaMB {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	public List<TurmaAluno> getTurmasAluno() {
+		return turmasAluno;
+	}
+
+	public void setTurmasAluno(List<TurmaAluno> turmasAluno) {
+		this.turmasAluno = turmasAluno;
+	}
+
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+
+	public TurmaAluno getTurmaAluno() {
+		return turmaAluno;
+	}
+
+	public void setTurmaAluno(TurmaAluno turmaAluno) {
+		this.turmaAluno = turmaAluno;
+	}
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
 }

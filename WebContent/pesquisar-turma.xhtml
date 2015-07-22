@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-	
+
 
 <h:body>
 
@@ -22,140 +22,223 @@
 				</p:breadCrumb>
 			</div>
 		</ui:define>
-		
+
 		<ui:define name="conteudo">
 
 			<div id="conteudoPaginas">
-			
-				<h:form id="frmTurma" >
-				 
-				    <p:fieldset legend="Dados da Turma" style="margin-bottom:20px">
-				        <h:panelGrid columns="4" cellpadding="5">
-				        	<h:outputLabel for="codigo" value="Codigo: " />
-				        	<p:inputText id="codigo" value="#{turmaMB.turma.codigo}" size="5" maxlength="5" />
-				        </h:panelGrid>
-				         <h:panelGrid columns="4" cellpadding="5">
-					        <p:commandButton value="Consultar" id="consultar" actionListener="#{turmaMB.listar()}" update="@form" icon="ui-icon-search" />
-					        <p:commandButton value="Incluir" action="#{turmaMB.acaoInclusao}" process="@this" update="@form" icon="ui-icon-disk" />
-					        <p:commandButton value="Limpar" id="limpar" actionListener="#{turmaMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-document-b" />
-				         </h:panelGrid>
-				        <p:growl id="growl" life="6000" />
-				    </p:fieldset>
-				    
-				
-				<ui:fragment rendered="#{not empty turmaMB.turmas}" id="listaDeTurmas">
-					<p:dataTable var="t" value="#{turmaMB.turmas}" stickyHeader="true">
-					<f:facet name="header">
+
+				<h:form id="frmTurma">
+
+					<p:fieldset legend="Dados da Turma" style="margin-bottom:20px">
+						<h:panelGrid columns="4" cellpadding="5">
+							<h:outputLabel for="codigo" value="Codigo: " />
+							<p:inputText id="codigo" value="#{turmaMB.turma.codigo}" size="5"
+								maxlength="5" />
+						</h:panelGrid>
+						<h:panelGrid columns="4" cellpadding="5">
+							<p:commandButton value="Consultar" id="consultar"
+								actionListener="#{turmaMB.listar()}" update="@form"
+								icon="ui-icon-search" />
+							<p:commandButton value="Incluir" action="#{turmaMB.acaoInclusao}"
+								process="@this" update="@form" icon="ui-icon-disk" />
+							<p:commandButton value="Limpar" id="limpar"
+								actionListener="#{turmaMB.limpaFiltroDePesquisa()}"
+								update="@form" icon="ui-icon-document-b" />
+						</h:panelGrid>
+						<p:growl id="growl" life="6000" />
+					</p:fieldset>
+
+
+					<ui:fragment rendered="#{not empty turmaMB.turmas}"
+						id="listaDeTurmas">
+						<p:dataTable var="t" value="#{turmaMB.turmas}" stickyHeader="true">
+							<f:facet name="header">
 			            Lista de Turmas
 			        </f:facet>
-			        	<p:column headerText="Ações"  style="width:120px;text-align: center">
-				             <p:commandButton id="detalhes" update=":frmTurma:turmaDetail" oncomplete="PF('turmaDialog').show()" icon="ui-icon-search" title="Detalhes">
-				                <f:setPropertyActionListener value="#{t}" target="#{turmaMB.turmaSelecionada}" />
-				            </p:commandButton>
-				             <p:tooltip id="detalhesTipFade" for="detalhes" value="Exibir Detalhes" trackMouse="true" showEffect="fade" hideEffect="fade" />
-				             <p:commandButton id="editar" action="#{turmaMB.carregarCamposAlteracao()}" icon="ui-icon-pencil" title="Editar">
-								<f:param name="acaoDeInclusao" value="false" />
-				                <f:setPropertyActionListener value="#{t}" target="#{turmaMB.turmaSelecionada}" />
-				            </p:commandButton>
-				             <p:tooltip id="editarTipFade" for="editar" value="Alterar Registro" trackMouse="true" showEffect="fade" hideEffect="fade" />
-				            <p:commandButton id="excluir" update=":frmTurma:turmaExclusao" oncomplete="PF('turmaExclusaoDialog').show()" icon="ui-icon-trash">
-				            	<f:setPropertyActionListener value="#{t}" target="#{turmaMB.turmaSelecionada}" />
-						    </p:commandButton>
-						    <p:tooltip id="excluirTipFade" for="excluir" value="Exluir Registro" trackMouse="true" showEffect="fade" hideEffect="fade" />
-						    
-				        </p:column>
-					    <p:column style="width:30px;" headerText="Id" sortBy="#{t.codigo}">
-					        <h:outputText value="#{t.codigo}" />
-					    </p:column>
-					 
-					    <p:column style="width:230px;" headerText="CURSO" sortBy="#{t.curso.codigo}">
-					        <h:outputText value="#{t.curso.nome}" />
-					    </p:column>
-					 
-					    <p:column style="width:230px;" headerText="INSTRUTOR" sortBy="#{t.instrutor.codigo}">
-					        <h:outputText value="#{t.instrutor.nome}" />
-					    </p:column>
-					 
-					    <p:column style="width:150px;" headerText="CIDADE" sortBy="#{t.cidadeCurso.nome}">
-					        <h:outputText value="#{t.cidadeCurso.nome}"  />
-					    </p:column>
-					    
-					    <p:column headerText="UF" sortBy="#{t.cidadeCurso.estado.uf}">
-					    	<h:outputText value="#{t.cidadeCurso.estado.uf}" />
-					    </p:column>
-					    
-					</p:dataTable>
-					
-					<h:inputHidden id="idTurma" value="#{turmaMB.id}" />
-					
-					<p:dialog header="Turma" widgetVar="turmaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-				        <p:outputPanel id="turmaDetail" style="text-align:center;">
-				            <p:panelGrid  columns="2" rendered="#{not empty turmaMB.turmaSelecionada}" columnClasses="label,value">
-				                <f:facet name="header">
-				                	<img src="#{resource['images:/logoUsuario.png']}" title="Grupo Suria" />
-				                </f:facet>
-				 
-				                <h:outputText value="Codigo:" />
-				                <h:outputText value="#{turmaMB.turmaSelecionada.codigo}" />
-				 
-				                <h:outputText value="Data" />
-				                <h:outputText value="#{turmaMB.turmaSelecionada.data}">
-				                	<f:convertDateTime pattern="dd/MM/yyyy"/>
-				                </h:outputText>
-				                
-				                <h:outputText value="Valor" />
-				                <h:outputText value="#{turmaMB.turmaSelecionada.valor}">
-				                	<f:convertNumber currencySymbol="R$" type="currency"/>
-				                </h:outputText>
-				                
+							<p:column style="width:16px">
+								<p:rowToggler />
+							</p:column>
+							<p:column headerText="Ações"
+								style="width:120px;text-align: center">
+								<p:commandButton id="detalhes" update=":frmTurma:turmaDetail"
+									oncomplete="PF('turmaDialog').show()" icon="ui-icon-search"
+									title="Detalhes">
+									<f:setPropertyActionListener value="#{t}"
+										target="#{turmaMB.turmaSelecionada}" />
+								</p:commandButton>
+								<p:tooltip id="detalhesTipFade" for="detalhes"
+									value="Exibir Detalhes" trackMouse="true" showEffect="fade"
+									hideEffect="fade" />
+								<p:commandButton id="editar"
+									action="#{turmaMB.carregarCamposAlteracao()}"
+									icon="ui-icon-pencil" title="Editar">
+									<f:param name="acaoDeInclusao" value="false" />
+									<f:setPropertyActionListener value="#{t}"
+										target="#{turmaMB.turmaSelecionada}" />
+								</p:commandButton>
+								<p:tooltip id="editarTipFade" for="editar"
+									value="Alterar Registro" trackMouse="true" showEffect="fade"
+									hideEffect="fade" />
+								<p:commandButton id="excluir" update=":frmTurma:turmaExclusao"
+									oncomplete="PF('turmaExclusaoDialog').show()"
+									icon="ui-icon-trash">
+									<f:setPropertyActionListener value="#{t}"
+										target="#{turmaMB.turmaSelecionada}" />
+								</p:commandButton>
+								<p:tooltip id="excluirTipFade" for="excluir"
+									value="Exluir Registro" trackMouse="true" showEffect="fade"
+									hideEffect="fade" />
 
-				                <h:outputText value="Status" />
-				                <h:outputText value="Interesse" rendered="#{turmaMB.turmaSelecionada.status == 'I'}" />
-				                <h:outputText value="Encerrada" rendered="#{turmaMB.turmaSelecionada.status == 'E'}" />
-				                <h:outputText value="Ultimas Vagas" rendered="#{turmaMB.turmaSelecionada.status == 'U'}" />
-				                <h:outputText value="Confirmada" rendered="#{turmaMB.turmaSelecionada.status == 'C'}" />
-				                <h:outputText value="Aberta" rendered="#{turmaMB.turmaSelecionada.status == 'A'}" />
-				                <h:outputText value="Prevista" rendered="#{turmaMB.turmaSelecionada.status == 'P'}" />
-				                
-				                <h:outputText value="Quantidade Mínima" />
-				                <h:outputText value="#{turmaMB.turmaSelecionada.qtdeMinima}" />
-				                
-				                <h:outputText value="Cidade" />
-				                <h:outputText value="#{turmaMB.turmaSelecionada.cidadeCurso.nome}" />
-				                
-				                <h:outputText value="UF" />
-				                <h:outputText value="#{turmaMB.turmaSelecionada.cidadeCurso.estado.uf}" />
-				                
-				                <h:outputText value="Curso" />
-				                <h:outputText value="#{turmaMB.turmaSelecionada.curso.nome}" />
-				 
-				                <h:outputText value="Instrutor" />
-				                <h:outputText value="#{turmaMB.turmaSelecionada.instrutor.nome}" />
-					            
-				            </p:panelGrid>
-				        </p:outputPanel>
-				    </p:dialog>
-				    
-				    <p:dialog header="Turma" widgetVar="turmaExclusaoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-				        <p:outputPanel id="turmaExclusao" style="text-align:center;">
-				            <h:panelGrid columns="2" cellpadding="3" rendered="#{not empty turmaMB.turmaSelecionada}">
-					            <h:outputText value="Exclusão?" />
-					            <h:outputText value="" />
-				                <p:commandButton action="#{turmaMB.excluir()}" value="Sim">
-				                	<f:param name="turmaSelecionada" value="#{turmaMB.turmaSelecionada}" />
-					            </p:commandButton>
-				                <p:commandButton value="Não" onclick="PF('turmaExclusaoDialog').hide()" />
-				            </h:panelGrid>
-				        </p:outputPanel>
-				    </p:dialog>
-				    
-				    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-				    </p:confirmDialog>
-				    
-				</ui:fragment>
-				
+							</p:column>
+							<p:column style="width:30px;" headerText="Id"
+								sortBy="#{t.codigo}">
+								<h:outputText value="#{t.codigo}" />
+							</p:column>
+
+							<p:column style="width:230px;" headerText="CURSO"
+								sortBy="#{t.curso.codigo}">
+								<h:outputText value="#{t.curso.nome}" />
+							</p:column>
+
+							<p:column style="width:230px;" headerText="INSTRUTOR"
+								sortBy="#{t.instrutor.codigo}">
+								<h:outputText value="#{t.instrutor.nome}" />
+							</p:column>
+
+							<p:column style="width:150px;" headerText="CIDADE"
+								sortBy="#{t.cidadeCurso.nome}">
+								<h:outputText value="#{t.cidadeCurso.nome}" />
+							</p:column>
+
+							<p:column headerText="UF" sortBy="#{t.cidadeCurso.estado.uf}">
+								<h:outputText value="#{t.cidadeCurso.estado.uf}" />
+							</p:column>
+
+							<p:rowExpansion>
+
+								<p:dataTable var="als" value="#{turmaMB.turmasAluno}"
+									stickyHeader="true">
+									<f:facet name="header">
+									            Alunos desta Turma
+									        </f:facet>
+									<p:column style="width:100px;" headerText="Nome"
+										sortBy="#{als.aluno.nome}">
+										<h:outputText value="#{als.aluno.nome.toUpperCase()}" />
+									</p:column>
+
+									<p:column style="width:100px;" headerText="CPF"
+										sortBy="#{als.aluno.cpf}">
+										<h:outputText value="#{als.aluno.cpf}" />
+									</p:column>
+
+									<p:column style="width:100px;" headerText="Email"
+										sortBy="#{als.aluno.email}">
+										<h:outputText value="#{als.aluno.email}" />
+									</p:column>
+
+									<p:column style="width:100px;" headerText="Telefone"
+										sortBy="#{als.aluno.telefone}">
+										<h:outputText value="#{als.aluno.telefone}"
+											converter="telefoneConverter" />
+									</p:column>
+
+								</p:dataTable>
+
+							</p:rowExpansion>
+
+						</p:dataTable>
+
+						<h:inputHidden id="idTurma" value="#{turmaMB.id}" />
+
+						<p:dialog header="Turma" widgetVar="turmaDialog" modal="true"
+							showEffect="fade" hideEffect="fade" resizable="false">
+							<p:outputPanel id="turmaDetail" style="text-align:center;">
+								<p:panelGrid columns="2"
+									rendered="#{not empty turmaMB.turmaSelecionada}"
+									columnClasses="label,value">
+									<f:facet name="header">
+										<img src="#{resource['images:/logoUsuario.png']}"
+											title="Grupo Suria" />
+									</f:facet>
+
+									<h:outputText value="Codigo:" />
+									<h:outputText value="#{turmaMB.turmaSelecionada.codigo}" />
+
+									<h:outputText value="Data" />
+									<h:outputText value="#{turmaMB.turmaSelecionada.data}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+
+									<h:outputText value="Valor" />
+									<h:outputText value="#{turmaMB.turmaSelecionada.valor}">
+										<f:convertNumber currencySymbol="R$" type="currency" />
+									</h:outputText>
+
+
+									<h:outputText value="Status" />
+									<h:outputText value="Interesse"
+										rendered="#{turmaMB.turmaSelecionada.status == 'I'}" />
+									<h:outputText value="Encerrada"
+										rendered="#{turmaMB.turmaSelecionada.status == 'E'}" />
+									<h:outputText value="Ultimas Vagas"
+										rendered="#{turmaMB.turmaSelecionada.status == 'U'}" />
+									<h:outputText value="Confirmada"
+										rendered="#{turmaMB.turmaSelecionada.status == 'C'}" />
+									<h:outputText value="Aberta"
+										rendered="#{turmaMB.turmaSelecionada.status == 'A'}" />
+									<h:outputText value="Prevista"
+										rendered="#{turmaMB.turmaSelecionada.status == 'P'}" />
+
+									<h:outputText value="Quantidade Mínima" />
+									<h:outputText value="#{turmaMB.turmaSelecionada.qtdeMinima}" />
+
+									<h:outputText value="Cidade" />
+									<h:outputText
+										value="#{turmaMB.turmaSelecionada.cidadeCurso.nome}" />
+
+									<h:outputText value="UF" />
+									<h:outputText
+										value="#{turmaMB.turmaSelecionada.cidadeCurso.estado.uf}" />
+
+									<h:outputText value="Curso" />
+									<h:outputText value="#{turmaMB.turmaSelecionada.curso.nome}" />
+
+									<h:outputText value="Instrutor" />
+									<h:outputText
+										value="#{turmaMB.turmaSelecionada.instrutor.nome}" />
+
+								</p:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dialog header="Turma" widgetVar="turmaExclusaoDialog"
+							modal="true" showEffect="fade" hideEffect="fade"
+							resizable="false">
+							<p:outputPanel id="turmaExclusao" style="text-align:center;">
+								<h:panelGrid columns="2" cellpadding="3"
+									rendered="#{not empty turmaMB.turmaSelecionada}">
+									<h:outputText value="Exclusão?" />
+									<h:outputText value="" />
+									<p:commandButton action="#{turmaMB.excluir()}" value="Sim">
+										<f:param name="turmaSelecionada"
+											value="#{turmaMB.turmaSelecionada}" />
+									</p:commandButton>
+									<p:commandButton value="Não"
+										onclick="PF('turmaExclusaoDialog').hide()" />
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:confirmDialog global="true" showEffect="fade"
+							hideEffect="explode">
+							<p:commandButton value="Sim" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+
+					</ui:fragment>
+
 				</h:form>
 			</div>
 

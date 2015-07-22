@@ -6,8 +6,8 @@ $(document).ready(function(){
 	$("input.data").mask("99/99/9999"); 
 	$("input.cpf").mask("999.999.999-99"); 
 	$("input.cep").mask("99.999-999"); 
-	$("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$ ", decimal:",", thousands:"."});
-	$(".valor").maskMoney({showSymbol:true, symbol:"R$ ", decimal:",", thousands:"."});
+	$("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+	$(".valor").maskMoney({showSymbol:true, symbol:"R$", decimal:".", thousands:","});
 	
 	//Permite somente caracteres alfanumericos (sem pontos, virgulas etc... )
 	$('.somenteAlfanumericos').alphanumeric();

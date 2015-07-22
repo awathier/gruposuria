@@ -26,6 +26,7 @@ import br.com.gruposuria.enums.StatusAluno;
 @Table(name="TURMA_ALUNO")
 @NamedQueries({
 	@NamedQuery(name="TurmaAluno.consultaPorCodigo", query="SELECT ta FROM TurmaAluno ta WHERE ta.codigo = :codigo"),
+	@NamedQuery(name="TurmaAluno.consultaPorCodigoTurma", query="SELECT ta FROM TurmaAluno ta WHERE ta.turma.codigo = :codigo"),
 	@NamedQuery(name="TurmaAluno.listaTodos", query="SELECT ta FROM TurmaAluno ta")
 })
 

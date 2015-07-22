@@ -47,6 +47,15 @@ public class AgendaMB {
     	
     }
     
+    public void carregarCursos() {
+    	this.turmas = turmaModel.listaTurmasVigentes();
+    	this.eventModel = new DefaultScheduleModel();
+
+    	for (Turma turma : turmas) {
+    		this.eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome(), turma.getData(), turma.getDataFim(), turma.getCodigo()));
+		}
+	}
+    
     /*public List<Turma> listaTurmas(){
     	
     	setTurmas(new ArrayList<Turma>());
