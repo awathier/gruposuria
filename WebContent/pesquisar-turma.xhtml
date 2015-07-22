@@ -55,7 +55,7 @@
 			            Lista de Turmas
 			        </f:facet>
 							<p:column style="width:16px">
-								<p:rowToggler />
+								<p:rowToggler rendered="#{not empty t.turmaAlunos}" />
 							</p:column>
 							<p:column headerText="Ações"
 								style="width:120px;text-align: center">
