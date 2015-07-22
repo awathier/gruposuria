@@ -441,7 +441,7 @@ public class InscricaoMB implements Serializable {
 					this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
 				}
 				
-				EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
+				//EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
 
 			}
 			
@@ -533,7 +533,7 @@ public class InscricaoMB implements Serializable {
 				this.turmaAlunoSelecionada.setTalData(dataAtual);
 				this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
 				
-				EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
+				//EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
 			}
 
 			setTurmaAluno(new TurmaAluno());

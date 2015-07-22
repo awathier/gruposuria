@@ -31,13 +31,15 @@ public class TurmaDAO extends DAO<Turma> {
 		return Turma.class;
 	}
 	
-	public List<Turma> listar(Turma Turma) {
+	public List<Turma> listar(Turma turma) {
 		
 		Map<String, Object> campos = new HashMap<String, Object>();
 		String sql = SQL.getConsultaTURMA();
 		EditorDeConsultaSQL editor = new EditorDeConsultaSQL(sql,campos);
 
-		editor.adicionarFiltroEParametrosNaConsultaJPQL(SQL.FILTRO_POR_CODIGO_TURMA, Turma.getCodigo(), "codigo");
+		editor.adicionarFiltroEParametrosNaConsultaJPQL(SQL.FILTRO_POR_CODIGO_TURMA, turma.getCodigo(), "codigo");
+		editor.adicionarFiltroEParametrosNaConsultaJPQL(SQL.FILTRO_POR_CODIGO_NOME_CURSO_TURMA, turma.getCurso().getNome(), "nomeCurso");
+		editor.adicionarFiltroEParametrosNaConsultaJPQL(SQL.FILTRO_POR_CODIGO_NOME_INTRUTOR_TURMA, turma.getInstrutor().getNome(), "nomeInstrutor");
 		editor.adicionarOrdenacaoConsulta(SQL.ORDENAR_POR_ID_TURMA_DECRESCENTE);
 		sql = editor.getSql();
 		campos = editor.getCampos();

@@ -22,6 +22,8 @@ public class SQL {
 	public static String FILTRO_POR_CODIGO_TURMA = " AND t.codigo =:codigo " ;
 	public static String FILTRO_POR_MES_TURMA = " AND MONTH(t.data) = :mesTurma " ;
 	public static String FILTRO_POR_CURSO_TURMA = " AND t.curso.codigo = :codigoCurso " ;
+	public static String FILTRO_POR_CODIGO_NOME_CURSO_TURMA = " AND t.curso.nome LIKE '%'||:nomeCurso||'%' " ;
+	public static String FILTRO_POR_CODIGO_NOME_INTRUTOR_TURMA = " AND t.instrutor.nome LIKE '%'||:nomeInstrutor||'%' " ;
 	public static String FILTRO_POR_UF_TURMA = " AND t.uf =:codigoUF " ;
 
 	public static String ORDENAR_POR_ID_TURMA_CRESCENTE = " ORDER BY t.codigo " ;

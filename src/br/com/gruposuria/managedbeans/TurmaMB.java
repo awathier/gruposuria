@@ -80,6 +80,13 @@ public class TurmaMB {
 	@PostConstruct
 	public void init() {
 		this.turmas = listaTurmas();
+		int i=0;
+		for (Turma t : this.turmas) {
+			this.turmaAluno.setTurma(t);
+			this.turmasAluno = turmaAlunoModel.listar(this.turmaAluno);
+			this.turmas.get(i).setTurmaAlunos(turmasAluno);
+			i++;
+		}
 		listaEstados();
 	}
 	
@@ -139,6 +146,9 @@ public class TurmaMB {
 	
 	public void limpaFiltroDePesquisa() {
 	       setTurma(new Turma());
+	       setTurmas(new ArrayList<Turma>());
+	       setInstrutorSelecionado(new Instrutor());
+	       setCursoSelecionado(new Curso());
 	       setAcaoDeInclusao(false);
 	}
 
@@ -146,13 +156,18 @@ public class TurmaMB {
 		
 		setTurmas(new ArrayList<Turma>());
 		if(turma != null) {
+			this.turma.setCurso(this.cursoSelecionado);
+			this.turma.setInstrutor(this.instrutorSelecionado);
 			this.turmas = turmaModel.listar(this.turma);
 			setTurmaAluno(new TurmaAluno());
 			setAlunos(new ArrayList<Aluno>());
 			setAluno(new Aluno());
-			for (Turma t : turmas) {
+			int i=0;
+			for (Turma t : this.turmas) {
 				this.turmaAluno.setTurma(t);
 				this.turmasAluno = turmaAlunoModel.listar(this.turmaAluno);
+				this.turmas.get(i).setTurmaAlunos(turmasAluno);
+				i++;
 			}
 		}
 		setTurma(new Turma());

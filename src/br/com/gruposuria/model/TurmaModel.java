@@ -38,13 +38,13 @@ public class TurmaModel implements Serializable {
 		return Turma;
 	}
 
-	public Turma excluir(Turma Turma){
+	public Turma excluir(Turma turma){
 		try {
-			turmaDAO.excluir(Turma.getCodigo());
+			turmaDAO.excluir(turma.getCodigo());
 		} catch (Exception e){
 			System.out.println("Erro: " + e.getMessage());
 		}
-		return Turma;
+		return turma;
 	}
 
 	public List<Turma> listaTurmas(){

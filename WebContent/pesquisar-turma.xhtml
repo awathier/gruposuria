@@ -32,25 +32,24 @@
 					<p:fieldset legend="Dados da Turma" style="margin-bottom:20px">
 						<h:panelGrid columns="4" cellpadding="5">
 							<h:outputLabel for="codigo" value="Codigo: " />
-							<p:inputText id="codigo" value="#{turmaMB.turma.codigo}" size="5"
-								maxlength="5" />
+							<p:inputText id="codigo" value="#{turmaMB.turma.codigo}" size="5" maxlength="5" />
+							<h:outputLabel for="codigo" value="" />
+							<h:outputLabel for="codigo" value="" />
+							<h:outputLabel for="curso" value="Curso: " />
+							<p:inputText id="curso" value="#{turmaMB.cursoSelecionado.nome}" size="30" />
+							<h:outputLabel for="instrutor" value="Instrutor: " />
+							<p:inputText id="instrutor" value="#{turmaMB.instrutorSelecionado.nome}" size="30" />
 						</h:panelGrid>
 						<h:panelGrid columns="4" cellpadding="5">
-							<p:commandButton value="Consultar" id="consultar"
-								actionListener="#{turmaMB.listar()}" update="@form"
-								icon="ui-icon-search" />
-							<p:commandButton value="Incluir" action="#{turmaMB.acaoInclusao}"
-								process="@this" update="@form" icon="ui-icon-disk" />
-							<p:commandButton value="Limpar" id="limpar"
-								actionListener="#{turmaMB.limpaFiltroDePesquisa()}"
-								update="@form" icon="ui-icon-document-b" />
+							<p:commandButton value="Consultar" id="consultar" actionListener="#{turmaMB.listar()}" update="@form" icon="ui-icon-search" />
+							<p:commandButton value="Incluir" action="#{turmaMB.acaoInclusao}" process="@this" update="@form" icon="ui-icon-disk" />
+							<p:commandButton value="Limpar" id="limpar" actionListener="#{turmaMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-document-b" />
 						</h:panelGrid>
 						<p:growl id="growl" life="6000" />
 					</p:fieldset>
 
-
-					<ui:fragment rendered="#{not empty turmaMB.turmas}"
-						id="listaDeTurmas">
+					<ui:fragment rendered="#{not empty turmaMB.turmas}" id="listaDeTurmas">
+					
 						<p:dataTable var="t" value="#{turmaMB.turmas}" stickyHeader="true">
 							<f:facet name="header">
 			            Lista de Turmas
@@ -116,30 +115,40 @@
 
 							<p:rowExpansion>
 
-								<p:dataTable var="als" value="#{turmaMB.turmasAluno}"
+								<p:dataTable var="tals" value="#{t.turmaAlunos}"
 									stickyHeader="true">
 									<f:facet name="header">
 									            Alunos desta Turma
 									        </f:facet>
 									<p:column style="width:100px;" headerText="Nome"
-										sortBy="#{als.aluno.nome}">
-										<h:outputText value="#{als.aluno.nome.toUpperCase()}" />
+										sortBy="#{tals.aluno.nome}">
+										<h:outputText value="#{tals.aluno.nome.toUpperCase()}" />
 									</p:column>
 
 									<p:column style="width:100px;" headerText="CPF"
-										sortBy="#{als.aluno.cpf}">
-										<h:outputText value="#{als.aluno.cpf}" />
+										sortBy="#{tals.aluno.cpf}">
+										<h:outputText value="#{tals.aluno.cpf}" />
 									</p:column>
 
 									<p:column style="width:100px;" headerText="Email"
-										sortBy="#{als.aluno.email}">
-										<h:outputText value="#{als.aluno.email}" />
+										sortBy="#{tals.aluno.email}">
+										<h:outputText value="#{tals.aluno.email}" />
 									</p:column>
 
 									<p:column style="width:100px;" headerText="Telefone"
-										sortBy="#{als.aluno.telefone}">
-										<h:outputText value="#{als.aluno.telefone}"
+										sortBy="#{tals.aluno.telefone}">
+										<h:outputText value="#{tals.aluno.telefone}"
 											converter="telefoneConverter" />
+									</p:column>
+									
+									<p:column style="width:100px;" headerText="Valor"
+										sortBy="#{tals.talValorPago}">
+										<h:outputText value="#{tals.talValorPago}" />
+									</p:column>
+									
+									<p:column style="width:100px;" headerText="Status"
+										sortBy="#{tals.statusAluno.descricao}">
+										<h:outputText value="#{tals.statusAluno.descricao}" />
 									</p:column>
 
 								</p:dataTable>
