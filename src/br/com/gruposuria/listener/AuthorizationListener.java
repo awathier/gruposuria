@@ -23,17 +23,28 @@ public class AuthorizationListener implements PhaseListener {
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
 		Object usuario = session.getAttribute("usuario");
 		Object usuarioLogado = session.getAttribute("usuarioLogado");
+		
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 
-		if ( (!isLoginPage && usuario == null) 
+		if ((!isLoginPage && usuario == null) 
 				&& (!isAgendaPage) 
 				&& (!isPreInscricaoPage) 
-				&& (!isInscricaoPFPage) 
+				&& (!isInscricaoPFPage)
 				&& (!isInscricaoPJPage) 
-				&& (!isResultadoInscricaoPage) 
-			) {
+				&& (!isResultadoInscricaoPage)) {
+			
 			NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
 			nh.handleNavigation(facesContext, null, "loginPage");
-		}
+			//bem, se não está logado redireciona pra lógica que (navigatio rule) atende a loginPage
+		} 
+		/*else {
+			// verificar se o usuario atual tem acesso a página atual.
+			boolean temAcesso = usuario.temAcesso(new Pagina(currentPage));
+			if (!temAcesso) {
+				// aqui a logica de não ter acesso... redicione novamente? faça
+				// algo... ???
+			}
+		}*/
 	}
 
 	public void beforePhase(PhaseEvent event) {

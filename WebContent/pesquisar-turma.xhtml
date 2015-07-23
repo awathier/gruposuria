@@ -29,28 +29,41 @@
 
 				<h:form id="frmTurma">
 
+					<p:messages id="msgs" closable="true" />
+					<p:growl id="growl" sticky="true" life="6000" showDetail="true"
+						closable="true" />
+
 					<p:fieldset legend="Dados da Turma" style="margin-bottom:20px">
 						<h:panelGrid columns="4" cellpadding="5">
 							<h:outputLabel for="codigo" value="Codigo: " />
-							<p:inputText id="codigo" value="#{turmaMB.turma.codigo}" size="5" maxlength="5" />
+							<p:inputText id="codigo" value="#{turmaMB.turma.codigo}" size="5"
+								maxlength="5" />
 							<h:outputLabel for="codigo" value="" />
 							<h:outputLabel for="codigo" value="" />
 							<h:outputLabel for="curso" value="Curso: " />
-							<p:inputText id="curso" value="#{turmaMB.cursoSelecionado.nome}" size="30" />
+							<p:inputText id="curso" value="#{turmaMB.cursoSelecionado.nome}"
+								size="30" />
 							<h:outputLabel for="instrutor" value="Instrutor: " />
-							<p:inputText id="instrutor" value="#{turmaMB.instrutorSelecionado.nome}" size="30" />
+							<p:inputText id="instrutor"
+								value="#{turmaMB.instrutorSelecionado.nome}" size="30" />
 						</h:panelGrid>
 						<h:panelGrid columns="4" cellpadding="5">
-							<p:commandButton value="Consultar" id="consultar" actionListener="#{turmaMB.listar()}" update="@form" icon="ui-icon-search" />
-							<p:commandButton value="Incluir" action="#{turmaMB.acaoInclusao}" process="@this" update="@form" icon="ui-icon-disk" />
-							<p:commandButton value="Limpar" id="limpar" actionListener="#{turmaMB.limpaFiltroDePesquisa()}" update="@form" icon="ui-icon-document-b" />
+							<p:commandButton value="Consultar" id="consultar"
+								actionListener="#{turmaMB.listar()}" update="@form"
+								icon="ui-icon-search" />
+							<p:commandButton value="Incluir" action="#{turmaMB.acaoInclusao}"
+								process="@this" update="@form" icon="ui-icon-disk" />
+							<p:commandButton value="Limpar" id="limpar"
+								actionListener="#{turmaMB.limpaFiltroDePesquisa()}"
+								update="@form" icon="ui-icon-document-b" />
 						</h:panelGrid>
-						<p:growl id="growl" life="6000" />
 					</p:fieldset>
 
-					<ui:fragment rendered="#{not empty turmaMB.turmas}" id="listaDeTurmas">
-					
-						<p:dataTable var="t" value="#{turmaMB.turmas}" stickyHeader="true">
+					<ui:fragment rendered="#{not empty turmaMB.turmas}"
+						id="listaDeTurmas">
+
+						<p:dataTable id="turmas" var="t" value="#{turmaMB.turmas}"
+							stickyHeader="true">
 							<f:facet name="header">
 			            Lista de Turmas
 			        </f:facet>
@@ -115,11 +128,15 @@
 
 							<p:rowExpansion>
 
-								<p:dataTable var="tals" value="#{t.turmaAlunos}"
-									stickyHeader="true">
+								<p:dataTable id="turmaAlunos" var="tals"
+									value="#{t.turmaAlunos}" stickyHeader="true" editable="true"
+									editMode="cell" widgetVar="tals">
 									<f:facet name="header">
 									            Alunos desta Turma
-									        </f:facet>
+									</f:facet>
+									<p:ajax event="cellEdit" listener="#{turmaMB.onCellEdit}"
+										update=":frmTurma:msgs :frmTurma:growl" />
+
 									<p:column style="width:100px;" headerText="Nome"
 										sortBy="#{tals.aluno.nome}">
 										<h:outputText value="#{tals.aluno.nome.toUpperCase()}" />
@@ -140,15 +157,34 @@
 										<h:outputText value="#{tals.aluno.telefone}"
 											converter="telefoneConverter" />
 									</p:column>
-									
+
 									<p:column style="width:100px;" headerText="Valor"
 										sortBy="#{tals.talValorPago}">
-										<h:outputText value="#{tals.talValorPago}" />
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{tals.talValorPago}">
+													<f:convertNumber currencySymbol="R$" type="currency" />
+												</h:outputText>
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText styleClass="valor" id="valor"
+													value="#{tals.talValorPago}" label="Valor" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
-									
+
 									<p:column style="width:100px;" headerText="Status"
 										sortBy="#{tals.statusAluno.descricao}">
-										<h:outputText value="#{tals.statusAluno.descricao}" />
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{tals.statusAluno.descricao}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:selectOneMenu required="true" style="width:100%" value="#{tals.statusAluno}">
+													<f:selectItems value="#{turmaMB.statusAluno}" var="statusAluno" itemValue="#{statusAluno}" itemLabel="#{statusAluno.descricao}" />
+												</p:selectOneMenu>
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 
 								</p:dataTable>
@@ -185,18 +221,8 @@
 
 
 									<h:outputText value="Status" />
-									<h:outputText value="Interesse"
-										rendered="#{turmaMB.turmaSelecionada.status == 'I'}" />
-									<h:outputText value="Encerrada"
-										rendered="#{turmaMB.turmaSelecionada.status == 'E'}" />
-									<h:outputText value="Ultimas Vagas"
-										rendered="#{turmaMB.turmaSelecionada.status == 'U'}" />
-									<h:outputText value="Confirmada"
-										rendered="#{turmaMB.turmaSelecionada.status == 'C'}" />
-									<h:outputText value="Aberta"
-										rendered="#{turmaMB.turmaSelecionada.status == 'A'}" />
-									<h:outputText value="Prevista"
-										rendered="#{turmaMB.turmaSelecionada.status == 'P'}" />
+									<h:outputText
+										value="#{turmaMB.turmaSelecionada.status.descricao}" />
 
 									<h:outputText value="Quantidade Mínima" />
 									<h:outputText value="#{turmaMB.turmaSelecionada.qtdeMinima}" />
