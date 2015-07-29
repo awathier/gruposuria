@@ -60,8 +60,8 @@ public class TurmaMB implements Serializable {
 	private CidadeModel cidadeModel;
 
 	private TagCloudModel tagCloudModel;
-	
-	private PieChartModel pieModel1;
+
+	private PieChartModel pieModel;
 
 	private Turma turma = new Turma();
 	private Turma turmaSelecionada;
@@ -112,8 +112,9 @@ public class TurmaMB implements Serializable {
 		}
 		setTurma(new Turma());
 		listaEstados();
-		//listaTotaisPorCurso();
+		// listaTotaisPorCurso();
 		tagCloud();
+		createPieModels();
 	}
 
 	public StatusTurma[] getStatusTurma() {
@@ -130,7 +131,8 @@ public class TurmaMB implements Serializable {
 			turmaModel.alterar(t);
 		}
 
-		FacesMessage msg = new FacesMessage("Dado(s) Alterados", ((TurmaAluno) event.getObject()).getAluno().getNome());
+		FacesMessage msg = new FacesMessage("Dado(s) Alterados",
+				((TurmaAluno) event.getObject()).getAluno().getNome());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
@@ -153,8 +155,9 @@ public class TurmaMB implements Serializable {
 				turmaModel.alterar(t);
 			}
 
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dado(s) alterados",
-					"Antigo: " + oldValue + ", Novo:" + newValue);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Dado(s) alterados", "Antigo: " + oldValue + ", Novo:"
+							+ newValue);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		}
@@ -166,7 +169,8 @@ public class TurmaMB implements Serializable {
 
 	public void onSelect(SelectEvent event) {
 		TagCloudItem item = (TagCloudItem) event.getObject();
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", item.getLabel());
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Item Selected", item.getLabel());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
@@ -177,19 +181,25 @@ public class TurmaMB implements Serializable {
 		try {
 			this.turma = turmaModel.excluir(turmaSelecionada);
 			if (this.turma != null) {
-				FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO, "Excluido com sucesso!", "."));
+				FacesContext.getCurrentInstance().getExternalContext()
+						.getFlash().setKeepMessages(true);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO,
+								"Excluido com sucesso!", "."));
 				setTurma(new Turma());
 				setturmas(new ArrayList<Turma>());
 				listaTurmas();
 				setAcaoDeInclusao(false);
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao Excluir!", "."));
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR,
+								"Erro ao Excluir!", "."));
 			}
 			resultado = "pesquisar-turma.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -204,8 +214,10 @@ public class TurmaMB implements Serializable {
 		if ((!"".equals(acaoDeInclusao)) && (acaoDeInclusao == false)) {
 			try {
 				mostrarBotaoAlterar = true;
-				this.turma = turmaModel.consultarPorCodigo(turmaSelecionada.getCodigo());
-				this.idInstrutor = this.turma.getInstrutor().getCodigo().toString();
+				this.turma = turmaModel.consultarPorCodigo(turmaSelecionada
+						.getCodigo());
+				this.idInstrutor = this.turma.getInstrutor().getCodigo()
+						.toString();
 				this.idCurso = this.turma.getCurso().getCodigo().toString();
 				this.cidades.add(this.turma.getCidadeCurso());
 				this.idEstado = this.turma.getUf().toString();
@@ -213,10 +225,13 @@ public class TurmaMB implements Serializable {
 				listaCursos();
 				listaInstrutores();
 				resultado = "cadastrar-turma.jsf?faces-redirect=true";
-				FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect(resultado);
 			} catch (Exception e) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Excluir!", "."));
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR,
+								"Falha ao Excluir!", "."));
 				System.out.println("Erro: " + e.getMessage());
 				e.printStackTrace();
 			}
@@ -254,26 +269,35 @@ public class TurmaMB implements Serializable {
 	}
 
 	public void tagCloud() {
-		
+
 		List<Turma> listaTotaisPorCurso = listaTotaisPorCurso();
 		tagCloudModel = new DefaultTagCloudModel();
 		for (Turma turma : listaTotaisPorCurso) {
-			tagCloudModel.addTag(new DefaultTagCloudItem(turma.getCurso().getNome(), "#", turma.getTotal().intValue()));
+			tagCloudModel.addTag(new DefaultTagCloudItem(turma.getCurso()
+					.getNome(), "#", turma.getTotal().intValue()));
 		}
-		
+
 	}
-	
-	private void createPieModel1() {
-		
-        pieModel1 = new PieChartModel();
-        List<Turma> listaTotaisPorCurso = listaTotaisPorCurso();
-        for (Turma turma : listaTotaisPorCurso) {
-        	 pieModel1.set(turma.getCurso().getNome(), turma.getTotal().intValue());
+
+	public void createPieModels() {
+		createPieModel();
+	}
+
+	private void createPieModel() {
+
+		pieModel = new PieChartModel();
+		List<Turma> listaTotaisPorCurso = listaTotaisPorCurso();
+		for (Turma turma : listaTotaisPorCurso) {
+			pieModel.set(turma.getCurso().getNome(), turma.getTotal().intValue());
 		}
-         
-        pieModel1.setTitle("Totais Turmas por Cursos");
-        pieModel1.setLegendPosition("w");
-    }
+
+		pieModel.setTitle("Totais Turmas por Cursos");
+		pieModel.setLegendPosition("e");
+		pieModel.setFill(false);
+        pieModel.setShowDataLabels(true);
+        pieModel.setDiameter(150);
+
+	}
 
 	public List<Turma> listaTotaisPorCurso() {
 
@@ -310,14 +334,20 @@ public class TurmaMB implements Serializable {
 			setTurmasAluno(new ArrayList<TurmaAluno>());
 			setAcaoDeInclusao(false);
 			listaTurmas();
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "..."));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash()
+					.setKeepMessages(true);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Gravado com sucesso!", "..."));
 			resultado = "pesquisar-turma.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Gravar!", "."));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Falha ao Gravar!", "."));
 			System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -351,14 +381,20 @@ public class TurmaMB implements Serializable {
 			setTurmasAluno(new ArrayList<TurmaAluno>());
 			setAcaoDeInclusao(false);
 			listaTurmas();
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash()
+					.setKeepMessages(true);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Gravado com sucesso!", "."));
 			resultado = "pesquisar-turma.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Gravar!", "."));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Falha ao Gravar!", "."));
 			System.out.println("Erro: " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -420,7 +456,8 @@ public class TurmaMB implements Serializable {
 		setMostrarBotaoAlterar(false);
 		String resultado = "pesquisar-turma.jsf?faces-redirect=true";
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -632,12 +669,12 @@ public class TurmaMB implements Serializable {
 		return tagCloudModel;
 	}
 
-	public PieChartModel getPieModel1() {
-		return pieModel1;
+	public PieChartModel getPieModel() {
+		return pieModel;
 	}
 
-	public void setPieModel1(PieChartModel pieModel1) {
-		this.pieModel1 = pieModel1;
+	public void setPieModel(PieChartModel pieModel) {
+		this.pieModel = pieModel;
 	}
 
 	public void setTagCloudModel(TagCloudModel tagCloudModel) {

@@ -75,18 +75,6 @@
 						</p:fieldset>
 					</div>
 
-					<div class="bannerVertical">
-						<p:fieldset legend="Cursos" style="height:150px">
-							<h:panelGrid columns="2" cellpadding="5">
-								<h:form>
-									<p:growl id="msgs" showDetail="true" />
-									<p:chart type="pie" model="#{turmaMB.createPieModel1}"
-										style="width:400px;height:300px" />
-								</h:form>
-							</h:panelGrid>
-						</p:fieldset>
-					</div>
-
 					<!-- <div id="bannerPequeno">
 						<ui:include src="/template/login.xhtml" />
 					</div> -->
@@ -141,6 +129,16 @@
 								<!-- <p:graphicImage width="120" height="120" name="images/treinamento.png" /> -->
 								<h:outputText
 									value="Temos o foco na operacionalização completa de todos os módulos do Sistema de Gestão de Convênios e Contratos de Repasse – SICONV. Contamos com uma equipe experiente composta de servidores que atuam nos mais diversos órgãos federais. nós garantimos os melhores instrutores do brasil. O Grupo Suria possui corpo próprio de profissionais e garantimos os melhores instrutores do Brasil, o que nos possibilita oferecer o melhor custo benefício do mercado. São oferecidas diversas modalidades de treinamentos, propiciando aos participantes um completo e profundo conhecimento sobre convênios de maneira geral e o Siconv. Consulte nossa agenda de cursos e matricule-se já!" />
+							</h:panelGrid>
+						</p:fieldset>
+					</div>
+					
+					<div class="bannerVertical">
+						<p:fieldset legend="Cursos" style="width:260px;">
+							<h:panelGrid>
+								<h:form>
+									<p:chart type="pie" model="#{turmaMB.pieModel}" style="width:260px;height:220px" />
+								</h:form>
 							</h:panelGrid>
 						</p:fieldset>
 					</div>
