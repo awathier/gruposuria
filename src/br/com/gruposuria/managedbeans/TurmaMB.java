@@ -1,6 +1,7 @@
 package br.com.gruposuria.managedbeans;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.chart.PieChartModel;
 import org.primefaces.model.tagcloud.DefaultTagCloudItem;
 import org.primefaces.model.tagcloud.DefaultTagCloudModel;
 import org.primefaces.model.tagcloud.TagCloudItem;
@@ -37,7 +39,7 @@ import br.com.gruposuria.model.TurmaModel;
 
 @ManagedBean
 @SessionScoped
-public class TurmaMB {
+public class TurmaMB implements Serializable {
 
 	@Inject
 	private TurmaModel turmaModel;
@@ -58,6 +60,8 @@ public class TurmaMB {
 	private CidadeModel cidadeModel;
 
 	private TagCloudModel tagCloudModel;
+	
+	private PieChartModel pieModel1;
 
 	private Turma turma = new Turma();
 	private Turma turmaSelecionada;
@@ -257,8 +261,19 @@ public class TurmaMB {
 			tagCloudModel.addTag(new DefaultTagCloudItem(turma.getCurso().getNome(), "#", turma.getTotal().intValue()));
 		}
 		
-
 	}
+	
+	private void createPieModel1() {
+		
+        pieModel1 = new PieChartModel();
+        List<Turma> listaTotaisPorCurso = listaTotaisPorCurso();
+        for (Turma turma : listaTotaisPorCurso) {
+        	 pieModel1.set(turma.getCurso().getNome(), turma.getTotal().intValue());
+		}
+         
+        pieModel1.setTitle("Totais Turmas por Cursos");
+        pieModel1.setLegendPosition("w");
+    }
 
 	public List<Turma> listaTotaisPorCurso() {
 
@@ -615,6 +630,18 @@ public class TurmaMB {
 
 	public TagCloudModel getTagCloudModel() {
 		return tagCloudModel;
+	}
+
+	public PieChartModel getPieModel1() {
+		return pieModel1;
+	}
+
+	public void setPieModel1(PieChartModel pieModel1) {
+		this.pieModel1 = pieModel1;
+	}
+
+	public void setTagCloudModel(TagCloudModel tagCloudModel) {
+		this.tagCloudModel = tagCloudModel;
 	}
 
 }

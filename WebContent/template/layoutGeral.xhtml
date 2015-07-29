@@ -75,6 +75,18 @@
 						</p:fieldset>
 					</div>
 
+					<div class="bannerVertical">
+						<p:fieldset legend="Cursos" style="height:150px">
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:form>
+									<p:growl id="msgs" showDetail="true" />
+									<p:chart type="pie" model="#{turmaMB.createPieModel1}"
+										style="width:400px;height:300px" />
+								</h:form>
+							</h:panelGrid>
+						</p:fieldset>
+					</div>
+
 					<!-- <div id="bannerPequeno">
 						<ui:include src="/template/login.xhtml" />
 					</div> -->
@@ -134,9 +146,10 @@
 					</div>
 
 					<div class="bannerVertical textoCentralizado">
-						<p:fieldset legend="Contato" toggleable="true" toggleSpeed="500">
+						<p:fieldset legend="Contato">
 							<h:panelGrid columns="2" cellpadding="5">
-								<h:outputText value="Se fazer presente em Brasília é algo imprescindível para o sucesso no pleito de convênios junto à União e, sabendo disso, o Grupo Suria irá representá-lo na Capital Federal, para que assim a burocracia e a distância não lhe impeçam de chegar diretamente na fonte dos recursos. " />
+								<h:outputText
+									value="Se fazer presente em Brasília é algo imprescindível para o sucesso no pleito de convênios junto à União e, sabendo disso, o Grupo Suria irá representá-lo na Capital Federal, para que assim a burocracia e a distância não lhe impeçam de chegar diretamente na fonte dos recursos. " />
 							</h:panelGrid>
 						</p:fieldset>
 					</div>
