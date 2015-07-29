@@ -67,6 +67,7 @@
 							<f:facet name="header">
 			            Lista de Turmas
 			        </f:facet>
+
 							<p:column style="width:16px">
 								<p:rowToggler rendered="#{not empty t.turmaAlunos}" />
 							</p:column>
@@ -102,6 +103,7 @@
 									hideEffect="fade" />
 
 							</p:column>
+
 							<p:column style="width:30px;" headerText="Id"
 								sortBy="#{t.codigo}">
 								<h:outputText value="#{t.codigo}" />
@@ -128,34 +130,86 @@
 
 							<p:rowExpansion>
 
-								<p:dataTable id="turmaAlunos" var="tals"
-									value="#{t.turmaAlunos}" stickyHeader="true" editable="true"
-									editMode="cell" widgetVar="tals">
+								<p:dataTable id="turmAlunos" var="tals" value="#{t.turmaAlunos}"
+									stickyHeader="true" editable="true">
 									<f:facet name="header">
-									            Alunos desta Turma
+										Alunos desta Turma
 									</f:facet>
+
 									<p:ajax event="cellEdit" listener="#{turmaMB.onCellEdit}"
+										update=":frmTurma:msgs :frmTurma:growl" />
+
+									<p:ajax event="rowEdit" listener="#{turmaMB.onRowEdit}"
+										update=":frmTurma:msgs :frmTurma:growl" />
+
+									<p:ajax event="rowEditCancel" listener="#{turmaMB.onRowCancel}"
 										update=":frmTurma:msgs :frmTurma:growl" />
 
 									<p:column style="width:100px;" headerText="Nome"
 										sortBy="#{tals.aluno.nome}">
-										<h:outputText value="#{tals.aluno.nome.toUpperCase()}" />
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{tals.aluno.nome.toUpperCase()}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText id="nome" value="#{tals.aluno.nome}"
+													required="true" requiredMessage="NOME requerido" />
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 
 									<p:column style="width:100px;" headerText="CPF"
 										sortBy="#{tals.aluno.cpf}">
-										<h:outputText value="#{tals.aluno.cpf}" />
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{tals.aluno.cpf}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputMask id="cpf" value="#{tals.aluno.cpf}"
+													converter="cpfConverter" required="true"
+													mask="999.999.999-99" size="20"
+													requiredMessage="CPF requerido">
+													<f:validator validatorId="cpfValidator" />
+												</p:inputMask>
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 
 									<p:column style="width:100px;" headerText="Email"
 										sortBy="#{tals.aluno.email}">
-										<h:outputText value="#{tals.aluno.email}" />
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{tals.aluno.email}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText id="email" value="#{tals.aluno.email}"
+													required="true" validatorMessage="Campo e-mail invalido!"
+													size="45" requiredMessage="EMAIL requerido">
+													<f:validator validatorId="emailValidator" />
+													<f:validateRegex
+														pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" />
+													<f:validateLength maximum="80" />
+												</p:inputText>
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 
 									<p:column style="width:100px;" headerText="Telefone"
 										sortBy="#{tals.aluno.telefone}">
-										<h:outputText value="#{tals.aluno.telefone}"
-											converter="telefoneConverter" />
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{tals.aluno.telefone}"
+													converter="telefoneConverter" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputMask id="telefone" value="#{tals.aluno.telefone}"
+													converter="telefoneConverter" required="true"
+													mask="(99) 9999-9999" size="20"
+													validatorMessage="TELEFONE Invalido!"
+													requiredMessage="TELEFONE requerido">
+												</p:inputMask>
+											</f:facet>
+										</p:cellEditor>
 									</p:column>
 
 									<p:column style="width:100px;" headerText="Valor"
@@ -180,11 +234,18 @@
 												<h:outputText value="#{tals.statusAluno.descricao}" />
 											</f:facet>
 											<f:facet name="input">
-												<p:selectOneMenu required="true" style="width:100%" value="#{tals.statusAluno}">
-													<f:selectItems value="#{turmaMB.statusAluno}" var="statusAluno" itemValue="#{statusAluno}" itemLabel="#{statusAluno.descricao}" />
+												<p:selectOneMenu required="true" style="width:100%"
+													value="#{tals.statusAluno}">
+													<f:selectItems value="#{turmaMB.statusAluno}"
+														var="statusAluno" itemValue="#{statusAluno}"
+														itemLabel="#{statusAluno.descricao}" />
 												</p:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
+									</p:column>
+
+									<p:column style="width:32px">
+										<p:rowEditor />
 									</p:column>
 
 								</p:dataTable>

@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.com.gruposuria.enums.StatusTurma;
 
@@ -35,6 +36,7 @@ import br.com.gruposuria.enums.StatusTurma;
 	@NamedQuery(name="Turma.consultaPorUf", query="SELECT t FROM Turma t WHERE t.uf = :uf"),
 	@NamedQuery(name="Turma.consultaPorData", query="SELECT t FROM Turma t WHERE t.data = :data"),
 	@NamedQuery(name="Turma.listaTodosVigentes", query="SELECT t FROM Turma t WHERE t.dataFim >= :today ORDER BY t.codigo DESC"),
+	@NamedQuery(name="Turma.listaTotaisPorCurso", query="SELECT t.curso.nome, COUNT(t.curso.codigo) AS TOTAL FROM Turma t GROUP BY t.curso.codigo"),
 	@NamedQuery(name="Turma.listaTodos", query="SELECT t FROM Turma t ORDER BY t.codigo DESC")
 })
 public class Turma implements Serializable {
@@ -84,6 +86,9 @@ public class Turma implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="CID_ID")
 	private Cidade cidadeCurso;
+	
+	@Transient
+	private Long total;
 	
 	public Turma(Long codigo, Long cidade, Long uf, Date data,
 			BigDecimal valor, StatusTurma status, Integer qtdeMinima,
@@ -242,6 +247,14 @@ public class Turma implements Serializable {
 
 	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
+	}
+
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long count) {
+		this.total = count;
 	}
 
 }

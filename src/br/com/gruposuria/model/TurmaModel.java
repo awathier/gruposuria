@@ -63,4 +63,8 @@ public class TurmaModel implements Serializable {
 		return turmaDAO.listar(Turma);
 	}
 	
+	public List<Turma> listaTotaisPorCurso(){
+		return turmaDAO.listaTotaisPorCurso();
+	}
+	
 }

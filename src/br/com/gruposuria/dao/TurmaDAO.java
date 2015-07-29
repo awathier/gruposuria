@@ -7,6 +7,7 @@ import static java.util.Calendar.SECOND;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,10 +16,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 import br.com.gruposuria.constantes.SQL;
+import br.com.gruposuria.entity.Curso;
 import br.com.gruposuria.entity.Turma;
 import br.com.gruposuria.util.EditorDeConsultaSQL;
 
@@ -201,6 +204,40 @@ public class TurmaDAO extends DAO<Turma> {
 		
 		return c.getTime();
 	}
+	
+	public List<Turma> listaTotaisPorCurso(){
+				
+		List<Turma> resultado = new ArrayList<Turma>();
+		TypedQuery<Object[]> query = getEntityManager().createNamedQuery("Turma.listaTotaisPorCurso", Object[].class);
+		//query.setParameter("codigo", id);
+
+		List<Object[]> lista = null;
+		
+		
+		try{
+			
+			lista = query.getResultList();
+			
+			for (Object[] result : lista) {
+				String nome = (String) result[0];
+				Long count = ((Long) result[1]).longValue();
+				Turma turma = new Turma();
+				Curso curso = new Curso();
+				curso.setNome(nome);
+				turma.setCurso(curso);
+				turma.setTotal(count);
+				resultado.add(turma);
+			}
+			
+			
+			
+		}catch(javax.persistence.NoResultException e){
+			//não é necessário tratamento
+		}
+		
+		return resultado;	
+	}
+
 	
 	public static void main(String[] args) {
 		TurmaDAO dao = new TurmaDAO();

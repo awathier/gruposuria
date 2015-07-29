@@ -15,6 +15,7 @@
 		<class>br.com.gruposuria.entity.TurmaAluno</class>
 		<class>br.com.gruposuria.entity.Cidade</class>
 		<class>br.com.gruposuria.entity.Estado</class>
+		<class>br.com.gruposuria.entity.Usuario</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />

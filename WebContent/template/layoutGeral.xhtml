@@ -16,7 +16,7 @@
 </h:head>
 <h:body>
 
-	<ui:debug hotkey="K"/>
+	<ui:debug hotkey="K" />
 
 	<div id="tudo">
 		<div id="bordaTopoGeral"></div>
@@ -24,13 +24,13 @@
 			<!--<div id="cabecalho"> -->
 			<div id="logo">
 				<div id="logoPequena">
-					<a href="#{request.contextPath}/default.jsf">
-							<img src="#{resource['images:/logoSuria.png']}" title="Grupo Suria" />
+					<a href="#{request.contextPath}/default.jsf"> <img
+						src="#{resource['images:/logoSuria.png']}" title="Grupo Suria" />
 					</a>
 				</div>
 				<div id="logoGrande">
-					<a href="#{request.contextPath}/default.jsf">
-							<img src="#{resource['images:/logo.png']}" title="Grupo Suria" />
+					<a href="#{request.contextPath}/default.jsf"> <img
+						src="#{resource['images:/logo.png']}" title="Grupo Suria" />
 					</a>
 				</div>
 				<!-- <a href="default.jsf"><img src="resources/images/logo.png"	border="0" /></a> -->
@@ -60,6 +60,21 @@
 						<ui:include src="/template/bannerGrande.xhtml" />
 						<!-- </ui:insert> -->
 					</div>
+
+					<div class="bannerVertical">
+						<p:fieldset legend="Cursos" style="height:150px">
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:form>
+									<p:growl id="msgs" showDetail="true" />
+									<p:tagCloud model="#{turmaMB.tagCloudModel}">
+										<p:ajax event="select" update="msgs"
+											listener="#{turmaMB.onSelect}" />
+									</p:tagCloud>
+								</h:form>
+							</h:panelGrid>
+						</p:fieldset>
+					</div>
+
 					<!-- <div id="bannerPequeno">
 						<ui:include src="/template/login.xhtml" />
 					</div> -->
@@ -89,47 +104,43 @@
 							</div>
 						</div>
 					</div> -->
-					
+
 					<div id="banner6" class="bannersPeq">
-					    <p:growl id="msgs" showDetail="true" />
-					 
-					    <p:fieldset legend="Assessoria" style="margin-bottom:20px">
-					        <h:panelGrid columns="2" cellpadding="5">
-					            <!-- <p:graphicImage width="120" height="120" name="images/assessoria.png" /> -->
-					            <h:outputText
-					                value="O serviço de assessoria é dedicado a fornecer uma equipe de profissionais experientes e especializados em uma ou mais áreas ligadas às diversas fases da tramitação de um convênio, oferecendo uma prestação de serviço de alto nível e qualidade. O Grupo Suria visa desenvolver ações que buscam facilitar e indicar os caminhos para a captação de recursos federais ou solução de problemas existentes em convênios já celebrados. Nossa assessoria visa elevar o nível de eficiência na gestão de recursos, propiciando uma maior participação nos recursos descentralizados pela União por meio de convênios, e ainda a correta execução e operacionalização destes instrumentos no Siconv, evitando assim possíveis problemas quando da prestação de contas." />
-					        </h:panelGrid>
-					    </p:fieldset>
-					    
-					    <p:fieldset legend="Consultoria" style="margin-bottom:20px">
-					        <h:panelGrid columns="2" cellpadding="5">
-					            <!-- <p:graphicImage width="120" height="120" name="images/consultoria.png" /> -->
-					            <h:outputText
-					                value="Nossos serviços de consultoria são destinados às diversas instituições aptas a celebrar convênios com o Governo Federal, oferecendo modelos operacionais personalizados, flexíveis e eficazes. A missão é unir as melhores abordagens possíveis de consultoria com uma execução pragmática. O serviço de consultoria é dedicado a fornecer uma análise profunda, com solução específica para o problema encontrado em determinado convênio. O Grupo Suria assumirá a operacionalização do Siconv, a depender do objeto da consultoria, ou ainda sobre todas as fases do convênio, da proposta à prestação de contas. Os nossos serviços de consultoria podem ser adquiridos para situações pontuais ou de forma mais abrangente, a médio/longo prazo, com toda a gestão de convênios da entidade ficando a cargo do Grupo Suria." />
-					        </h:panelGrid>
-					    </p:fieldset>
-					    
-					    <p:fieldset legend="Treinamento" style="margin-bottom:20px">
-					        <h:panelGrid columns="2" cellpadding="5">
-					            <!-- <p:graphicImage width="120" height="120" name="images/treinamento.png" /> -->
-					            <h:outputText
-					                value="Temos o foco na operacionalização completa de todos os módulos do Sistema de Gestão de Convênios e Contratos de Repasse – SICONV. Contamos com uma equipe experiente composta de servidores que atuam nos mais diversos órgãos federais. nós garantimos os melhores instrutores do brasil. O Grupo Suria possui corpo próprio de profissionais e garantimos os melhores instrutores do Brasil, o que nos possibilita oferecer o melhor custo benefício do mercado. São oferecidas diversas modalidades de treinamentos, propiciando aos participantes um completo e profundo conhecimento sobre convênios de maneira geral e o Siconv. Consulte nossa agenda de cursos e matricule-se já!" />
-					        </h:panelGrid>
-					    </p:fieldset>
+						<p:growl id="msgs" showDetail="true" />
+
+						<p:fieldset legend="Assessoria" style="margin-bottom:20px">
+							<h:panelGrid columns="2" cellpadding="5">
+								<!-- <p:graphicImage width="120" height="120" name="images/assessoria.png" /> -->
+								<h:outputText
+									value="O serviço de assessoria é dedicado a fornecer uma equipe de profissionais experientes e especializados em uma ou mais áreas ligadas às diversas fases da tramitação de um convênio, oferecendo uma prestação de serviço de alto nível e qualidade. O Grupo Suria visa desenvolver ações que buscam facilitar e indicar os caminhos para a captação de recursos federais ou solução de problemas existentes em convênios já celebrados. Nossa assessoria visa elevar o nível de eficiência na gestão de recursos, propiciando uma maior participação nos recursos descentralizados pela União por meio de convênios, e ainda a correta execução e operacionalização destes instrumentos no Siconv, evitando assim possíveis problemas quando da prestação de contas." />
+							</h:panelGrid>
+						</p:fieldset>
+
+						<p:fieldset legend="Consultoria" style="margin-bottom:20px">
+							<h:panelGrid columns="2" cellpadding="5">
+								<!-- <p:graphicImage width="120" height="120" name="images/consultoria.png" /> -->
+								<h:outputText
+									value="Nossos serviços de consultoria são destinados às diversas instituições aptas a celebrar convênios com o Governo Federal, oferecendo modelos operacionais personalizados, flexíveis e eficazes. A missão é unir as melhores abordagens possíveis de consultoria com uma execução pragmática. O serviço de consultoria é dedicado a fornecer uma análise profunda, com solução específica para o problema encontrado em determinado convênio. O Grupo Suria assumirá a operacionalização do Siconv, a depender do objeto da consultoria, ou ainda sobre todas as fases do convênio, da proposta à prestação de contas. Os nossos serviços de consultoria podem ser adquiridos para situações pontuais ou de forma mais abrangente, a médio/longo prazo, com toda a gestão de convênios da entidade ficando a cargo do Grupo Suria." />
+							</h:panelGrid>
+						</p:fieldset>
+
+						<p:fieldset legend="Treinamento" style="margin-bottom:20px">
+							<h:panelGrid columns="2" cellpadding="5">
+								<!-- <p:graphicImage width="120" height="120" name="images/treinamento.png" /> -->
+								<h:outputText
+									value="Temos o foco na operacionalização completa de todos os módulos do Sistema de Gestão de Convênios e Contratos de Repasse – SICONV. Contamos com uma equipe experiente composta de servidores que atuam nos mais diversos órgãos federais. nós garantimos os melhores instrutores do brasil. O Grupo Suria possui corpo próprio de profissionais e garantimos os melhores instrutores do Brasil, o que nos possibilita oferecer o melhor custo benefício do mercado. São oferecidas diversas modalidades de treinamentos, propiciando aos participantes um completo e profundo conhecimento sobre convênios de maneira geral e o Siconv. Consulte nossa agenda de cursos e matricule-se já!" />
+							</h:panelGrid>
+						</p:fieldset>
 					</div>
-					<!-- <div id="banner7" class="bannersPeq">
-						Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit. Etiam quam ipsum, ullamcorper non ultrices nec,
-						gravida non ligula.
+
+					<div class="bannerVertical">
+						<p:panel style="width: 290px;height:645px">
+							<h:panelGrid styleClass="textoCentralizado">
+								<h:outputText value="Temos o foco na operacional" />
+							</h:panelGrid>
+
+						</p:panel>
 					</div>
-					<div id="banner8" class="bannersPeq">
-						Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit. Etiam quam ipsum, ullamcorper non ultrices nec,
-						gravida non ligula.
-					</div>
-					<div id="banner4">Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit. Etiam quam ipsum, ullamcorper non ultrices nec,
-						gravida non ligula.</div> -->
 
 				</ui:insert>
 			</div>

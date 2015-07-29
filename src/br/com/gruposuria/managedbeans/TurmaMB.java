@@ -12,6 +12,12 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.tagcloud.DefaultTagCloudItem;
+import org.primefaces.model.tagcloud.DefaultTagCloudModel;
+import org.primefaces.model.tagcloud.TagCloudItem;
+import org.primefaces.model.tagcloud.TagCloudModel;
 
 import br.com.gruposuria.entity.Aluno;
 import br.com.gruposuria.entity.Cidade;
@@ -50,6 +56,8 @@ public class TurmaMB {
 
 	@Inject
 	private CidadeModel cidadeModel;
+
+	private TagCloudModel tagCloudModel;
 
 	private Turma turma = new Turma();
 	private Turma turmaSelecionada;
@@ -100,19 +108,37 @@ public class TurmaMB {
 		}
 		setTurma(new Turma());
 		listaEstados();
+		//listaTotaisPorCurso();
+		tagCloud();
 	}
 
 	public StatusTurma[] getStatusTurma() {
 		return StatusTurma.values();
 	}
-	
-	public StatusAluno[] getStatusAluno(){  
-        return StatusAluno.values();  
-    } 
+
+	public StatusAluno[] getStatusAluno() {
+		return StatusAluno.values();
+	}
+
+	public void onRowEdit(RowEditEvent event) {
+
+		for (Turma t : this.turmas) {
+			turmaModel.alterar(t);
+		}
+
+		FacesMessage msg = new FacesMessage("Dado(s) Alterados", ((TurmaAluno) event.getObject()).getAluno().getNome());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancel(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Alteração Cancelada",
+				((TurmaAluno) event.getObject()).getAluno().getNome());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 
 	public void onCellEdit(CellEditEvent event) {
 
-		//String resultado = null;
+		// String resultado = null;
 
 		Object oldValue = event.getOldValue();
 		Object newValue = event.getNewValue();
@@ -129,9 +155,15 @@ public class TurmaMB {
 
 		}
 
-		//resultado = "pesquisar-turma.jsf?faces-redirect=true";
-		//FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+		// resultado = "pesquisar-turma.jsf?faces-redirect=true";
+		// FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
 
+	}
+
+	public void onSelect(SelectEvent event) {
+		TagCloudItem item = (TagCloudItem) event.getObject();
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", item.getLabel());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void excluir() {
@@ -215,6 +247,24 @@ public class TurmaMB {
 		}
 		setTurma(new Turma());
 		return this.turmas;
+	}
+
+	public void tagCloud() {
+		
+		List<Turma> listaTotaisPorCurso = listaTotaisPorCurso();
+		tagCloudModel = new DefaultTagCloudModel();
+		for (Turma turma : listaTotaisPorCurso) {
+			tagCloudModel.addTag(new DefaultTagCloudItem(turma.getCurso().getNome(), "#", turma.getTotal().intValue()));
+		}
+		
+
+	}
+
+	public List<Turma> listaTotaisPorCurso() {
+
+		setTurmas(new ArrayList<Turma>());
+		List<Turma> listaTotaisPorCurso = turmaModel.listaTotaisPorCurso();
+		return listaTotaisPorCurso;
 	}
 
 	public String salvar() {
@@ -561,6 +611,10 @@ public class TurmaMB {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+
+	public TagCloudModel getTagCloudModel() {
+		return tagCloudModel;
 	}
 
 }
