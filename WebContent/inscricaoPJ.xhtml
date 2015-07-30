@@ -341,7 +341,7 @@
 
 								<p:accordionPanel activeIndex="1">
 									<p:tab title="Participante com necessidades especiais?">
-										<h:panelGrid columns="2">
+										<h:panelGrid columns="2" cellpadding="5">
 											<p:outputLabel for="participanteNecessidadesEspeciais" value="Possui Necessidades Especiais?" />
 											<p:selectOneMenu id="participanteNecessidadesEspeciais" required="false" value="#{inscricaoMB.aluno.especial}">
 												<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl" itemValue="#{vl}" itemLabel="#{vl.descricao}" />
