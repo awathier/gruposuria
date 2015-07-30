@@ -18,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.gruposuria.enums.ValorLogico;
 
@@ -55,6 +56,9 @@ public class Aluno implements Serializable {
 	@Column(name = "ALU_NECESSIDADE_ESPECIAL")
 	@Enumerated(EnumType.STRING)
 	private ValorLogico especial;
+	
+	@Transient
+	private String especialDescricao;
 
 	@ManyToOne
 	@JoinColumn(name = "INT_NU")
@@ -66,8 +70,12 @@ public class Aluno implements Serializable {
 	@OneToMany(mappedBy = "aluno")
 	private List<InteresseCurso> interesseCursos;
 
+	public Aluno() {
+	}
+	
 	public Aluno(Long codigo, String cpf, String email, String nome,
-			String telefone, String senha, Instituicao instituicao,
+			String telefone, String senha, ValorLogico especial,
+			String especialDescricao, Instituicao instituicao,
 			List<TurmaAluno> turmaAlunos, List<InteresseCurso> interesseCursos) {
 		super();
 		this.codigo = codigo;
@@ -76,12 +84,11 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.senha = senha;
+		this.especial = especial;
+		this.especialDescricao = especialDescricao;
 		this.instituicao = instituicao;
 		this.turmaAlunos = turmaAlunos;
 		this.interesseCursos = interesseCursos;
-	}
-
-	public Aluno() {
 	}
 
 	public Long getCodigo() {
@@ -221,6 +228,14 @@ public class Aluno implements Serializable {
 
 	public void setEspecial(ValorLogico especial) {
 		this.especial = especial;
+	}
+
+	public String getEspecialDescricao() {
+		return especialDescricao;
+	}
+
+	public void setEspecialDescricao(String especialDescricao) {
+		this.especialDescricao = especialDescricao;
 	}
 
 }

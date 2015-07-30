@@ -45,8 +45,9 @@
 					<p:commandButton id="logar" icon="ui-icon-locked" title="Logar" action="#{usuarioMB.efetuaLogin}" update="growl" />
 					<p:commandButton icon="ui-icon-key" title="Recuperar Senha" />
 				</ui:fragment>
+				<p:spacer width="10" height="10" rendered="#{not empty usuarioMB.usuarioLogado}" />
 				<h:outputText value="#{usuarioMB.usuario.login}" />
-				<p:spacer width="20" height="10" rendered="#{usuarioMB.usuarioLogado}" />
+				<p:spacer width="10" height="10" rendered="#{not empty usuarioMB.usuarioLogado}" />
 				<p:commandButton icon="ui-icon-power" title="Sair" action="#{usuarioMB.efetuaLogout}" process="@form" rendered="#{usuarioMB.usuarioLogado}" />
 			</f:facet>
 		</p:menubar>

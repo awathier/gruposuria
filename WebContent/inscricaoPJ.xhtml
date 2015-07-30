@@ -16,7 +16,9 @@
 			<div id="migalhadepao">
 				<p:breadCrumb>
 					<p:menuitem value="home" url="default.jsf" />
-					<p:menuitem value="Inscrição no #{inscricaoMB.cursoSelecionado.nome}" url="inscricao.jsf" />
+					<p:menuitem
+						value="Inscrição no #{inscricaoMB.cursoSelecionado.nome}"
+						url="inscricao.jsf" />
 				</p:breadCrumb>
 			</div>
 		</ui:define>
@@ -62,33 +64,28 @@
 								<p:panel id="painelBasico" style="margin-bottom:20px">
 									<h:panelGrid id="instituicaoGridBasico" columns="4"
 										cellpadding="5">
-										
+
 										<h:outputLabel for="nome" value="Nome: " />
-										<p:autoComplete id="nome"
-											value="#{inscricaoMB.instituicao}"
-											
+										<p:autoComplete id="nome" value="#{inscricaoMB.instituicao}"
 											completeMethod="#{inscricaoMB.listaInstituicoes}"
-											var="instituicao"
-											itemLabel="#{inscricaoMB.instituicao.nome}"
-											itemValue="#{instituicao}"
-											converter="instituicaoConverter"
-											styleClass="f12col cheetos"
-											effect="fade" size="30"
-											minQueryLength="3"
-											label="#{msgs.nome}" required="true" requiredMessage="NOME requerido"
-											>
-											<p:ajax event="itemSelect" listener="#{inscricaoMB.onItemSelectInstituicao}" update="@form nome growl" />
+											var="instituicao" itemLabel="#{inscricaoMB.instituicao.nome}"
+											itemValue="#{instituicao}" converter="instituicaoConverter"
+											styleClass="f12col cheetos" effect="fade" size="30"
+											minQueryLength="3" label="#{msgs.nome}" required="true"
+											requiredMessage="NOME requerido">
+											<p:ajax event="itemSelect"
+												listener="#{inscricaoMB.onItemSelectInstituicao}"
+												update="@form nome growl" />
 											<p:column>
-								                 <h:outputText value="#{instituicao.nome}" />
-								            </p:column>
-								            <!-- <p:column>
+												<h:outputText value="#{instituicao.nome}" />
+											</p:column>
+											<!-- <p:column>
 								                <h:outputText value="#{instituicao.codigo}" />
 								            </p:column> -->
 										</p:autoComplete>
 
 										<h:outputLabel for="cnpj" value="CNPJ: " />
-										<p:inputMask id="cnpj"
-											value="#{inscricaoMB.instituicao.cnpj}"
+										<p:inputMask id="cnpj" value="#{inscricaoMB.instituicao.cnpj}"
 											converter="cnpjConverter" required="true"
 											mask="99.999.999/9999-99" size="20"
 											requiredMessage="CNPJ requerido">
@@ -253,10 +250,11 @@
 										<p:outputLabel for="cidade" value="Cidade:" />
 										<p:selectOneMenu id="cidade" required="true"
 											requiredMessage="Cidade requerida"
-											value="#{inscricaoMB.idCidade}"
-										>
-											<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
-											<f:selectItems value="#{inscricaoMB.cidades}" var="c" itemValue="#{c.idCidade}" itemLabel="#{c.nome}" />
+											value="#{inscricaoMB.idCidade}">
+											<f:selectItem itemLabel="Selecione..." itemValue=""
+												noSelectionOption="true" />
+											<f:selectItems value="#{inscricaoMB.cidades}" var="c"
+												itemValue="#{c.idCidade}" itemLabel="#{c.nome}" />
 										</p:selectOneMenu>
 
 										<h:outputLabel for="cep" value="CEP: " />
@@ -294,14 +292,6 @@
 								<!-- <p:messages /> -->
 								<p:messages id="msgs" closable="true" />
 								<h:panelGrid columns="2" columnClasses="label, value">
-
-									<p:outputLabel for="participanteNecessidadesEspeciais"
-										value="Algum Participante Portador de Necessidades Especiais?" />
-									<p:selectOneMenu id="participanteNecessidadesEspeciais"
-										required="false" value="#{inscricaoMB.aluno.especial}">
-										<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl"
-											itemValue="#{vl}" itemLabel="#{vl.descricao}" />
-									</p:selectOneMenu>
 
 									<h:outputLabel value="Participante : *" for="participanteNome"></h:outputLabel>
 									<p:inputText id="participanteNome"
@@ -347,13 +337,39 @@
 										requiredMessage="TELEFONE requerido">
 									</p:inputMask>
 
-									<!-- <h:outputText value="Pular para o final: " />
-									<h:selectBooleanCheckbox value="#{inscricaoMB.skip}" /> -->
 								</h:panelGrid>
+
+								<p:accordionPanel activeIndex="1">
+									<p:tab title="Participante com necessidades especiais?">
+										<h:panelGrid columns="2">
+											<p:outputLabel for="participanteNecessidadesEspeciais" value="Possui Necessidades Especiais?" />
+											<p:selectOneMenu id="participanteNecessidadesEspeciais" required="false" value="#{inscricaoMB.aluno.especial}">
+												<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl" itemValue="#{vl}" itemLabel="#{vl.descricao}" />
+											</p:selectOneMenu>
+
+											<h:outputLabel for="especialDescricao"
+												value="Descreva sua necessidade: " />
+											<p:inputTextarea id="especialDescricao" rows="3" cols="60"
+												value="#{inscricaoMB.aluno.especialDescricao}"
+												counter="displayEspecialDescricao" maxlength="300"
+												counterTemplate="{0} caracteres restantes."
+												autoResize="false" />
+											<h:outputLabel for="displayEspecialDescricao" value="" />
+											<h:outputText id="displayEspecialDescricao" />
+										</h:panelGrid>
+									</p:tab>
+								</p:accordionPanel>
+
+								<!-- <h:outputText value="Pular para o final: " />
+									<h:selectBooleanCheckbox value="#{inscricaoMB.skip}" /> -->
+
 								<h:panelGrid columns="4" cellpadding="5">
 									<p:commandButton id="btn_reset" value="Limpar" type="reset" />
-									<p:commandButton id="btn_add" value="Adicionar" update="alunos growl msgs @parent" action="#{inscricaoMB.reinit}">
-										<p:collector value="#{inscricaoMB.aluno}" addTo="#{inscricaoMB.alunos}" unique="true" />
+									<p:commandButton id="btn_add" value="Adicionar"
+										update="alunos growl msgs @parent"
+										action="#{inscricaoMB.reinit}">
+										<p:collector value="#{inscricaoMB.aluno}"
+											addTo="#{inscricaoMB.alunos}" unique="true" />
 									</p:commandButton>
 								</h:panelGrid>
 							</p:panel>
@@ -430,9 +446,10 @@
 												styleClass="outputLabel" />
 
 											<h:outputText value="Inscrição Estadual: " />
-											<h:outputText value="#{inscricaoMB.instituicao.inscricaoEstadual}"
+											<h:outputText
+												value="#{inscricaoMB.instituicao.inscricaoEstadual}"
 												styleClass="outputLabel" />
-												
+
 											<h:outputText value="Endereço: " />
 											<h:outputText value="#{inscricaoMB.instituicao.endereco}"
 												styleClass="outputLabel" />
@@ -441,47 +458,47 @@
 											<h:outputText
 												value="#{inscricaoMB.instituicao.nomeResponsavel.toUpperCase()}"
 												styleClass="outputLabel" />
-												
+
 											<h:outputText value="Setor Responsável: " />
 											<h:outputText
 												value="#{inscricaoMB.instituicao.setorResponsavel.toUpperCase()}"
 												styleClass="outputLabel" />
-												
+
 											<h:outputText value="Telefone Responsável: " />
 											<h:outputText
-												value="#{inscricaoMB.instituicao.telefoneResponsavel}" converter="telefoneConverter"
-												styleClass="outputLabel" />
-												
+												value="#{inscricaoMB.instituicao.telefoneResponsavel}"
+												converter="telefoneConverter" styleClass="outputLabel" />
+
 											<h:outputText value="Celular Responsável: " />
 											<h:outputText
-												value="#{inscricaoMB.instituicao.celularResponsavel}" converter="telefoneConverter"
-												styleClass="outputLabel" />
-												
+												value="#{inscricaoMB.instituicao.celularResponsavel}"
+												converter="telefoneConverter" styleClass="outputLabel" />
+
 											<h:outputText value="Email Responsável: " />
 											<h:outputText
 												value="#{inscricaoMB.instituicao.emailResponsavel}"
 												styleClass="outputLabel" />
-												
+
 											<h:outputText value="Responsável Financeiro: " />
 											<h:outputText
 												value="#{inscricaoMB.instituicao.nomeFinanceiro.toUpperCase()}"
 												styleClass="outputLabel" />
-												
+
 											<h:outputText value="Telefone Financeiro " />
 											<h:outputText
-												value="#{inscricaoMB.instituicao.telefoneFinanceiro}" converter="telefoneConverter"
-												styleClass="outputLabel" />
-												
+												value="#{inscricaoMB.instituicao.telefoneFinanceiro}"
+												converter="telefoneConverter" styleClass="outputLabel" />
+
 											<h:outputText value="Celular Financeiro " />
 											<h:outputText
-												value="#{inscricaoMB.instituicao.celularFinanceiro}" converter="telefoneConverter"
-												styleClass="outputLabel" />
-												
+												value="#{inscricaoMB.instituicao.celularFinanceiro}"
+												converter="telefoneConverter" styleClass="outputLabel" />
+
 											<h:outputText value="Email Financeiro: " />
 											<h:outputText
 												value="#{inscricaoMB.instituicao.emailFinanceiro}"
 												styleClass="outputLabel" />
-												
+
 										</h:panelGrid>
 
 									</p:fieldset>
@@ -516,7 +533,7 @@
 													sortBy="#{als.nome}">
 													<h:outputText value="#{als.cpf}" />
 												</p:column>
-												
+
 												<p:column style="width:100px;" headerText="Email"
 													sortBy="#{als.email}">
 													<h:outputText value="#{als.email}" />
@@ -524,11 +541,12 @@
 
 												<p:column style="width:100px;" headerText="Telefone"
 													sortBy="#{als.telefone}">
-													<h:outputText value="#{als.telefone}" converter="telefoneConverter" />
+													<h:outputText value="#{als.telefone}"
+														converter="telefoneConverter" />
 												</p:column>
 
-												<p:column style="width:100px;" headerText="Necessid. Especiais?"
-													sortBy="#{als.especial}">
+												<p:column style="width:100px;"
+													headerText="Necessid. Especiais?" sortBy="#{als.especial}">
 													<h:outputText value="#{als.especial.descricao}" />
 												</p:column>
 
@@ -540,7 +558,8 @@
 
 								</h:panelGrid>
 
-								<p:commandButton value="Salvar Inscrição" style="width:870px;height:100px"
+								<p:commandButton value="Salvar Inscrição"
+									style="width:870px;height:100px"
 									actionListener="#{inscricaoMB.salvar}" update="growl"
 									process="@this" />
 							</p:panel>

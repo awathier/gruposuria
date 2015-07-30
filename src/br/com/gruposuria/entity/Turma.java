@@ -35,10 +35,11 @@ import br.com.gruposuria.enums.StatusTurma;
 	@NamedQuery(name="Turma.consultaPorCidade", query="SELECT t FROM Turma t WHERE t.cidade = :cidade"),
 	@NamedQuery(name="Turma.consultaPorUf", query="SELECT t FROM Turma t WHERE t.uf = :uf"),
 	@NamedQuery(name="Turma.consultaPorData", query="SELECT t FROM Turma t WHERE t.data = :data"),
-	@NamedQuery(name="Turma.listaTodosVigentes", query="SELECT t FROM Turma t WHERE t.dataFim >= :today ORDER BY t.codigo DESC"),
+	@NamedQuery(name="Turma.listaTodosVigentes", query="SELECT t FROM Turma t WHERE t.dataFim >= :today AND t.status NOT IN('E') ORDER BY t.codigo DESC"),
 	@NamedQuery(name="Turma.listaTotaisPorCurso", query="SELECT t.curso.nome, COUNT(t.curso.codigo) AS TOTAL FROM Turma t GROUP BY t.curso.codigo"),
 	@NamedQuery(name="Turma.listaTodos", query="SELECT t FROM Turma t ORDER BY t.codigo DESC")
 })
+
 public class Turma implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

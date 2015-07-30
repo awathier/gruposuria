@@ -42,7 +42,7 @@ public class AgendaMB {
     	this.eventModel = new DefaultScheduleModel();
 
     	for (Turma turma : turmas) {
-    		this.eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome(), turma.getData(), turma.getDataFim(), turma.getCodigo()));
+    		this.eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome() + " - " + turma.getCidadeCurso().getNome() + "(" + turma.getCidadeCurso().getEstado().getUf() + ")", turma.getData(), turma.getDataFim(), turma.getCodigo()));
 		}
     	
     }
@@ -52,7 +52,7 @@ public class AgendaMB {
     	this.eventModel = new DefaultScheduleModel();
 
     	for (Turma turma : turmas) {
-    		this.eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome(), turma.getData(), turma.getDataFim(), turma.getCodigo()));
+    		this.eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome() + " - " + turma.getCidadeCurso().getNome() + "(" + turma.getCidadeCurso().getEstado().getUf() + ")", turma.getData(), turma.getDataFim(), turma.getCodigo()));
 		}
 	}
     

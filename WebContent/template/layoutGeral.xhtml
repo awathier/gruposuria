@@ -132,13 +132,21 @@
 							</h:panelGrid>
 						</p:fieldset>
 					</div>
-					
+
 					<div class="bannerVertical">
 						<p:fieldset legend="Cursos" style="width:260px;">
 							<h:panelGrid>
-								<h:form>
-									<p:chart type="pie" model="#{turmaMB.pieModel}" style="width:260px;height:220px" />
-								</h:form>
+								<p:chart type="pie" model="#{turmaMB.pieModel}"
+									style="width:260px;height:220px" />
+							</h:panelGrid>
+						</p:fieldset>
+					</div>
+
+					<div class="bannerVertical textoCentralizado">
+						<p:fieldset legend="Contato">
+							<h:panelGrid columns="2" cellpadding="5">
+								<p:chart type="bar" model="#{turmaMB.barModel}"
+									style="height:220px" />
 							</h:panelGrid>
 						</p:fieldset>
 					</div>
@@ -151,7 +159,6 @@
 							</h:panelGrid>
 						</p:fieldset>
 					</div>
-
 
 				</ui:insert>
 			</div>
