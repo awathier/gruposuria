@@ -103,7 +103,7 @@
 											<f:validateLength maximum="80" />
 										</p:inputText>
 
-										<h:outputLabel for="participanteTelefone" value="Telefone: " />
+										<h:outputLabel for="participanteTelefone" value="Telefone: *" />
 										<p:inputMask id="participanteTelefone"
 											value="#{inscricaoMB.aluno.telefone}"
 											converter="telefoneConverter" required="true"
@@ -193,13 +193,13 @@
 
 									<p:fieldset legend="Participante" style="margin-bottom:20px">
 
-										<h:panelGrid columns="2" columnClasses="label, value">
+										<h:panelGrid columns="2" cellpadding="10" columnClasses="label, value">
 											<h:outputText value="Nome: " />
 											<h:outputText value="#{inscricaoMB.aluno.nome.toUpperCase()}"
 												styleClass="outputLabel" />
 
 											<h:outputText value="CPF: " />
-											<h:outputText value="#{inscricaoMB.aluno.cpf}"
+											<h:outputText value="#{inscricaoMB.aluno.cpf}" converter="cpfConverter"
 												styleClass="outputLabel" />
 
 											<h:outputText value="Email: " />
@@ -207,7 +207,7 @@
 												styleClass="outputLabel" />
 
 											<h:outputText value="Telefone: " />
-											<h:outputText value="#{inscricaoMB.aluno.telefone}"
+											<h:outputText value="#{inscricaoMB.aluno.telefone}" converter="telefoneConverter"
 												styleClass="outputLabel" />
 
 											<h:outputText value="Possui Necessidades Especiais: " />
@@ -231,6 +231,9 @@
 									</p:fieldset>
 
 								</h:panelGrid>
+								
+								A inscrição deve ser confirmada com no mínimo 5 (cinco) dias de antecedência da data de início de realização do curso, mediante confirmação de pagamento. O cancelamento somente poderá ser feito com antecedência mínima de 3 (três) dias da data de início de realização do curso, após esse prazo poderá ser feita solicitação de crédito para outro curso ou substituição de participante. O GRUPO SURIA reserva-se ao direito de adiar e/ou cancelar o curso por insuficiência de participantes ou qualquer motivo de força maior. *
+  Li e estou de acordo com os termos do contrato de prestação de serviços.
 
 								<p:commandButton value="Salvar Inscrição"
 									style="width:870px;height:100px"

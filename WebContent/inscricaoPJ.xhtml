@@ -79,9 +79,7 @@
 											<p:column>
 												<h:outputText value="#{instituicao.nome}" />
 											</p:column>
-											<!-- <p:column>
-								                <h:outputText value="#{instituicao.codigo}" />
-								            </p:column> -->
+											
 										</p:autoComplete>
 
 										<h:outputLabel for="cnpj" value="CNPJ: " />
@@ -339,7 +337,7 @@
 
 								</h:panelGrid>
 
-								<p:accordionPanel activeIndex="1">
+								<p:accordionPanel activeIndex="">
 									<p:tab title="Participante com necessidades especiais?">
 										<h:panelGrid columns="2" cellpadding="5">
 											<p:outputLabel for="participanteNecessidadesEspeciais" value="Possui Necessidades Especiais?" />
@@ -406,6 +404,13 @@
 												</f:facet>
 												<h:outputText value="#{a.telefone}" />
 											</p:column>
+											
+											<p:column headerText="Telefone">
+												<f:facet name="header">
+													<h:outputText value="Especial" />
+												</f:facet>
+												<h:outputText value="#{a.especial.descricao}" />
+											</p:column>
 
 											<p:column headerText="Ação" style="text-align: center">
 												<p:commandLink value="." update=":frmInscricao:alunos"
@@ -435,14 +440,14 @@
 
 									<p:fieldset legend="Instituição">
 
-										<h:panelGrid columns="2" columnClasses="label, value">
+										<h:panelGrid columns="2" cellpadding="10" columnClasses="label, value">
 											<h:outputText value="Instituição: " />
 											<h:outputText
 												value="#{inscricaoMB.instituicao.nome.toUpperCase()}"
 												styleClass="outputLabel" />
 
 											<h:outputText value="CNPJ: " />
-											<h:outputText value="#{inscricaoMB.instituicao.cnpj}"
+											<h:outputText value="#{inscricaoMB.instituicao.cnpj}" converter="cnpjConverter"
 												styleClass="outputLabel" />
 
 											<h:outputText value="Inscrição Estadual: " />
