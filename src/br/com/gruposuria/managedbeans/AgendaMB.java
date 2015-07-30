@@ -40,6 +40,7 @@ public class AgendaMB {
     	
     	this.turmas = turmaModel.listaTurmasVigentes();
     	this.eventModel = new DefaultScheduleModel();
+    	this.turma = new Turma();
 
     	for (Turma turma : turmas) {
     		this.eventModel.addEvent(new DefaultScheduleEvent(turma.getCurso().getNome() + " - " + turma.getCidadeCurso().getNome() + "(" + turma.getCidadeCurso().getEstado().getUf() + ")", turma.getData(), turma.getDataFim(), turma.getCodigo()));
