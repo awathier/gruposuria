@@ -37,16 +37,18 @@ $(document).ready(function(){
 
 $(function() {
 	
-	$('.realce').animate({
+	/*$('.realce').animate({
 		"opacity" : 1.0
-	});
+	});*/
 	$('.realce').hover(function() {
 		$(this).stop().animate({
-			"opacity" : 0.5
+			"border-radius" : "3px",
+			//"opacity" : 100.0,
+			"background-color": "#ccc"
 		});
 	}, function() {
 		$(this).animate({
-			"opacity" : 1.0
+			"background-color": "transparent"
 		});
 	});
 
