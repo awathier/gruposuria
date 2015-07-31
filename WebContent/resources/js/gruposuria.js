@@ -30,12 +30,25 @@ $(document).ready(function(){
 	//Permite somente caracteres numericos e ponto
 	$('.bloqueiaEspacos').alphanumeric({ichars:' '});
 	
-	
+		
 }); 
 
 
 
 $(function() {
+	
+	$('.realce').animate({
+		"opacity" : 1.0
+	});
+	$('.realce').hover(function() {
+		$(this).stop().animate({
+			"opacity" : 0.5
+		});
+	}, function() {
+		$(this).animate({
+			"opacity" : 1.0
+		});
+	});
 
 	$('div[class*=bannersPeq] img').animate({
 		"opacity" : 1.0

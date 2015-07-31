@@ -13,6 +13,7 @@
 	<h:outputScript name="gruposuria.js" library="js" />
 	<h:outputScript name="jquery.maskMoney.js" library="js" />
 	<h:outputScript name="jquery.alphanumeric.pack.js" library="js" />
+	<h:outputScript name="jquery.animate-colors-min.js" library="js" />
 </h:head>
 <h:body>
 
@@ -131,6 +132,18 @@
 									value="Temos o foco na operacionalização completa de todos os módulos do Sistema de Gestão de Convênios e Contratos de Repasse – SICONV. Contamos com uma equipe experiente composta de servidores que atuam nos mais diversos órgãos federais. nós garantimos os melhores instrutores do brasil. O Grupo Suria possui corpo próprio de profissionais e garantimos os melhores instrutores do Brasil, o que nos possibilita oferecer o melhor custo benefício do mercado. São oferecidas diversas modalidades de treinamentos, propiciando aos participantes um completo e profundo conhecimento sobre convênios de maneira geral e o Siconv. Consulte nossa agenda de cursos e matricule-se já!" />
 							</h:panelGrid>
 						</p:fieldset>
+
+						<p:fieldset legend="Cursos" style="margin-bottom:20px">
+							<h:panelGrid columns="2" cellpadding="5">
+								<p:chart type="bar" model="#{turmaMB.barModel}"
+									style="width:500px;height:300px" />
+							</h:panelGrid>
+						</p:fieldset>
+						
+					</div>
+					
+					<div class="bannersPeq realce textoDestaque">
+					teste
 					</div>
 
 					<div class="bannerVertical">
@@ -138,24 +151,6 @@
 							<h:panelGrid>
 								<p:chart type="pie" model="#{turmaMB.pieModel}"
 									style="width:260px;height:220px" />
-							</h:panelGrid>
-						</p:fieldset>
-					</div>
-
-					<div class="bannerVertical textoCentralizado">
-						<p:fieldset legend="Contato">
-							<h:panelGrid columns="2" cellpadding="5">
-								<p:chart type="bar" model="#{turmaMB.barModel}"
-									style="height:220px" />
-							</h:panelGrid>
-						</p:fieldset>
-					</div>
-
-					<div class="bannerVertical textoCentralizado">
-						<p:fieldset legend="Contato">
-							<h:panelGrid columns="2" cellpadding="5">
-								<h:outputText
-									value="Se fazer presente em Brasília é algo imprescindível para o sucesso no pleito de convênios junto à União e, sabendo disso, o Grupo Suria irá representá-lo na Capital Federal, para que assim a burocracia e a distância não lhe impeçam de chegar diretamente na fonte dos recursos. " />
 							</h:panelGrid>
 						</p:fieldset>
 					</div>

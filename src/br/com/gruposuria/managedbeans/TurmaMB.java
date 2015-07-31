@@ -178,49 +178,38 @@ public class TurmaMB implements Serializable {
 	private void createHorizontalBarModel() {
         horizontalBarModel = new HorizontalBarChartModel();
  
-        ChartSeries boys = new ChartSeries();
-        boys.setLabel("Boys");
-        boys.set("2004", 50);
-        boys.set("2005", 96);
-        boys.set("2006", 44);
-        boys.set("2007", 55);
-        boys.set("2008", 25);
+        ChartSeries cursos = new ChartSeries();
+        cursos.setLabel("Cursos");
+        cursos.set("Curso A", 50);
+        cursos.set("2005", 96);
+        cursos.set("2006", 44);
  
-        ChartSeries girls = new ChartSeries();
-        girls.setLabel("Girls");
-        girls.set("2004", 52);
-        girls.set("2005", 60);
-        girls.set("2006", 82);
-        girls.set("2007", 35);
-        girls.set("2008", 120);
- 
-        horizontalBarModel.addSeries(boys);
-        horizontalBarModel.addSeries(girls);
+        horizontalBarModel.addSeries(cursos);
          
         horizontalBarModel.setTitle("Horizontal and Stacked");
         horizontalBarModel.setLegendPosition("e");
         horizontalBarModel.setStacked(true);
          
         Axis xAxis = horizontalBarModel.getAxis(AxisType.X);
-        xAxis.setLabel("Births");
+        xAxis.setLabel("Total Alunos");
         xAxis.setMin(0);
         xAxis.setMax(200);
          
         Axis yAxis = horizontalBarModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Gender");       
+        yAxis.setLabel("Cursos");       
     }
 	
 	private void createBarModel() {
         barModel = initBarModel();
          
-        barModel.setTitle("Bar Chart");
+        barModel.setTitle("Qtd Alunos Curso");
         barModel.setLegendPosition("ne");
          
         Axis xAxis = barModel.getAxis(AxisType.X);
-        xAxis.setLabel("Gender");
+        xAxis.setLabel("Cursos");
          
         Axis yAxis = barModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Births");
+        yAxis.setLabel("Total Alunos");
         yAxis.setMin(0);
         yAxis.setMax(200);
     }
