@@ -32,8 +32,23 @@ public class Curso implements Serializable {
 	@Column(name="CUR_NOME")
 	private String nome;
 
-	@Column(name="CUR_EMENTA")
-	private String ementa;
+	@Column(name="CUR_APRESENTACAO")
+	private String apresentacao;
+
+	@Column(name="CUR_OBJETIVO")
+	private String objetivo;
+
+	@Column(name="CUR_METODOLOGIA")
+	private String metodologia;
+
+	@Column(name="CUR_CONTEUDO_PROG")
+	private String conteudoProgramatico;
+
+	@Column(name="CUR_INSTRUTORES")
+	private String instrutores;
+
+	@Column(name="CUR_INFORMACOES_GERAIS")
+	private String informacoesGerais;
 
 	@Column(name="CUR_CH")
 	private int cargaHoraria;
@@ -57,7 +72,53 @@ public class Curso implements Serializable {
 		return codigo;
 	}
 
-	
+	public String getApresentacao() {
+		return apresentacao;
+	}
+
+	public void setApresentacao(String apresentacao) {
+		this.apresentacao = apresentacao;
+	}
+
+	public String getObjetivo() {
+		return objetivo;
+	}
+
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
+	}
+
+	public String getMetodologia() {
+		return metodologia;
+	}
+
+	public void setMetodologia(String metodologia) {
+		this.metodologia = metodologia;
+	}
+
+	public String getConteudoProgramatico() {
+		return conteudoProgramatico;
+	}
+
+	public void setConteudoProgramatico(String conteudoProgramatico) {
+		this.conteudoProgramatico = conteudoProgramatico;
+	}
+
+	public String getInstrutores() {
+		return instrutores;
+	}
+
+	public void setInstrutores(String instrutores) {
+		this.instrutores = instrutores;
+	}
+
+	public String getInformacoesGerais() {
+		return informacoesGerais;
+	}
+
+	public void setInformacoesGerais(String informacoesGerais) {
+		this.informacoesGerais = informacoesGerais;
+	}
 
 	public int getCargaHoraria() {
 		return cargaHoraria;
@@ -65,14 +126,6 @@ public class Curso implements Serializable {
 
 	public void setCargaHoraria(int cargaHoraria) {
 		this.cargaHoraria = cargaHoraria;
-	}
-
-	public String getEmenta() {
-		return ementa;
-	}
-
-	public void setEmenta(String ementa) {
-		this.ementa = ementa;
 	}
 
 	public String getNome() {

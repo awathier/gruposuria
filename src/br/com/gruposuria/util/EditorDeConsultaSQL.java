@@ -78,7 +78,7 @@ public class EditorDeConsultaSQL {
 		}
 		
 		if(param instanceof Number){
-			if ( (param != null) && (!param.equals(0)) ){
+			if ( (param != null) && (((Long)param) > 0) ){
 				result = true;
 			}
 		}

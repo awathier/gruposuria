@@ -77,6 +77,16 @@
 <!-- 								<f:convertNumber currencySymbol="R$" type="currency" /> -->
 							</p:inputText>
 
+							<p:outputLabel for="dataDesconto" value="Data limite Desconto:" />
+							<p:calendar showButtonPanel="true" effect="slide"
+								pattern="dd-MM-yyyy" navigator="true" locale="pt_BR" id="dataDesconto"
+								required="false" value="#{turmaMB.turma.dataDesconto}" />
+								
+							<p:outputLabel for="valorComDesconto" value="Valor com Desconto:" />
+							<p:inputText styleClass="valor" id="valorComDesconto"
+								value="#{turmaMB.turma.valorComDesconto}" size="10">
+							</p:inputText>
+
 							<p:outputLabel for="qtdeMinima" value="Quantidade Mínima:" />
 							<p:inputText id="qtdeMinima" required="true"
 								value="#{turmaMB.turma.qtdeMinima}" size="10" />

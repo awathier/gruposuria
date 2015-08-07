@@ -72,6 +72,13 @@ public class Turma implements Serializable {
 	
 	@Column(name="TUR_QT_MINIMA")
 	private Integer qtdeMinima;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="TUR_DATA_DESCONTO")
+	private Date dataDesconto;
+	
+	@Column(name="TUR_VALOR_COM_DESCONTO")
+	private BigDecimal valorComDesconto;
 
 	@ManyToOne
 	@JoinColumn(name="CUR_NU")
@@ -213,7 +220,23 @@ public class Turma implements Serializable {
 
 		return turmaAluno;
 	}
+	
+	public Date getDataDesconto() {
+		return dataDesconto;
+	}
 
+	public void setDataDesconto(Date dataDesconto) {
+		this.dataDesconto = dataDesconto;
+	}
+	
+	public BigDecimal getValorComDesconto() {
+		return valorComDesconto;
+	}
+
+	public void setValorComDesconto(BigDecimal valorComDesconto) {
+		this.valorComDesconto = valorComDesconto;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

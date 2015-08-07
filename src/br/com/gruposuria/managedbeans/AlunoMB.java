@@ -144,8 +144,10 @@ public class AlunoMB {
 		
 		try {
 			System.out.println("alterar");
-			this.instituicaoSelecionada.setCodigo(Long.parseLong(this.idInstituicao));
-			this.aluno.setInstituicao(instituicaoSelecionada);
+			if( (this.idInstituicao != null) && (!"".equals(this.idInstituicao)) ){
+				this.instituicaoSelecionada.setCodigo(Long.parseLong(this.idInstituicao));
+				this.aluno.setInstituicao(instituicaoSelecionada);
+			}
 			this.aluno.setCpf(this.aluno.getCpf().replaceAll("\\.", "").replaceAll("\\-", ""));
 			this.aluno.setNome(this.aluno.getNome().toUpperCase());
 			this.aluno = alunoModel.alterar(this.aluno);

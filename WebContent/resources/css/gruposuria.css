@@ -2,13 +2,13 @@
 body {
 	margin: 0;
 	padding: 0;
-	background:#000000;
-	background-image:url(../resources/images/header-pattern.png);
+	background: #000000;
+	background-image: url(../resources/images/header-pattern.png);
 	/* background-color: #fff; */
 	background-position: top;
 	/*background-attachment:fixed;*/
 	/*font:100.01%/1.4 "Trebuchet MS";*/
-	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 }
 
@@ -115,46 +115,44 @@ p {
 
 #logo {
 	float: left;
-    height: 70px;
-    width: 800px;
-    margin: 0 auto -46px 2px;
-    padding: 0;
-    /*margin-right: 328px;*/
+	height: 70px;
+	width: 800px;
+	margin: 0 auto -46px 2px;
+	padding: 0;
+	/*margin-right: 328px;*/
 }
 
 #logoPequena {
 	float: left;
-    margin: 0 auto -46px 2px;
-    padding: 0;
-    width: 335px;
+	margin: 0 auto -46px 2px;
+	padding: 0;
+	width: 335px;
 }
 
 #logoGrande {
 	float: left;
-    margin: 0 auto -46px 2px;
-    padding: 0;
+	margin: 0 auto -46px 2px;
+	padding: 0;
 }
 
 #login {
 	/*float: left;*/
 	margin-top: 155px;
-    padding: 0;
-    position: absolute;
-    right: 330px;
-    /* top: 200px; */
-    z-index: 4;
+	padding: 0;
+	position: absolute;
+	right: 330px;
+	/* top: 200px; */
+	z-index: 4;
 }
 
 #menu {
 	float: left;
-    height: 45px;
-    margin-left: 0px;
-    margin-top: 60px;
-    padding: 0;
-    width: 960px;
-    margin-bottom: 3px
-	/*opacity:0.2;*/
-	/* border-radius: 1.5em; */
+	height: 45px;
+	margin-left: 0px;
+	margin-top: 60px;
+	padding: 0;
+	width: 960px;
+	margin-bottom: 3px /*opacity:0.2;*/ /* border-radius: 1.5em; */
 }
 
 #empresaMenu {
@@ -201,18 +199,18 @@ p {
 	border: 1px solid #1d1d1d;
 	float: left;
 	border-bottom-right-radius: 1.0em;
-	border-bottom-left-radius:  1.0em;
+	border-bottom-left-radius: 1.0em;
 }
 
-.ui-menubar  {
-    /* border-radius: 0.2em; */
-    height: 40px;
-    border-top-right-radius: 0.5em;
-	border-top-left-radius:  0.5em;
-    border-bottom-right-radius: 0em;
-	border-bottom-left-radius:  0em;
-    border: 1px solid #1d1d1d;
-    border-bottom: 0px;
+.ui-menubar {
+	/* border-radius: 0.2em; */
+	height: 40px;
+	border-top-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-bottom-right-radius: 0em;
+	border-bottom-left-radius: 0em;
+	border: 1px solid #1d1d1d;
+	border-bottom: 0px;
 }
 
 #migalhadepao {
@@ -221,15 +219,15 @@ p {
 
 #rodape {
 	/* background-color: #333; */
-    /* border-radius: 0.5em; */
-    float: left;
-    height: 65px;
-    margin-left: 2px;
-    margin-top: -2px;
-    padding: 6px;
-    text-align: center;
-    width: 946px;
-    padding-top: 15px;
+	/* border-radius: 0.5em; */
+	float: left;
+	height: 65px;
+	margin-left: 2px;
+	margin-top: -2px;
+	padding: 6px;
+	text-align: center;
+	width: 946px;
+	padding-top: 15px;
 }
 
 #bordaBaixoGeral {
@@ -350,8 +348,8 @@ p {
 	margin-top: 20px;
 	/* margin-left: 13px;
     margin-right: 13px; */
-    border-bottom-right-radius: 1em;
-	border-bottom-left-radius:  1em;
+	border-bottom-right-radius: 1em;
+	border-bottom-left-radius: 1em;
 }
 
 #conteudoPaginas {
@@ -444,8 +442,8 @@ p {
 	margin-bottom: 20px;
 	float: left;
 	margin-left: 10px;
-    margin-right: 10px;
-    width: 618px;
+	margin-right: 10px;
+	width: 618px;
 }
 
 .bannerVertical {
@@ -453,17 +451,17 @@ p {
 	margin-bottom: 10px;
 	float: right;
 	margin-left: 5px;
-    margin-right: 18px;
-    width: 295px;
+	margin-right: 18px;
+	width: 295px;
 }
 
 .bannerHorizontal {
 	margin-bottom: 30px;
 	float: left;
 	margin-left: 10px;
-    margin-right: 10px;
-    width: 500px;
-    height: 100px;
+	margin-right: 10px;
+	width: 500px;
+	height: 100px;
 }
 
 #banner4 {
@@ -538,4 +536,29 @@ p {
 	padding: 0px;
 	background-image: url(../images/fundoOpaco.png);
 	margin: 0 auto;
+}
+
+.highLight {
+	background-color: #ccc;
+}
+
+.realce1 {
+	/*
+	transition: 0.3s;
+	opacity: 1;
+	*/
+	border-radius: 3px;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.5s linear;
+}
+
+.realce1:hover {
+	opacity: 1;
+	background-color: #ccc;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+	border: 2px solid #999;
+}
+.realce1:not(.highLight){
+	/*opacity:0.5;*/
 }

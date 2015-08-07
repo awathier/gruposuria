@@ -115,11 +115,21 @@ public class CursoMB {
 		
 		try {
 			System.out.println("incluir");
-			this.curso.setNome(this.curso.getNome().toUpperCase());
-			this.curso.setEmenta(this.curso.getEmenta());
-			this.curso.setPublicoAlvo(this.curso.getPublicoAlvo());
+			this.curso.setApresentacao(this.curso.getApresentacao());
 			this.curso.setCargaHoraria(this.curso.getCargaHoraria());
+			this.curso.setConteudoProgramatico(this.curso.getConteudoProgramatico());
+			this.curso.setInformacoesGerais(this.curso.getInformacoesGerais());
+			this.curso.setInstrutores(this.curso.getInstrutores());
+			this.curso.setMetodologia(this.curso.getMetodologia());
+			this.curso.setNome(this.curso.getNome().toUpperCase());
+			this.curso.setObjetivo(this.curso.getObjetivo());
+			this.curso.setPublicoAlvo(this.curso.getPublicoAlvo());
 			
+//			this.curso.setInstrutorCursos(this.curso.getInstrutorCursos());
+//			this.curso.setInteresseCursos(this.curso.getInteresseCursos());
+			
+//			this.curso.setTurmas(this.curso.getTurmas());
+
 			this.curso = cursoModel.salvar(this.curso);
 			setCurso(new Curso());
 			setCursos(new ArrayList<Curso>());
@@ -143,10 +153,20 @@ public class CursoMB {
 		
 		try {
 			System.out.println("alterar");
-			this.curso.setNome(this.curso.getNome().toUpperCase());
-			this.curso.setEmenta(this.curso.getEmenta());
-			this.curso.setPublicoAlvo(this.curso.getPublicoAlvo());
+			this.curso.setApresentacao(this.curso.getApresentacao());
 			this.curso.setCargaHoraria(this.curso.getCargaHoraria());
+			this.curso.setConteudoProgramatico(this.curso.getConteudoProgramatico());
+			this.curso.setInformacoesGerais(this.curso.getInformacoesGerais());
+			this.curso.setInstrutores(this.curso.getInstrutores());
+			this.curso.setMetodologia(this.curso.getMetodologia());
+			this.curso.setNome(this.curso.getNome().toUpperCase());
+			this.curso.setObjetivo(this.curso.getObjetivo());
+			this.curso.setPublicoAlvo(this.curso.getPublicoAlvo());
+			
+//			this.curso.setInstrutorCursos(this.curso.getInstrutorCursos());
+//			this.curso.setInteresseCursos(this.curso.getInteresseCursos());
+			
+//			this.curso.setTurmas(this.curso.getTurmas());
 
 			this.curso = cursoModel.alterar(this.curso);
 			setCurso(new Curso());

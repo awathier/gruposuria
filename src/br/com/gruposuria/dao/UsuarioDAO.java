@@ -41,7 +41,7 @@ public class UsuarioDAO extends DAO<Usuario> {
 		Usuario u = null;
 		
 		try{
-			u = (Usuario)query.getSingleResult();			
+			u = (Usuario)query.getSingleResult();
 		}catch(javax.persistence.NoResultException e){
 			//não é necessário tratamento
 		}

@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import br.com.gruposuria.enums.GrupoAcesso;
 
 @Entity
 @Table(name="USUARIO")
@@ -30,6 +34,13 @@ public class Usuario implements Serializable {
 
 	@Column(name="USU_SENHA")
 	private String senha;
+
+	@Column(name="USU_GRUPO_ACESSO")
+	@Enumerated(EnumType.STRING)
+	private GrupoAcesso grupoAcesso;
+	
+	@Column(name="USU_NOME")
+	private String nome;
 
 	public Usuario() {
 	}
@@ -78,6 +89,22 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public GrupoAcesso getGrupoAcesso() {
+		return grupoAcesso;
+	}
+
+	public void setGrupoAcesso(GrupoAcesso grupoAcesso) {
+		this.grupoAcesso = grupoAcesso;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

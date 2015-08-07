@@ -33,7 +33,7 @@ public class Cidade implements Serializable {
 	@JoinColumn(name = "EST_ID")
 	private Estado estado;
 
-	@OneToMany(mappedBy = "cidade")
+	@OneToMany(mappedBy = "cidadeCurso")
 	private List<Turma> turmas;
 
 	public Cidade() {

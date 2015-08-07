@@ -55,10 +55,10 @@ public class Aluno implements Serializable {
 
 	@Column(name = "ALU_NECESSIDADE_ESPECIAL")
 	@Enumerated(EnumType.STRING)
-	private ValorLogico especial;
+	private ValorLogico necessidadeEspecial;
 	
-	@Transient
-	private String especialDescricao;
+	@Column(name = "ALU_DESC_NECESSIDADE")
+	private String descNecessidadeEspecial;
 
 	@ManyToOne
 	@JoinColumn(name = "INT_NU")
@@ -70,12 +70,9 @@ public class Aluno implements Serializable {
 	@OneToMany(mappedBy = "aluno")
 	private List<InteresseCurso> interesseCursos;
 
-	public Aluno() {
-	}
-	
 	public Aluno(Long codigo, String cpf, String email, String nome,
-			String telefone, String senha, ValorLogico especial,
-			String especialDescricao, Instituicao instituicao,
+			String telefone, String senha, ValorLogico necessidadeEspecial,
+			String descNecessidadeEspecial, Instituicao instituicao,
 			List<TurmaAluno> turmaAlunos, List<InteresseCurso> interesseCursos) {
 		super();
 		this.codigo = codigo;
@@ -84,11 +81,14 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.senha = senha;
-		this.especial = especial;
-		this.especialDescricao = especialDescricao;
+		this.necessidadeEspecial = necessidadeEspecial;
+		this.descNecessidadeEspecial = descNecessidadeEspecial;
 		this.instituicao = instituicao;
 		this.turmaAlunos = turmaAlunos;
 		this.interesseCursos = interesseCursos;
+	}
+	
+	public Aluno() {
 	}
 
 	public Long getCodigo() {
@@ -145,6 +145,22 @@ public class Aluno implements Serializable {
 
 	public void setInstituicao(Instituicao instituicao) {
 		this.instituicao = instituicao;
+	}
+
+	public ValorLogico getNecessidadeEspecial() {
+		return necessidadeEspecial;
+	}
+
+	public void setNecessidadeEspecial(ValorLogico necessidadeEspecial) {
+		this.necessidadeEspecial = necessidadeEspecial;
+	}
+
+	public String getDescNecessidadeEspecial() {
+		return descNecessidadeEspecial;
+	}
+
+	public void setDescNecessidadeEspecial(String descNecessidadeEspecial) {
+		this.descNecessidadeEspecial = descNecessidadeEspecial;
 	}
 
 	public List<TurmaAluno> getTurmaAlunos() {
@@ -220,22 +236,6 @@ public class Aluno implements Serializable {
 	public String toString() {
 		// return "Aluno [codigo=" + codigo + ", nome=" + nome + "]";
 		return this.codigo.toString();
-	}
-
-	public ValorLogico getEspecial() {
-		return especial;
-	}
-
-	public void setEspecial(ValorLogico especial) {
-		this.especial = especial;
-	}
-
-	public String getEspecialDescricao() {
-		return especialDescricao;
-	}
-
-	public void setEspecialDescricao(String especialDescricao) {
-		this.especialDescricao = especialDescricao;
 	}
 
 }

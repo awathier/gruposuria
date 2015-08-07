@@ -341,14 +341,14 @@
 									<p:tab title="Participante com necessidades especiais?">
 										<h:panelGrid columns="2" cellpadding="5">
 											<p:outputLabel for="participanteNecessidadesEspeciais" value="Possui Necessidades Especiais?" />
-											<p:selectOneMenu id="participanteNecessidadesEspeciais" required="false" value="#{inscricaoMB.aluno.especial}">
+											<p:selectOneMenu id="participanteNecessidadesEspeciais" required="false" value="#{inscricaoMB.aluno.necessidadeEspecial}">
 												<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl" itemValue="#{vl}" itemLabel="#{vl.descricao}" />
 											</p:selectOneMenu>
 
 											<h:outputLabel for="especialDescricao"
 												value="Descreva sua necessidade: " />
 											<p:inputTextarea id="especialDescricao" rows="3" cols="60"
-												value="#{inscricaoMB.aluno.especialDescricao}"
+												value="#{inscricaoMB.aluno.descNecessidadeEspecial}"
 												counter="displayEspecialDescricao" maxlength="300"
 												counterTemplate="{0} caracteres restantes."
 												autoResize="false" />
@@ -409,7 +409,7 @@
 												<f:facet name="header">
 													<h:outputText value="Especial" />
 												</f:facet>
-												<h:outputText value="#{a.especial.descricao}" />
+												<h:outputText value="#{a.necessidadeEspecial.descricao}" />
 											</p:column>
 
 											<p:column headerText="Ação" style="text-align: center">
@@ -552,7 +552,7 @@
 
 												<p:column style="width:100px;"
 													headerText="Necessid. Especiais?" sortBy="#{als.especial}">
-													<h:outputText value="#{als.especial.descricao}" />
+													<h:outputText value="#{als.necessidadeEspecial.descricao}" />
 												</p:column>
 
 											</p:dataTable>

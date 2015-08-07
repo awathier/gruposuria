@@ -1,7 +1,6 @@
 package br.com.gruposuria.enums;
 
 public enum ValorLogico {
-
 	N("Não"), 
 	S("Sim");
 

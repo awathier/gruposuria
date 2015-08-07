@@ -40,18 +40,30 @@
 				    	
 				    	</h:panelGrid>
 				        <h:panelGrid id="cursoGrid" columns="1" cellpadding="5">
-				        	
+
 				        	<h:outputLabel for="nome" value="Nome: " />
 				        	<p:inputText id="nome" value="#{cursoMB.curso.nome}" required="true" size="100" requiredMessage="Campo nome é obrigatório.">
 								<f:validateLength maximum="80" />
 				        		<!-- <f:validator validatorId="SomenteMaiuscula" /> -->
 							</p:inputText>
 							
-							<h:outputLabel for="ementa" value="Ementa: " />
-						    <!-- <p:inputTextarea id="ementa" rows="3" cols="60" value="#{cursoMB.curso.ementa}" counter="displayEmenta" maxlength="800" counterTemplate="{0} caracteres restantes." autoResize="false" requiredMessage="Tamanha máximo "/> -->
-						    <p:editor id="ementa" widgetVar="editorWidgetEmenta" value="#{cursoMB.curso.ementa}" width="900" height="300" required="true" requiredMessage="Campo ementa é obrigatório."/>
-						    <!-- <h:outputLabel for="displayEmenta" value="" /> -->
-						    <!-- <h:outputText id="displayEmenta" /> -->
+							<h:outputLabel for="apresentacao" value="Apresentação: " />
+						    <p:editor id="apresentacao" widgetVar="editorWidgetApresentacao" value="#{cursoMB.curso.apresentacao}" width="900" height="200" required="true" requiredMessage="Campo apresentação é obrigatório."/>
+						    
+							<h:outputLabel for="objetivo" value="Objetivo: " />
+						    <p:editor id="objetivo" widgetVar="editorWidgetObjetivo" value="#{cursoMB.curso.objetivo}" width="900" height="200" required="true" requiredMessage="Campo objetivo é obrigatório."/>
+						    
+							<h:outputLabel for="metodologia" value="Metodologia: " />
+						    <p:editor id="Metodologia" widgetVar="editorWidgetMetodologia" value="#{cursoMB.curso.metodologia}" width="900" height="200" required="true" requiredMessage="Campo Metodologia: é obrigatório."/>
+						    
+							<h:outputLabel for="conteudoProgramatico" value="Conteúdo Programático: " />
+						    <p:editor id="conteudoProgramatico" widgetVar="editorWidgetConteudoProgramatico" value="#{cursoMB.curso.conteudoProgramatico}" width="900" height="200" required="true" requiredMessage="Campo Conteúdo Programático é obrigatório."/>
+						    
+							<h:outputLabel for="instrutores" value="Instrutores: " />
+						    <p:editor id="instrutores" widgetVar="editorWidgetInstrutores" value="#{cursoMB.curso.instrutores}" width="900" height="200" required="true" requiredMessage="Campo Instrutores é obrigatório."/>
+						    
+							<h:outputLabel for="informacoesGerais" value="Informacões Gerais: " />
+						    <p:editor id="informacoesGerais" widgetVar="editorWidgetInformacoesGerais" value="#{cursoMB.curso.informacoesGerais}" width="900" height="200" required="true" requiredMessage="Campo apresentação é obrigatório."/>
 						    
 							<h:outputLabel for="publicoAlvo" value="Público Alvo: " />
 						    <!-- <p:inputTextarea id="publicoAlvo" rows="3" cols="60" value="#{cursoMB.curso.publicoAlvo}" counter="displayPublicoAlvo" maxlength="200" counterTemplate="{0} caracteres restantes." autoResize="false" validatorMessage=" mensagem " requiredMessage="Tamanha máximo " /> -->

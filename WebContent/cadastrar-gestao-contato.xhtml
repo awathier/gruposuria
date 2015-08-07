@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:body>
+
+	<ui:composition template="template/layoutPaginas.xhtml">
+
+		<ui:define name="migalhadepao">
+			<div id="migalhadepao">
+				<p:breadCrumb>
+					<p:menuitem value="home" url="default.jsf" />
+					<p:menuitem value="Pesquisar Gestão Contatos" url="pesquisar-gestaoContato.jsf" />
+					<p:menuitem value="Cadastrar Gestão Contatos" url="cadastrar-gestaoContato.jsf" />
+				</p:breadCrumb>
+			</div>
+		</ui:define>
+
+		<ui:define name="conteudo">
+
+			<div id="conteudoPaginas">
+
+				<h:form id="frmGestaoContatos">
+					<p:messages id="msgs" closable="true" />
+
+					<p:fieldset legend="Dados do Contato" style="margin-bottom:20px">
+						<h:panelGrid id="gestaoContatoGrid" columns="2" cellpadding="5">
+
+							<p:outputLabel for="turma" value="Turma:" />
+							<p:selectOneMenu id="turma" required="true"	value="#{gestaoContatoMB.idTurma}" style="width:655px">
+								<f:selectItem itemLabel="Selecione..." itemValue=""	noSelectionOption="true" />
+								<f:selectItems value="#{gestaoContatoMB.listaTurmas()}" var="t"	itemValue="#{t.codigo}" itemLabel="#{t.curso.nome} - #{t.cidadeCurso.nome} - #{fn:substring(t.data,8,10)}/#{fn:substring(t.data,5,7)}/#{fn:substring(t.data,0,4)}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="curso" value="Curso:" />
+							<p:selectOneMenu id="curso" required="true"	value="#{gestaoContatoMB.idCurso}" style="width:655px">
+								<f:selectItem itemLabel="Selecione..." itemValue=""	noSelectionOption="true" />
+								<f:selectItems value="#{gestaoContatoMB.listaCursos()}" var="c"	itemValue="#{c.codigo}" itemLabel="#{c.nome}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel for="nomeInstituicao" value="Nome Instituição " />
+							<p:inputText id="nomeInstituicao" value="#{gestaoContatoMB.gestaoContato.nomeInstituicao}"
+								required="true" size="80" requiredMessage="Nome instituição requerido">
+								<f:validateLength maximum="150" />
+							</p:inputText>
+
+							<h:outputLabel for="nomeContato" value="Nome Contato: " />
+							<p:inputText id="nomeContato" value="#{gestaoContatoMB.gestaoContato.nomeContato}"
+								required="true" size="80" requiredMessage="Nome Contato requerido">
+								<f:validateLength maximum="150" />
+							</p:inputText>
+
+							<h:outputLabel for="email" value="Email: " />
+							<p:inputText id="email" value="#{gestaoContatoMB.gestaoContato.email}" required="true" validatorMessage="Campo e-mail invalido!" 
+								size="45" requiredMessage="EMAIL requerido">
+								<f:validator validatorId="emailValidator" />
+								<f:validateRegex pattern="[a-zA-Z0-9\-\_.]+@[a-zA-Z0-9\-\_.]+" />
+								<f:validateLength maximum="150" />
+							</p:inputText>
+
+							<h:outputLabel for="telefone" value="Telefone: " />
+							<p:inputMask id="telefone" value="#{gestaoContatoMB.gestaoContato.telefone}"
+								converter="telefoneConverter" required="true" mask="(99) 9999-9999" size="20"
+								validatorMessage="Telefone Invalido!" requiredMessage="Telefone requerido">
+							</p:inputMask>
+
+							<h:outputLabel for="nomeCurso" value="Nome Curso: " />
+							<p:inputMask id="nomeCurso" value="#{gestaoContatoMB.gestaoContato.nomeCurso}" size="80"
+								required="true"	validatorMessage="Nome Curso é requerido!"	requiredMessage="Nome Curso é requerido.">
+							</p:inputMask>
+
+							<p:outputLabel for="mesCurso" value="Mês Curso:" />
+							<p:selectOneMenu id="mesCurso" required="true" value="#{gestaoContatoMB.gestaoContato.mesCurso}" style="width:150px">
+								<f:selectItems value="#{gestaoContatoMB.meses}" var="t" itemValue="#{t}" itemLabel="#{t.mes}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="dataContato" value="Data Contato:" />
+							<p:calendar showButtonPanel="true" effect="slide"
+								pattern="dd-MM-yyyy" navigator="true" locale="pt_BR" id="dataContato"
+								required="true" value="#{gestaoContatoMB.gestaoContato.dataContato}" />
+
+							<h:outputLabel for="horaAtendimento" value="Hora Atendimento: " />
+							<p:inputMask id="horaAtendimento" value="#{gestaoContatoMB.gestaoContato.horaAtendimento}" mask="99:99"
+								required="true"	validatorMessage="Hora atendimento é requerido!" requiredMessage="Hora atendimento é requerido.">
+							</p:inputMask>
+
+							<p:outputLabel for="tipoContato" value="Tipo Contato:" />
+							<p:selectOneMenu id="tipoContato" required="true" value="#{gestaoContatoMB.gestaoContato.tipoContato}" style="width:250px">
+								<f:selectItems value="#{gestaoContatoMB.tipoContato}" var="t" itemValue="#{t}" itemLabel="#{t.descricao}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel for="qtdeParticipantes" value="Qtde. Participantes: " />
+							<p:inputMask id="qtdeParticipantes" value="#{gestaoContatoMB.gestaoContato.qtdeParticipantes}" size="5"
+								required="true"	validatorMessage="Qtde. Participantes é requerido!"	requiredMessage="Qtde. Participantes é requerido.">
+							</p:inputMask>
+
+							<p:outputLabel for="valor" value="Valor Negociado:" />
+							<p:inputText styleClass="valor" id="valor" value="#{gestaoContatoMB.gestaoContato.valorNegociado}" size="10"/>
+
+							<p:outputLabel for="inscricaoSite" value="Inscrição Site: " />
+							<p:selectOneMenu id="inscricaoSite" required="true" value="#{gestaoContatoMB.gestaoContato.inscricaoSite}">
+								<f:selectItems value="#{gestaoContatoMB.valorLogico}" var="t" itemValue="#{t}" itemLabel="#{t.descricao}" />
+							</p:selectOneMenu>
+							
+							<p:outputLabel for="usuario" value="Consultor:" />
+							<p:selectOneMenu id="usuario" required="true" value="#{gestaoContatoMB.gestaoContato.usuario}" style="width:200px">
+								<f:selectItem itemLabel="Selecione..." itemValue=""	noSelectionOption="true" />
+								<f:selectItems value="#{gestaoContatoMB.usuarios}" var="t"	itemValue="#{t.codigo}" itemLabel="#{t.nome}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="dataAcao" value="Data Ação:" />
+							<p:calendar showButtonPanel="true" effect="slide"
+								pattern="dd-MM-yyyy" navigator="true" locale="pt_BR" id="dataAcao"
+								required="true" value="#{gestaoContatoMB.gestaoContato.dataAcao}" />
+
+							<p:outputLabel for="status" value="Status:" />
+							<p:selectOneMenu id="status" required="true" value="#{gestaoContatoMB.gestaoContato.status}" style="width:300px">
+								<f:selectItems value="#{gestaoContatoMB.statusContato}" var="t" itemValue="#{t}" itemLabel="#{t.descricao}" />
+							</p:selectOneMenu>							
+
+							<h:outputLabel for="obs" value="Obs.: " />
+							<p:inputTextarea id="obs" rows="3" cols="80" value="#{gestaoContatoMB.gestaoContato.obs}" counter="displayObs" maxlength="400" 
+								counterTemplate="{0} caracteres restantes." autoResize="false" validatorMessage=" mensagem " requiredMessage="Tamanha máximo " />
+						    <h:outputLabel for="displayObs" value="" />
+						    <h:outputText id="displayObs" />
+
+						</h:panelGrid>
+
+						<h:panelGrid columns="4" cellpadding="5">
+							<p:commandButton value="Cancelar" id="cancelar"
+								actionListener="#{gestaoContatoMB.cancelar()}" immediate="true"
+								icon="ui-icon-disk" />
+							<p:commandButton value="Salvar"
+								rendered="#{gestaoContatoMB.mostrarBotaoAlterar}" id="btnAlterar"
+								actionListener="#{gestaoContatoMB.alterar()}" update="@form gestaoContatoGrid"
+								icon="ui-icon-disk" />
+							<p:commandButton value="Salvar"
+								rendered="#{!gestaoContatoMB.mostrarBotaoAlterar}" id="btnIncluir"
+								actionListener="#{gestaoContatoMB.salvar()}" update="@form"
+								icon="ui-icon-disk" />
+							<p:commandButton value="Limpar" id="limpar"
+								actionListener="#{gestaoContatoMB.limpaFiltroDePesquisa()}"
+								update="@form" icon="ui-icon-disk" />
+						</h:panelGrid>
+						<p:growl id="growl" life="6000" />
+					</p:fieldset>
+
+
+				</h:form>
+			</div>
+
+			<div id="bannerBaixoPagina">
+				<p align="right">
+					<br /> <br /> <br /> <br /> <br /> <br /> <br />
+					<h:link outcome="default">
+						<img src="resources/images/voltar.png" border="0" />
+					</h:link>
+				</p>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

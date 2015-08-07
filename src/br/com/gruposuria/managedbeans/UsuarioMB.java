@@ -64,7 +64,7 @@ public class UsuarioMB {
 			this.usuarioLogado = true;
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", usuarioLogado);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usu·rio Logado com Sucesso!") );
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usu√°rio Logado com Sucesso!") );
 			return "default.jsf?faces-redirect=true";
 		} else {
 			usuario = new Usuario();
