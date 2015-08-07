@@ -10,6 +10,7 @@ public class SQL {
 	public static String FILTRO_POR_CODIGO_ALUNO = " AND a.codigo =:codigo " ;
 	public static String FILTRO_POR_NOME_ALUNO_LIKE = " AND a.nome LIKE '%'||:nome||'%' " ;
 	public static String FILTRO_POR_CPF_ALUNO = " AND a.cpf =:cpf " ;
+	public static String FILTRO_POR_CODIGO_GESTAO_CONTATO = " AND g.codigo =:codigo " ;
 	
 	public static String ORDENAR_POR_ID_ALUNO_CRESCENTE = " ORDER BY a.codigo " ;
 	public static String ORDENAR_POR_ID_ALUNO_DECRESCENTE = " ORDER BY a.codigo DESC " ;
@@ -70,6 +71,15 @@ public class SQL {
 		sql.append(" SELECT a ");
 		sql.append(" FROM ");
 		sql.append(" Aluno a ");
+		sql.append(" WHERE 1=1 ");
+		return sql.toString();
+	}
+	
+	public static String getConsultaGestaoContato() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT g ");
+		sql.append(" FROM ");
+		sql.append(" GestaoContato g ");
 		sql.append(" WHERE 1=1 ");
 		return sql.toString();
 	}
