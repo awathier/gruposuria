@@ -422,6 +422,7 @@ public class InscricaoMB implements Serializable {
 				this.aluno.setEmail(aluno.getEmail());
 				this.aluno.setTelefone(aluno.getTelefone());
 				this.aluno.setNecessidadeEspecial(aluno.getNecessidadeEspecial());
+				this.aluno.setDescNecessidadeEspecial(aluno.getDescNecessidadeEspecial());
 				this.aluno.setInstituicao(this.instituicao);
 
 				if (existeAluno(aluno)) {
