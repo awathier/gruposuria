@@ -152,8 +152,17 @@ public class TurmaMB implements Serializable {
 	
 	private BarChartModel initBarModel() {
         BarChartModel model = new BarChartModel();
+        
+        List<Turma> listaTotaisPorCurso = listaTotaisPorCurso();
+		
+		for (Turma turma : listaTotaisPorCurso) {
+			ChartSeries cursos = new ChartSeries();
+			cursos.setLabel(turma.getCurso().getNome());
+			cursos.set(turma.getCurso().getNome(), turma.getTotal().intValue());
+			model.addSeries(cursos);
+		}
  
-        ChartSeries boys = new ChartSeries();
+        /*ChartSeries boys = new ChartSeries();
         boys.setLabel("Boys");
         boys.set("2004", 120);
         boys.set("2005", 100);
@@ -170,7 +179,7 @@ public class TurmaMB implements Serializable {
         girls.set("2008", 120);
  
         model.addSeries(boys);
-        model.addSeries(girls);
+        model.addSeries(girls);*/
          
         return model;
     }

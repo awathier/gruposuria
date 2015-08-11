@@ -86,7 +86,7 @@ public class GestaoContato implements Serializable {
 	@JoinColumn(name="CID_ID")
 	private Cidade cidade;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="USU_NU")
 	private Usuario usuario;
 

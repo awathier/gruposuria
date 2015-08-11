@@ -17,13 +17,6 @@ public class GestaoContatoModel implements Serializable {
 
 	@Inject
 	private GestaoContatoDAO gestaoContatoDAO;
-
-	@Inject
-	private UsuarioDAO usuarioDAO;
-
-	public List<Usuario> listaUsuario(){
-		return usuarioDAO.listaTodos();
-	}
 	
 	public GestaoContato consultarPorCodigo(long codigo){
 		return gestaoContatoDAO.consultarPorCodigo(codigo);

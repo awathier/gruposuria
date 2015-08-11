@@ -30,16 +30,26 @@
 					<p:messages id="msgs" closable="true" />
 
 					<p:fieldset legend="Dados do Contato" style="margin-bottom:20px">
+						
+						<h:panelGrid columns="2" cellpadding="5">
+				    	
+				    	<ui:fragment rendered="#{!gestaoContatoMB.acaoDeInclusao}">
+					        	<h:outputLabel for="codigo" value="Codigo: " />
+					        	<p:inputText id="codigo" value="#{gestaoContatoMB.gestaoContato.codigo}" required="true" size="10" readonly="true" />
+					        </ui:fragment>
+				    	
+				    	</h:panelGrid>
+						
 						<h:panelGrid id="gestaoContatoGrid" columns="2" cellpadding="5">
-
+						
 							<p:outputLabel for="turma" value="Turma:" />
-							<p:selectOneMenu id="turma" required="true"	value="#{gestaoContatoMB.idTurma}" style="width:655px">
+							<p:selectOneMenu id="turma" required="false"	value="#{gestaoContatoMB.idTurma}" style="width:655px">
 								<f:selectItem itemLabel="Selecione..." itemValue=""	noSelectionOption="true" />
 								<f:selectItems value="#{gestaoContatoMB.listaTurmas()}" var="t"	itemValue="#{t.codigo}" itemLabel="#{t.curso.nome} - #{t.cidadeCurso.nome} - #{fn:substring(t.data,8,10)}/#{fn:substring(t.data,5,7)}/#{fn:substring(t.data,0,4)}" />
 							</p:selectOneMenu>
 
 							<p:outputLabel for="curso" value="Curso:" />
-							<p:selectOneMenu id="curso" required="true"	value="#{gestaoContatoMB.idCurso}" style="width:655px">
+							<p:selectOneMenu id="curso" required="false"	value="#{gestaoContatoMB.idCurso}" style="width:655px">
 								<f:selectItem itemLabel="Selecione..." itemValue=""	noSelectionOption="true" />
 								<f:selectItems value="#{gestaoContatoMB.listaCursos()}" var="c"	itemValue="#{c.codigo}" itemLabel="#{c.nome}" />
 							</p:selectOneMenu>
@@ -109,7 +119,7 @@
 							</p:selectOneMenu>
 							
 							<p:outputLabel for="usuario" value="Consultor:" />
-							<p:selectOneMenu id="usuario" required="true" value="#{gestaoContatoMB.gestaoContato.usuario}" style="width:200px">
+							<p:selectOneMenu id="usuario" required="true" value="#{gestaoContatoMB.idUsuario}" style="width:200px">
 								<f:selectItem itemLabel="Selecione..." itemValue=""	noSelectionOption="true" />
 								<f:selectItems value="#{gestaoContatoMB.usuarios}" var="t"	itemValue="#{t.codigo}" itemLabel="#{t.nome}" />
 							</p:selectOneMenu>

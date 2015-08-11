@@ -1,6 +1,7 @@
 package br.com.gruposuria.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -15,6 +16,10 @@ public class UsuarioModel implements Serializable {
 	@Inject
 	private UsuarioDAO usuarioDAO;
 	
+	public List<Usuario> listaUsuario(){
+		return usuarioDAO.listaTodos();
+	}
+	
 	public boolean loginValido(Usuario usuario){
 		
 		Usuario u = usuarioDAO.consultarPorLoginESenha(usuario);
@@ -25,5 +30,7 @@ public class UsuarioModel implements Serializable {
 		
 		return false;
 	}
+	
+	
 	
 }

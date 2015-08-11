@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,6 +22,7 @@ import br.com.gruposuria.enums.ValorLogico;
 import br.com.gruposuria.model.CursoModel;
 import br.com.gruposuria.model.GestaoContatoModel;
 import br.com.gruposuria.model.TurmaModel;
+import br.com.gruposuria.model.UsuarioModel;
 
 @ManagedBean
 @SessionScoped
@@ -28,6 +30,9 @@ public class GestaoContatoMB {
 	
 	@Inject
 	private GestaoContatoModel gestaoContatoModel;
+	
+	@Inject
+	private UsuarioModel usuarioModel;
 	
 	@Inject
 	private TurmaModel turmaModel;
@@ -40,15 +45,17 @@ public class GestaoContatoMB {
 	private List<GestaoContato> gestaoContatos = new ArrayList<GestaoContato>();
 	private List<Curso> cursos = new ArrayList<Curso>();
 	private List<Turma> turmas = new ArrayList<Turma>();
-//	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private Usuario usuarioSelecionado = new Usuario();
+	
 
 	private boolean mostrarBotaoAlterar = false;
 	private boolean acaoDeInclusao;
 	private String id;
 	private String idGestaoContato;
+	private String idUsuario;
 	private String idCurso;
 	private String idTurma;
-	
 	
 	public ValorLogico[] getValorLogico() {
 		return ValorLogico.values();
@@ -65,6 +72,17 @@ public class GestaoContatoMB {
 	public Meses[] getMeses() {
 		return Meses.values();
 	}
+	
+	@PostConstruct
+    public void init() {
+		listaUsuario();
+	}
+	
+	public List<Usuario> listaUsuario() {
+		this.usuarios = usuarioModel.listaUsuario();
+		return this.usuarios;
+	}
+	
 	
 	public void excluir() {
 		
@@ -95,11 +113,15 @@ public class GestaoContatoMB {
 		System.out.println("carregarCamposAlteracao");
 		String resultado;
 		
+		listaUsuario();
+		setGestaoContato(new GestaoContato());
+		
 		if( (!"".equals(acaoDeInclusao)) && (acaoDeInclusao == false) ){
 			try {
 				mostrarBotaoAlterar = true;
 				this.idGestaoContato = "";
 				this.gestaoContato = gestaoContatoModel.consultarPorCodigo(gestaoContatoSelecionado.getCodigo());
+				this.idUsuario = this.gestaoContato.getUsuario().getCodigo().toString();
 
 				resultado  = "cadastrar-gestao-contato.jsf?faces-redirect=true";
 			    FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);  
@@ -171,8 +193,9 @@ public class GestaoContatoMB {
 			this.gestaoContato.setTurma(gestaoContato.getTurma());
 			this.gestaoContato.setUsuario(gestaoContato.getUsuario());
 			this.gestaoContato.setValorNegociado(gestaoContato.getValorNegociado());
-*/
-			this.gestaoContato = gestaoContatoModel.salvar(this.gestaoContato);
+*/	
+			this.usuarioSelecionado.setCodigo(Long.parseLong(this.idUsuario));
+			this.gestaoContato.setUsuario(this.usuarioSelecionado);
 			
 			setGestaoContato(new GestaoContato());
 			setGestaoContatos(new ArrayList<GestaoContato>());
@@ -196,7 +219,7 @@ public class GestaoContatoMB {
 		
 		try {
 			System.out.println("alterar");
-			this.gestaoContato.setCidade(gestaoContato.getCidade());
+			/*this.gestaoContato.setCidade(gestaoContato.getCidade());
 			this.gestaoContato.setCodigo(gestaoContato.getCodigo());
 			this.gestaoContato.setDataAcao(gestaoContato.getDataAcao());
 			this.gestaoContato.setDataContato(gestaoContato.getDataContato());
@@ -214,7 +237,10 @@ public class GestaoContatoMB {
 			this.gestaoContato.setTipoContato(gestaoContato.getTipoContato());
 			this.gestaoContato.setTurma(gestaoContato.getTurma());
 			this.gestaoContato.setUsuario(gestaoContato.getUsuario());
-			this.gestaoContato.setValorNegociado(gestaoContato.getValorNegociado());
+			this.gestaoContato.setValorNegociado(gestaoContato.getValorNegociado());*/
+			
+			this.usuarioSelecionado.setCodigo(Long.parseLong(this.idUsuario));
+			this.gestaoContato.setUsuario(this.usuarioSelecionado);
 
 			this.gestaoContato = gestaoContatoModel.alterar(this.gestaoContato);
 			setGestaoContato(new GestaoContato());
@@ -376,7 +402,28 @@ public class GestaoContatoMB {
 	}
 
 	public List<Usuario> getUsuarios() {
-		return gestaoContatoModel.listaUsuario();
+		
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Usuario getUsuarioSelecionado() {
+		return usuarioSelecionado;
+	}
+
+	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+		this.usuarioSelecionado = usuarioSelecionado;
+	}
+
+	public String getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(String idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 }
