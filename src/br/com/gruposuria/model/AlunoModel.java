@@ -15,56 +15,48 @@ public class AlunoModel implements Serializable {
 
 	@Inject
 	private AlunoDAO alunoDAO;
-	
-	public Aluno consultarPorNomeCpf(String nome, String cpf){
+
+	public Aluno consultarPorNomeCpf(String nome, String cpf) {
 		return alunoDAO.consultarPorNomeCpf(nome, cpf);
 	}
-	
-	public List<Aluno> consultarPorNome(String nome){
+
+	public List<Aluno> consultarPorNome(String nome) {
 		return alunoDAO.consultarPorNome(nome);
 	}
-	
-	public Aluno consultarPorCpf(String cpf){
+
+	public Aluno consultarPorCpf(String cpf) {
 		return alunoDAO.consultarPorCpf(cpf);
 	}
-	
-	public Aluno consultarPorCodigo(long id){
+
+	public Aluno consultarPorCodigo(long id) {
 		return alunoDAO.consultarPorCodigo(id);
 	}
-	
-	public Aluno salvar(Aluno aluno){
-		try {
-			aluno = alunoDAO.incluir(aluno);
-		} catch (Exception e){
-			System.out.println("Erro: " + e.getMessage());
-		}
-		return aluno;
-	}
-	
-	public Aluno alterar(Aluno aluno){
-		try {
-			aluno = alunoDAO.alterar(aluno);
-		} catch (Exception e){
-			System.out.println("Erro: " + e.getMessage());
-		}
+
+	public Aluno salvar(Aluno aluno) {
+		aluno = alunoDAO.incluir(aluno);
 		return aluno;
 	}
 
-	public Aluno excluir(Aluno aluno){
+	public Aluno alterar(Aluno aluno) {
+		aluno = alunoDAO.alterar(aluno);
+		return aluno;
+	}
+
+	public Aluno excluir(Aluno aluno) {
 		try {
 			alunoDAO.excluir(aluno.getCodigo());
-		} catch (Exception e){
+		} catch (Exception e) {
 			System.out.println("Erro: " + e.getMessage());
 		}
 		return aluno;
 	}
 
-	public List<Aluno> listaAlunos(){
+	public List<Aluno> listaAlunos() {
 		return alunoDAO.listaTodos();
 	}
-	
-	public List<Aluno> listar(Aluno aluno){
+
+	public List<Aluno> listar(Aluno aluno) {
 		return alunoDAO.listar(aluno);
 	}
-	
+
 }

@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
@@ -35,7 +36,6 @@ import br.com.gruposuria.model.EstadoModel;
 import br.com.gruposuria.model.InstituicaoModel;
 import br.com.gruposuria.model.TurmaAlunoModel;
 import br.com.gruposuria.model.TurmaModel;
-import br.com.gruposuria.util.EmailUtil;
 
 @ManagedBean
 @SessionScoped
@@ -245,18 +245,24 @@ public class InscricaoMB implements Serializable {
 		this.cidade = instituicaoTemporaria.getCidadeInstituicao();
 		this.estado = instituicaoTemporaria.getCidadeInstituicao().getEstado();
 		this.cidades.add(instituicaoTemporaria.getCidadeInstituicao());
-		this.estados.add(instituicaoTemporaria.getCidadeInstituicao().getEstado());
-		
-		
-		idEstado = instituicaoTemporaria.getCidadeInstituicao().getEstado().getIdEstado().toString();
-		idCidade = instituicaoTemporaria.getCidadeInstituicao().getIdCidade().toString();
-		
+		this.estados.add(instituicaoTemporaria.getCidadeInstituicao()
+				.getEstado());
+
+		idEstado = instituicaoTemporaria.getCidadeInstituicao().getEstado()
+				.getIdEstado().toString();
+		idCidade = instituicaoTemporaria.getCidadeInstituicao().getIdCidade()
+				.toString();
+
 		this.instituicao.setCodigo(instituicaoTemporaria.getCodigo());
 		this.instituicao.setNome(instituicaoTemporaria.getNome());
 		// servicoTemporario = servico;
 		// }
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Instituição: " + this.instituicao.getNome(), "."));
+		FacesContext.getCurrentInstance().getExternalContext().getFlash()
+				.setKeepMessages(true);
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Instituição: "
+						+ this.instituicao.getNome(), "."));
 		// FacesContext.getCurrentInstance().addMessage(null, new
 		// FacesMessage("Servi�o Postal:", event.getObject().toString()));
 	}
@@ -421,8 +427,10 @@ public class InscricaoMB implements Serializable {
 				this.aluno.setSenha("123456");
 				this.aluno.setEmail(aluno.getEmail());
 				this.aluno.setTelefone(aluno.getTelefone());
-				this.aluno.setNecessidadeEspecial(aluno.getNecessidadeEspecial());
-				this.aluno.setDescNecessidadeEspecial(aluno.getDescNecessidadeEspecial());
+				this.aluno.setNecessidadeEspecial(aluno
+						.getNecessidadeEspecial());
+				this.aluno.setDescNecessidadeEspecial(aluno
+						.getDescNecessidadeEspecial());
 				this.aluno.setInstituicao(this.instituicao);
 
 				if (existeAluno(aluno)) {
@@ -435,17 +443,18 @@ public class InscricaoMB implements Serializable {
 				this.turmaAlunoSelecionada = new TurmaAluno();
 				if (!alunoJaInscritoNaTurma(aluno, this.turmaSelecionada)) {
 					this.turmaAlunoSelecionada.setAluno(this.aluno);
-					this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno.getFormaPagamento());
+					this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno
+							.getFormaPagamento());
 					this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);
 					this.turmaAlunoSelecionada.setTurma(this.turmaSelecionada);
 					this.turmaAlunoSelecionada.setTalData(dataAtual);
-					this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
+					this.turmaAlunoSelecionada = turmaAlunoModel
+							.salvar(this.turmaAlunoSelecionada);
 				}
-				
-				//EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
+
+				// EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
 
 			}
-			
 
 			setTurmaAluno(new TurmaAluno());
 			setTurmasAluno(new ArrayList<TurmaAluno>());
@@ -460,10 +469,15 @@ public class InscricaoMB implements Serializable {
 			setInstituicao(new Instituicao());
 			setCursoSelecionado(new Curso());
 			setAcaoDeInclusao(false);
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash()
+					.setKeepMessages(true);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Gravado com sucesso!", "."));
 			resultado = "resultado-inscricao.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(resultado);
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
@@ -528,13 +542,19 @@ public class InscricaoMB implements Serializable {
 			if (!alunoJaInscritoNaTurma(aluno, this.turmaSelecionada)) {
 				this.turmaAlunoSelecionada = new TurmaAluno();
 				this.turmaAlunoSelecionada.setAluno(this.aluno);
-				this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno.getFormaPagamento());
-				this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);// setando na m�o por enquanto
+				this.turmaAlunoSelecionada.setFormaPagamento(turmaAluno
+						.getFormaPagamento());
+				this.turmaAlunoSelecionada.setStatusAluno(StatusAluno.I);// setando
+																			// na
+																			// m�o
+																			// por
+																			// enquanto
 				this.turmaAlunoSelecionada.setTurma(this.turmaSelecionada);
 				this.turmaAlunoSelecionada.setTalData(dataAtual);
-				this.turmaAlunoSelecionada = turmaAlunoModel.salvar(this.turmaAlunoSelecionada);
-				
-				//EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
+				this.turmaAlunoSelecionada = turmaAlunoModel
+						.salvar(this.turmaAlunoSelecionada);
+
+				// EmailUtil.enviarMensagem("Cadastro", "awathier@gmail.com");
 			}
 
 			setTurmaAluno(new TurmaAluno());
@@ -550,57 +570,6 @@ public class InscricaoMB implements Serializable {
 			setInstituicao(new Instituicao());
 			setCursoSelecionado(new Curso());
 			setAcaoDeInclusao(false);
-			
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Gravado com sucesso!", "."));
-			
-			String mensagem = "Inscrição Realizada com sucesso!!! \n"
-					+ "Você receber um email com os dados de sua Inscrição.\n";
-					
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da Inscrição", mensagem);
-	         
-	        RequestContext.getCurrentInstance().showMessageInDialog(message);
-			
-			resultado = "resultado-inscricao.jsf?faces-redirect=true";
-			FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
-			
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Gravar!", "."));
-			System.out.println("Erro: " + e.getMessage());
-			e.printStackTrace();
-		}
-		return resultado;
-	}
-	
-	public void showMessageCadastroSucesso() {
-		
-		String mensagem = "Inscrição Realizada com sucesso!!! \n"
-				+ "Você receber um email com os dados de sua Inscrição.\n";
-		
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado da Inscrição", mensagem);
-         
-        RequestContext.getCurrentInstance().showMessageInDialog(message);
-    }
-	
-/*	public String alterar() {
-
-		String resultado = null;
-
-		try {
-			System.out.println("alterar");
-
-			this.alunoSelecionado.setCodigo(Long.parseLong(idAluno));
-			this.turmaAluno.setAluno(alunoSelecionado);
-
-			this.turmaSelecionada.setCodigo(Long.parseLong(idTurma));
-			this.turmaAluno.setTurma(turmaSelecionada);
-
-			this.turmaAlunoSelecionada = turmaAlunoModel
-					.alterar(this.turmaAluno);
-
-			setTurmaAluno(new TurmaAluno());
-			setTurmasAluno(new ArrayList<TurmaAluno>());
-			setAcaoDeInclusao(false);
 
 			FacesContext.getCurrentInstance().getExternalContext().getFlash()
 					.setKeepMessages(true);
@@ -608,19 +577,76 @@ public class InscricaoMB implements Serializable {
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Gravado com sucesso!", "."));
-			resultado = "agenda.jsf?faces-redirect=true";
+
+			String mensagem = "Inscrição Realizada com sucesso!!! \n"
+					+ "Você receber um email com os dados de sua Inscrição.\n";
+
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Resultado da Inscrição", mensagem);
+
+			RequestContext.getCurrentInstance().showMessageInDialog(message);
+
+			resultado = "resultado-inscricao.jsf?faces-redirect=true";
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect(resultado);
+		} catch (ConstraintViolationException ce) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Aluno já cadastrado na turma!", "."));
+			System.out.println("Erro - Já Cadastrado: " + ce.getMessage());
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"Falha ao Gravar!", "."));
 			System.out.println("Erro: " + e.getMessage());
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return resultado;
-	}*/
+	}
+
+	public void showMessageCadastroSucesso() {
+
+		String mensagem = "Inscrição Realizada com sucesso!!! \n"
+				+ "Você receber um email com os dados de sua Inscrição.\n";
+
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Resultado da Inscrição", mensagem);
+
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
+	}
+
+	/*
+	 * public String alterar() {
+	 * 
+	 * String resultado = null;
+	 * 
+	 * try { System.out.println("alterar");
+	 * 
+	 * this.alunoSelecionado.setCodigo(Long.parseLong(idAluno));
+	 * this.turmaAluno.setAluno(alunoSelecionado);
+	 * 
+	 * this.turmaSelecionada.setCodigo(Long.parseLong(idTurma));
+	 * this.turmaAluno.setTurma(turmaSelecionada);
+	 * 
+	 * this.turmaAlunoSelecionada = turmaAlunoModel .alterar(this.turmaAluno);
+	 * 
+	 * setTurmaAluno(new TurmaAluno()); setTurmasAluno(new
+	 * ArrayList<TurmaAluno>()); setAcaoDeInclusao(false);
+	 * 
+	 * FacesContext.getCurrentInstance().getExternalContext().getFlash()
+	 * .setKeepMessages(true); FacesContext.getCurrentInstance().addMessage(
+	 * null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+	 * "Gravado com sucesso!", ".")); resultado =
+	 * "agenda.jsf?faces-redirect=true";
+	 * FacesContext.getCurrentInstance().getExternalContext()
+	 * .redirect(resultado); } catch (Exception e) {
+	 * FacesContext.getCurrentInstance().addMessage( null, new
+	 * FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha ao Gravar!", "."));
+	 * System.out.println("Erro: " + e.getMessage()); e.printStackTrace(); }
+	 * return resultado; }
+	 */
 
 	public List<Turma> listaTurmas() {
 		this.turmas = turmaModel.listaTurmas();
@@ -652,9 +678,9 @@ public class InscricaoMB implements Serializable {
 
 		setInstituicoes(new ArrayList<Instituicao>());
 		this.instituicoes = instituicaoModel.listaInstituicoesPorNome(query);
-		if(this.instituicoes.size()<=0){
+		if (this.instituicoes.size() <= 0) {
 			this.instituicao.setNome(query);
-			//this.instituicoes.add(this.instituicao);
+			// this.instituicoes.add(this.instituicao);
 		}
 		return this.instituicoes;
 	}
@@ -753,7 +779,8 @@ public class InscricaoMB implements Serializable {
 		List<TurmaAluno> listaTurmaAlunos = turmaAlunoModel.listaTurmaAlunos();
 
 		for (TurmaAluno turmaAluno : listaTurmaAlunos) {
-			if ((aluno == turmaAluno.getAluno() && (turma == turmaAluno.getTurma()))) {
+			if ((aluno == turmaAluno.getAluno() && (turma == turmaAluno
+					.getTurma()))) {
 				retorno = true;
 			}
 		}

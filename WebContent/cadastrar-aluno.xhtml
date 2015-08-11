@@ -72,7 +72,7 @@
 					        
 					        <p:outputLabel for="participanteNecessidadesEspeciais" value="Portador de Necessidades Especiais?" />
 							<p:selectOneMenu id="participanteNecessidadesEspeciais"
-								required="false" value="#{alunoMB.aluno.especial}">
+								required="false" value="#{alunoMB.aluno.necessidadeEspecial.descricao}">
 <!-- 								<f:selectItem itemLabel="Selecione..." itemValue="N" /> -->
 								<f:selectItems value="#{inscricaoMB.valorLogico}" var="vl" itemValue="#{vl}" itemLabel="#{vl.descricao}" />
 							</p:selectOneMenu>

@@ -21,20 +21,12 @@ public class TurmaAlunoModel implements Serializable {
 	}
 	
 	public TurmaAluno salvar(TurmaAluno TurmaAluno){
-		try {
-			TurmaAluno = turmaAlunoDAO.incluir(TurmaAluno);
-		} catch (Exception e){
-			System.out.println("Erro: " + e.getMessage());
-		}
+		TurmaAluno = turmaAlunoDAO.incluir(TurmaAluno);
 		return TurmaAluno;
 	}
 	
 	public TurmaAluno alterar(TurmaAluno TurmaAluno){
-		try {
 			TurmaAluno = turmaAlunoDAO.alterar(TurmaAluno);
-		} catch (Exception e){
-			System.out.println("Erro: " + e.getMessage());
-		}
 		return TurmaAluno;
 	}
 
