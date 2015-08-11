@@ -49,6 +49,10 @@
 			<div id="conteudoPaginas">
 
 				<h:form id="frmInscricao">
+				
+				<f:metadata>
+					<f:event type="preRenderView" listener="#{inscricaoMB.listaEstados()}" />
+				</f:metadata>
 
 					<p:growl id="growl" life="6000" closable="true" />
 					<!-- <p:growl id="growl" life="6000" /> -->
@@ -405,7 +409,7 @@
 												<h:outputText value="#{a.telefone}" />
 											</p:column>
 											
-											<p:column headerText="Telefone">
+											<p:column headerText="Nec. Especial">
 												<f:facet name="header">
 													<h:outputText value="Especial" />
 												</f:facet>
@@ -551,8 +555,13 @@
 												</p:column>
 
 												<p:column style="width:100px;"
-													headerText="Necessid. Especiais?" sortBy="#{als.especial}">
+													headerText="Necessidades Especiais?" sortBy="#{als.especial}">
 													<h:outputText value="#{als.necessidadeEspecial.descricao}" />
+												</p:column>
+												
+												<p:column style="width:100px;"
+													headerText="Descrição" sortBy="#{als.descNecessidadeEspecial}">
+													<h:outputText value="#{als.descNecessidadeEspecial}" />
 												</p:column>
 
 											</p:dataTable>
