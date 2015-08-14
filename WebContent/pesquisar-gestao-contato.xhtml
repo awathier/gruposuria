@@ -29,7 +29,6 @@
 
 				<h:form id="frmGestaoContato">
 				
-					<p:messages id="msgs" closable="true" />
 					<p:growl id="growl" sticky="true" life="6000" showDetail="true" closable="true" />
 
 					<p:fieldset legend="Dados da Gestão de Contatos" style="margin-bottom:20px">
@@ -62,7 +61,7 @@
 					            Lista de Gestão Contatoss
 					        </f:facet>
 					        
-					        <p:ajax event="cellEdit" listener="#{gestaoContatoMB.onCellEdit}" update=":frmGestaoContato:msgs :frmGestaoContato:growl" />
+					        <p:ajax event="cellEdit" listener="#{gestaoContatoMB.onCellEdit}" update=":frmGestaoContato:growl" />
 					        
 			        		<p:column style="width:16px">
 								<p:rowToggler rendered="#{not empty c}" />
@@ -92,8 +91,17 @@
 								<h:outputText value="#{c.nomeContato}" />
 							</p:column>
 							
-							<p:column headerText="Data Ação" sortBy="#{c.dataAcao}">
-								<h:outputText value="#{c.dataAcao}" converter="dataConverter" />
+							<p:column style="width:100px;" headerText="Data Ação" sortBy="#{c.dataAcao}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{c.dataAcao}" converter="dataConverter" />
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar showButtonPanel="true" effect="slide"
+										pattern="dd-MM-yyyy" navigator="true" locale="pt_BR" id="dataAcao"
+										required="true" value="#{c.dataAcao}" />
+									</f:facet>
+								</p:cellEditor>
 							</p:column>
 							
 						    <p:column headerText="Telefone" sortBy="#{a.telefone}">
@@ -129,7 +137,7 @@
 							
 							<p:rowExpansion>
 
-								<p:dataTable id="gestaoContatoDetalhe" var="gcd" value="#{c}" stickyHeader="true">
+								<p:dataTable id="gestaoContatoDetalhe" var="gcd" value="#{c}">
 									<f:facet name="header">
 										Detalhe Contato
 									</f:facet>
