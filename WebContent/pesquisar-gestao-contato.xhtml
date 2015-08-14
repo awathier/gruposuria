@@ -28,6 +28,9 @@
 			<div id="conteudoPaginas">
 
 				<h:form id="frmGestaoContato">
+				
+					<p:messages id="msgs" closable="true" />
+					<p:growl id="growl" sticky="true" life="6000" showDetail="true" closable="true" />
 
 					<p:fieldset legend="Dados da Gestão de Contatos" style="margin-bottom:20px">
 						<h:panelGrid columns="4" cellpadding="5">
@@ -46,51 +49,46 @@
 								actionListener="#{gestaoContatoMB.limpaFiltroDePesquisa()}"
 								update="@form" icon="ui-icon-document-b" />
 						</h:panelGrid>
-						<p:growl id="growl" life="6000" />
 					</p:fieldset>
 
-					<ui:fragment rendered="#{not empty gestaoContatoMB.gestaoContatos}"
-						id="listaDeGestaoContatos">
-						<p:dataTable var="c" value="#{gestaoContatoMB.gestaoContatos}" stickyHeader="true"
+					<ui:fragment rendered="#{not empty gestaoContatoMB.gestaoContatos}" id="listaDeGestaoContatos">
+					
+						<p:dataTable id="gestaoContatos" var="c" value="#{gestaoContatoMB.gestaoContatos}" stickyHeader="true" editable="true" editMode="cell" widgetVar="c"
 							rows="10" paginator="true"
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							rowsPerPageTemplate="5,10,15">
+							
 							<f:facet name="header">
-			            Lista de Gestão Contatoss
-			        </f:facet>
+					            Lista de Gestão Contatoss
+					        </f:facet>
+					        
+					        <p:ajax event="cellEdit" listener="#{gestaoContatoMB.onCellEdit}" update=":frmGestaoContato:msgs :frmGestaoContato:growl" />
+					        
+			        		<p:column style="width:16px">
+								<p:rowToggler rendered="#{not empty c}" />
+							</p:column>
+							
 							<p:column headerText="Ações"
 								style="width:120px;text-align: center">
-								<p:commandButton id="detalhes" update=":frmGestaoContato:gestaoContatoDetail"
-									oncomplete="PF('gestaoContatoDialog').show()" icon="ui-icon-search"
-									title="Detalhes">
-									<f:setPropertyActionListener value="#{c}"
-										target="#{gestaoContatoMB.gestaoContatoSelecionado}" />
+								<p:commandButton id="detalhes" update=":frmGestaoContato:gestaoContatoDetail" oncomplete="PF('gestaoContatoDialog').show()" icon="ui-icon-search" title="Detalhes">
+									<f:setPropertyActionListener value="#{c}" target="#{gestaoContatoMB.gestaoContatoSelecionado}" />
 								</p:commandButton>
-								<p:tooltip id="detalhesTipFade" for="detalhes"
-									value="Exibir Detalhes" trackMouse="true" showEffect="fade"
-									hideEffect="fade" />
-								<p:commandButton id="editar"
-									action="#{gestaoContatoMB.carregarCamposAlteracao()}"
-									icon="ui-icon-pencil" title="Editar">
+								
+								<p:tooltip id="detalhesTipFade" for="detalhes" value="Exibir Detalhes" trackMouse="true" showEffect="fade" hideEffect="fade" />
+								<p:commandButton id="editar" action="#{gestaoContatoMB.carregarCamposAlteracao()}" icon="ui-icon-pencil" title="Editar">
 									<f:param name="acaoDeInclusao" value="false" />
-									<f:setPropertyActionListener value="#{c}"
-										target="#{gestaoContatoMB.gestaoContatoSelecionado}" />
+									<f:setPropertyActionListener value="#{c}" target="#{gestaoContatoMB.gestaoContatoSelecionado}" />
 								</p:commandButton>
-								<p:tooltip id="editarTipFade" for="editar"
-									value="Alterar Registro" trackMouse="true" showEffect="fade"
-									hideEffect="fade" />
-								<p:commandButton id="excluir" update=":frmGestaoContato:gestaoContatoExclusao"
-									oncomplete="PF('gestaoContatoExclusaoDialog').show()"
-									icon="ui-icon-trash">
-									<f:setPropertyActionListener value="#{c}"
-										target="#{gestaoContatoMB.gestaoContatoSelecionado}" />
+								
+								<p:tooltip id="editarTipFade" for="editar" value="Alterar Registro" trackMouse="true" showEffect="fade" hideEffect="fade" />
+								<p:commandButton id="excluir" update=":frmGestaoContato:gestaoContatoExclusao" oncomplete="PF('gestaoContatoExclusaoDialog').show()" icon="ui-icon-trash">
+									<f:setPropertyActionListener value="#{c}" target="#{gestaoContatoMB.gestaoContatoSelecionado}" />
 								</p:commandButton>
-								<p:tooltip id="excluirTipFade" for="excluir"
-									value="Exluir Registro" trackMouse="true" showEffect="fade"
-									hideEffect="fade" />
+								
+								<p:tooltip id="excluirTipFade" for="excluir" value="Exluir Registro" trackMouse="true" showEffect="fade" hideEffect="fade" />
 							</p:column>
 
-							<p:column style="width:300px;" headerText="Nome Contato" sortBy="#{c.nomeContato}">
+							<p:column style="width:200px;" headerText="Nome Contato" sortBy="#{c.nomeContato}">
 								<h:outputText value="#{c.nomeContato}" />
 							</p:column>
 							
@@ -101,10 +99,54 @@
 						    <p:column headerText="Telefone" sortBy="#{a.telefone}">
 						    	<h:outputText value="#{c.telefone}" converter="telefoneConverter" />
 						    </p:column>
-
-							<p:column headerText="Status" sortBy="#{c.status}">
-								<h:outputText value="#{c.status.descricao}" />
+						    
+						    <p:column style="width:100px;" headerText="Valor Negociado" sortBy="#{c.valorNegociado}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{c.valorNegociado}">
+											<f:convertNumber currencySymbol="R$" type="currency" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText styleClass="valor" id="valor"
+											value="#{c.valorNegociado}" label="Valor" />
+									</f:facet>
+								</p:cellEditor>
 							</p:column>
+
+							<p:column style="width:100px;" headerText="Status" sortBy="#{c.status.descricao}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{c.status.descricao}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:selectOneMenu required="true" style="width:100%" value="#{c.status}">
+											<f:selectItems value="#{gestaoContatoMB.statusContato}" var="statusContato" itemValue="#{statusContato}" itemLabel="#{statusContato.descricao}" />
+										</p:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							
+							<p:rowExpansion>
+
+								<p:dataTable id="gestaoContatoDetalhe" var="gcd" value="#{c}" stickyHeader="true">
+									<f:facet name="header">
+										Detalhe Contato
+									</f:facet>
+
+									<p:column style="width:100px;" headerText="Observação">
+										<h:outputText value="#{c.obs}" />
+									</p:column>
+
+
+									<p:column style="width:100px;" headerText="Email">
+										<h:outputText value="#{c.email}" />
+									</p:column>
+
+								</p:dataTable>
+
+							</p:rowExpansion>
+							
 
 						</p:dataTable>
 

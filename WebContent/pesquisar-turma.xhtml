@@ -30,8 +30,7 @@
 				<h:form id="frmTurma">
 
 					<p:messages id="msgs" closable="true" />
-					<p:growl id="growl" sticky="true" life="6000" showDetail="true"
-						closable="true" />
+					<p:growl id="growl" sticky="true" life="6000" showDetail="true" closable="true" />
 
 					<p:fieldset legend="Dados da Turma" style="margin-bottom:20px">
 						<h:panelGrid columns="4" cellpadding="5">
@@ -130,14 +129,12 @@
 
 							<p:rowExpansion>
 
-								<p:dataTable id="turmAlunos" var="tals" value="#{t.turmaAlunos}"
-									stickyHeader="true" editable="true">
+								<p:dataTable id="turmAlunos" var="tals" value="#{t.turmaAlunos}" stickyHeader="true" editable="true">
 									<f:facet name="header">
 										Alunos desta Turma
 									</f:facet>
 
-									<p:ajax event="cellEdit" listener="#{turmaMB.onCellEdit}"
-										update=":frmTurma:msgs :frmTurma:growl" />
+									<p:ajax event="cellEdit" listener="#{turmaMB.onCellEdit}" update=":frmTurma:msgs :frmTurma:growl" />
 
 									<p:ajax event="rowEdit" listener="#{turmaMB.onRowEdit}"
 										update=":frmTurma:msgs :frmTurma:growl" />
@@ -227,8 +224,7 @@
 										</p:cellEditor>
 									</p:column>
 
-									<p:column style="width:100px;" headerText="Status"
-										sortBy="#{tals.statusAluno.descricao}">
+									<p:column style="width:100px;" headerText="Status" sortBy="#{tals.statusAluno.descricao}">
 										<p:cellEditor>
 											<f:facet name="output">
 												<h:outputText value="#{tals.statusAluno.descricao}" />

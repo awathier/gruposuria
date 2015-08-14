@@ -11,6 +11,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import org.primefaces.event.CellEditEvent;
+
 import br.com.gruposuria.entity.Curso;
 import br.com.gruposuria.entity.GestaoContato;
 import br.com.gruposuria.entity.Turma;
@@ -81,6 +83,29 @@ public class GestaoContatoMB {
 	public List<Usuario> listaUsuario() {
 		this.usuarios = usuarioModel.listaUsuario();
 		return this.usuarios;
+	}
+	
+	public void onCellEdit(CellEditEvent event) {
+
+		// String resultado = null;
+
+		Object oldValue = event.getOldValue();
+		Object newValue = event.getNewValue();
+
+		if (newValue != null && !newValue.equals(oldValue)) {
+
+			for (GestaoContato gc : this.gestaoContatos) {
+				gestaoContatoModel.alterar(gc);
+			}
+
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dado(s) alterados", "Antigo: " + oldValue + ", Novo:" + newValue);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+
+		}
+
+		// resultado = "pesquisar-turma.jsf?faces-redirect=true";
+		// FacesContext.getCurrentInstance().getExternalContext().redirect(resultado);
+
 	}
 	
 	
