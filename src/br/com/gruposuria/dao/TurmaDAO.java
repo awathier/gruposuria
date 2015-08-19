@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 

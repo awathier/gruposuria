@@ -31,7 +31,6 @@ import br.com.gruposuria.enums.StatusAluno;
 import br.com.gruposuria.enums.ValorLogico;
 import br.com.gruposuria.model.AlunoModel;
 import br.com.gruposuria.model.CidadeModel;
-import br.com.gruposuria.model.CursoModel;
 import br.com.gruposuria.model.EstadoModel;
 import br.com.gruposuria.model.InstituicaoModel;
 import br.com.gruposuria.model.TurmaAlunoModel;
@@ -48,9 +47,6 @@ public class InscricaoMB implements Serializable {
 
 	@Inject
 	private TurmaModel turmaModel;
-
-	@Inject
-	private CursoModel cursoModel;
 
 	@Inject
 	private InstituicaoModel instituicaoModel;

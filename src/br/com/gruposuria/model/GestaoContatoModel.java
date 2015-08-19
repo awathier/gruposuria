@@ -7,9 +7,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.com.gruposuria.dao.GestaoContatoDAO;
-import br.com.gruposuria.dao.UsuarioDAO;
 import br.com.gruposuria.entity.GestaoContato;
-import br.com.gruposuria.entity.Usuario;
 
 @SuppressWarnings("serial")
 @Stateless

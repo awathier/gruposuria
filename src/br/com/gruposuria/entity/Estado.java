@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="ESTADO")
 @NamedQuery(name="Estado.listaTodos", query="SELECT e FROM Estado e")
 public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;

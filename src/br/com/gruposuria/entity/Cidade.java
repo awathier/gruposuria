@@ -13,8 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="CIDADE")
 @NamedQueries({
 		@NamedQuery(name = "Cidade.listaTodos", query = "SELECT c FROM Cidade c"),
 		@NamedQuery(name = "Cidade.consultaCidadePorUf", query = "SELECT c FROM Cidade c WHERE c.estado.idEstado = :idEstado") })

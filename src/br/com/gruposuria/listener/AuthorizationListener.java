@@ -7,6 +7,7 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpSession;
 
+@SuppressWarnings("serial")
 public class AuthorizationListener implements PhaseListener {
 
 	public void afterPhase(PhaseEvent event) {
